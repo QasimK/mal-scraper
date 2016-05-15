@@ -22,6 +22,14 @@ def read(*names, **kwargs):
     ).read()
 
 
+requirements = []
+
+
+test_requirements = [
+    'tox'
+]
+
+
 setup(
     name='mal-scraper',
     version='0.1.0',
@@ -59,12 +67,8 @@ setup(
     keywords=[
         # eg: 'keyword1', 'keyword2', 'keyword3',
     ],
-    install_requires=[
-        # eg: 'aspectlib==1.1.1', 'six>=1.7',
-    ],
+    install_requires=requirements,
     extras_require={
-        # eg:
-        #   'rst': ['docutils>=0.11'],
-        #   ':python_version=="2.6"': ['argparse'],
+        'develop': test_requirements,
     },
 )

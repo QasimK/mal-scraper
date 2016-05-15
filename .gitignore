@@ -36,20 +36,22 @@ htmlcov
 # Translations
 *.mo
 
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
-.idea
-*.iml
-*.komodoproject
-
 # Complexity
 output/*.html
 output/*/index.html
 
 # Sphinx
 docs/_build
+
+# Developer Files
+*.sublime-project
+*.sublime-workspace
+.mr.developer.cfg
+.project
+.pydevproject
+.idea
+*.iml
+*.komodoproject
 
 .DS_Store
 *~

@@ -80,6 +80,15 @@ https://mal-scraper.readthedocs.io/
 Development
 ===========
 
+After cloning the repository and creating a virtualenv, install the development
+dependencies (including tox)::
+
+    pip install -e .[develop]
+
+You should install Python interpreters 3.3, 3.4, 3.5, and pypy because tox will
+test on all of them.
+(Hints: (Linux)[https://askubuntu.com/questions/125342/how-can-i-install-python-2-6-on-12-04].)
+
 To run the all tests run::
 
     tox
