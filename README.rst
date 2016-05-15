@@ -86,7 +86,7 @@ After cloning, and creating a virtualenv, install the development dependencies:
 
 You should install Python interpreters 3.3, 3.4, 3.5, and pypy because tox will
 test on all of them.
-(Hints: [Linux](https://askubuntu.com/questions/125342/how-can-i-install-python-2-6-on-12-04).)
+(Hints: `Linux <https://askubuntu.com/questions/125342/how-can-i-install-python-2-6-on-12-04>`.)
 
 To run the all tests run::
 
