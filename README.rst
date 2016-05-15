@@ -32,7 +32,7 @@ Overview
     :alt: Coverage Status
     :target: https://codecov.io/github/QasimK/mal-scraper
 
-.. |codacy| image:: https://img.shields.io/codacy/REPLACE_WITH_PROJECT_ID.svg?style=flat
+.. |codacy| image:: https://img.shields.io/codacy/77e1509bdc184167864233483afefd00.svg?style=flat
     :target: https://www.codacy.com/app/QasimK/mal-scraper
     :alt: Codacy Code Quality Status
 
@@ -59,26 +59,19 @@ Overview
 
 .. end-badges
 
-MyAnimeList web scraper, a library for gathering data for analysis purposes.
+ MyAnimeList web scraper is a Python library for gathering data for analysis.
 
-* Free software: MIT license
 
-Installation
-============
+Usage
+=====
 
-::
+Use the [online documentation](https://mal-scraper.readthedocs.io/), and just::
 
     pip install mal-scraper
 
-Documentation
-=============
-
-https://mal-scraper.readthedocs.io/
 
 Development
 ===========
-
-See `contributing`_ for additional information.
 
 After cloning, and creating a virtualenv, install the development dependencies::
 
