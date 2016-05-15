@@ -59,9 +59,7 @@ Overview
 
 .. end-badges
 
-MyAnimeList web scraper
-
-Library for gathering data for analysis purposes.
+MyAnimeList web scraper, a library for gathering data for analysis purposes.
 
 * Free software: MIT license
 
