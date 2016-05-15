@@ -1,0 +1,15 @@
+[paths]
+source =
+   src/mal_scraper
+   */site-packages/mal_scraper
+
+[run]
+branch = True
+source =
+    mal_scraper
+    tests
+parallel = true
+
+[report]
+show_missing = true
+precision = 2
