@@ -1,6 +1,6 @@
 import os
 import urllib.request
-from base64 import b64encode, b64decode
+from base64 import b64encode
 
 import pytest
 import responses

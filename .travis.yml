@@ -9,10 +9,8 @@ env:
     - TOXENV=check
     - TOXENV=docs
 
-    - TOXENV=py33,codecov
     - TOXENV=py34,codecov
     - TOXENV=py35,codecov
-    - TOXENV=pypy,codecov
 before_install:
   - python --version
   - uname -a

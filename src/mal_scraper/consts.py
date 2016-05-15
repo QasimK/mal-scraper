@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class AiringStatus(Enum):
     pre_air = 'PREAIR'
     ongoing = 'ONGOING'
