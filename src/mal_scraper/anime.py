@@ -3,8 +3,8 @@ from datetime import datetime
 
 from bs4 import BeautifulSoup
 
-from .requester import request_passthrough
 from .consts import Format
+from .requester import request_passthrough
 
 
 logger = logging.getLogger(__name__)
