@@ -77,15 +77,15 @@ After cloning, and creating a virtualenv, install the development dependencies::
 
     pip install -e .[develop]
 
-You should install Python interpreters 3.3, 3.4, 3.5, and pypy because tox will
-test on all of them.
-(Hints: `Linux <https://askubuntu.com/questions/125342/how-can-i-install-python-2-6-on-12-04>`_.)
+You should install Python interpreters 3.4, and 3.5 because tox will test on all of them. (Hints: `Linux <https://askubuntu.com/questions/125342/how-can-i-install-python-2-6-on-12-04>`_.)
 
 To run the all tests run::
 
     tox
 
-Tests will always mock requests to the internet. You can set the environment variable *LIVE_RESPONSES=1* to properly test web scraping.
+- Tests will always mock requests to the internet. You can set the environment variable :bash:`LIVE_RESPONSES=1` to properly test web scraping.
+- Run tests faster using just :bash:`py.test` (useful for intermediate development). However, tox must be run as it also tests documentation, additional style linting etc.
+- You can look at coverage results inside `htmlcov/index.html`.
 
 Note, to combine the coverage data from all the tox environments run:
 
