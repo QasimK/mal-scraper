@@ -27,7 +27,7 @@ def retrieve_anime(id_ref, requester=request_passthrough):
     """
     url = get_url_from_id_ref(id_ref)
     response = requester.get(url)
-    if response.status_code != 200:
+    if not response.ok:
         logging.error('Unable to retrieve anime ({0.status_code}):\n{0.text}'.format(response))
         return None
 
@@ -50,20 +50,15 @@ def get_url_from_id_ref(id_ref):
 
 def _process_soup(soup):
     """Return metadata from a soup of HTML."""
-    retrieve = {
-        'name': _get_name,
-        'name_english': _get_english_name,
-        'format': _get_format,
+    retrieved = {
+        'name': _get_name(soup),
+        'name_english': _get_english_name(soup),
+        'format': _get_format(soup),
     }
 
-    retrieved = {}
-    for key, value_func in retrieve.items():
-        value = value_func(soup)
-        if not value:
-            logger.warn('Failed to process given soup due to the missing tag "%s".', key)
-            return None
-
-        retrieved[key] = value
+    if not all(retrieved.values()):
+        logger.warn('Failed to process given soup due a missing tag.')
+        return None
 
     return retrieved
 
