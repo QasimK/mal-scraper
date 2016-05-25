@@ -4,7 +4,10 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 
 from .requester import request_passthrough
+from .consts import Format
 
+
+logger = logging.getLogger(__name__)
 
 # Future interface?
 # def retrieve_iterative(id_refs, concurrency=10, requester='request_limiter'):
@@ -35,6 +38,8 @@ def retrieve_anime(id_ref, requester=request_passthrough):
     if info:
         info['scraper_retrieved_at'] = datetime.utcnow()
         info['id_ref'] = id_ref
+    else:
+        logger.warn('Failed to process page "%s".', url)
 
     return info
 
@@ -45,21 +50,28 @@ def get_url_from_id_ref(id_ref):
 
 def _process_soup(soup):
     """Return metadata from a soup of HTML."""
-    name = _get_name(soup)
-    english_name = _get_english_name(soup)
-
-    if not all([name, english_name]):
-        return None
-
-    return {
-        'name': name,
-        'name_english': english_name,
+    retrieve = {
+        'name': _get_name,
+        'name_english': _get_english_name,
+        'format': _get_format,
     }
+
+    retrieved = {}
+    for key, value_func in retrieve.items():
+        value = value_func(soup)
+        if not value:
+            logger.warn('Failed to process given soup due to the missing tag "%s".', key)
+            return None
+
+        retrieved[key] = value
+
+    return retrieved
 
 
 def _get_name(soup):
     tag = soup.find('span', itemprop='name')
     if not tag:
+        logger.warn('No "name" tag found.')
         return None
 
     text = tag.string
@@ -69,7 +81,25 @@ def _get_name(soup):
 def _get_english_name(soup):
     pretag = soup.find('span', string='English:')
     if not pretag:
+        logger.warn('No "english name" tag found.')
         return None
 
     text = pretag.next_sibling.strip()
     return text
+
+
+def _get_format(soup):
+    pretag = soup.find('span', string='Type:')
+    if not pretag:
+        logger.warn('No "type" tag found.')
+        return None
+
+    text = pretag.find_next('a').string.strip().upper()
+    format_ = {
+        'TV': Format.tv
+    }.get(text, None)
+
+    if not format_:
+        logger.warn('Unknown format for text "%s".', text)
+
+    return format_
