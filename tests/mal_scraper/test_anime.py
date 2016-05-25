@@ -33,6 +33,7 @@ def test_download_first(mock_requests):
         # 'mal_favourites': 0,
     }
 
+
 def test_download_first_fail(mock_requests):
     """Do we get None if the page was bad??"""
     mock_requests.add('http://myanimelist.net/anime/1', fake='bla')

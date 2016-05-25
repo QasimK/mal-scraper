@@ -1,5 +1,6 @@
 import mal_scraper
 
+
 def test_import_mal_scraper():
     """Can we import mal_scraper"""
     assert mal_scraper
