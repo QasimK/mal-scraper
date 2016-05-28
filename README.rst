@@ -83,8 +83,8 @@ To run the all tests run::
 
     tox
 
-- Tests will always mock requests to the internet. You can set the environment variable :bash:`LIVE_RESPONSES=1` to properly test web scraping.
-- Run tests faster using just :bash:`py.test` (useful for intermediate development). However, tox must be run as it also tests documentation, additional style linting etc.
+- Tests will always mock requests to the internet. You can set the environment variable :code:`LIVE_RESPONSES=1` to properly test web scraping.
+- Run tests faster using just :code:`py.test` (useful for intermediate development). However, tox must be run as it also tests documentation, additional style linting etc.
 - You can look at coverage results inside `htmlcov/index.html`.
 
 Note, to combine the coverage data from all the tox environments run:
