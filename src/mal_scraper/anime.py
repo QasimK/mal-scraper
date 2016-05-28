@@ -54,11 +54,16 @@ def _process_soup(soup):
         'name': _get_name(soup),
         'name_english': _get_english_name(soup),
         'format': _get_format(soup),
+        'episodes': _get_episodes(soup),
     }
 
     if not all(retrieved.values()):
         logger.warn('Failed to process given soup due a missing tag.')
         return None
+
+    # -1 episodes should be presented as None
+    if retrieved['episodes'] == -1:
+        retrieved['episodes'] = None
 
     return retrieved
 
@@ -98,3 +103,22 @@ def _get_format(soup):
         logger.warn('Unknown format for text "%s".', text)
 
     return format_
+
+
+def _get_episodes(soup):
+    pretag = soup.find('span', string='Episodes:')
+    if not pretag:
+        logger.warn('No "episodes" tag found.')
+        return None
+
+    episodes_text = pretag.next_sibling.strip().lower()
+    if episodes_text == 'unknown':
+        return -1
+
+    try:
+        episodes_number = int(episodes_text)
+    except (ValueError, TypeError):
+        logger.warn('Unable to convert episodes text "%s" to int.', episodes_text)
+        return None
+
+    return episodes_number

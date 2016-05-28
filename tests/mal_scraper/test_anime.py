@@ -20,7 +20,7 @@ def test_download_first(mock_requests):
         'name': 'Cowboy Bebop',
         'name_english': 'Cowboy Bebop',
         'format': mal_scraper.Format.tv,
-        # 'episodes': 26,  # None means unknown
+        'episodes': 26,  # None means unknown
         # 'airing_status': mal_scraper.AiringStatus.finished,
         # 'airing_started': datetime(year=1998, month=4, day=3),
         # 'airing_finished': datetime(year=1999, month=4, day=24),
