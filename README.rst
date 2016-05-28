@@ -12,7 +12,7 @@ Overview
     * - tests
       - |travis| |requires| |codecov| |codacy|
     * - package
-      - |version| |downloads| |wheel| |supported-versions| |supported-implementations|
+      - |version| |wheel| |supported-versions| |supported-implementations|
 
 .. |docs| image:: https://readthedocs.org/projects/mal-scraper/badge/?style=flat
     :target: https://readthedocs.org/projects/mal-scraper
@@ -36,10 +36,6 @@ Overview
 
 .. |version| image:: https://img.shields.io/pypi/v/mal-scraper.svg?style=flat
     :alt: PyPI Package latest release
-    :target: https://pypi.python.org/pypi/mal-scraper
-
-.. |downloads| image:: https://img.shields.io/pypi/dm/mal-scraper.svg?style=flat
-    :alt: PyPI Package monthly downloads
     :target: https://pypi.python.org/pypi/mal-scraper
 
 .. |wheel| image:: https://img.shields.io/pypi/wheel/mal-scraper.svg?style=flat
