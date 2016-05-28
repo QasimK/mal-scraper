@@ -15,15 +15,17 @@ logger = logging.getLogger(__name__)
 #     pass
 
 
-def retrieve_anime(id_ref, requester=request_passthrough):
+def retrieve_anime(id_ref=1, requester=request_passthrough):
     """Return the metadata for a particular show. TODO.
 
-    id_ref: identifier that can be used in iterations
-    requester: funnel requests through a request maker, this allows
-    us to limit requests globally
+    Args:
+        id_ref (Optional(int)): Internal show identifier
+        requester (Optional(requests-like)): HTTP request maker
+            This allows us to control/limit/mock requests.
 
-    Return a dictionary.
-    See tests/mal_scraper/test_anime.py::test_download_first for the keys.
+    Return:
+        A dictionary.
+        See tests/mal_scraper/test_anime.py::test_download_first for the keys.
     """
     url = get_url_from_id_ref(id_ref)
     response = requester.get(url)
