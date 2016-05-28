@@ -85,6 +85,8 @@ To run the all tests run::
 
     tox
 
+Tests will always mock requests to the internet. You can set the environment variable *LIVE_RESPONSES=1* to properly test web scraping.
+
 Note, to combine the coverage data from all the tox environments run:
 
 .. list-table::
