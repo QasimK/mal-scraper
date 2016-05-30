@@ -46,7 +46,8 @@ def test_download_first_fail(mock_requests):
 class TestParsing:
     """Test parsing of particular parts of the page"""
 
-    def test_unknown_episodes(self, mock_requests):
+    @staticmethod
+    def test_unknown_episodes(mock_requests):
         """Do we return None for an unknown number of episodes?"""
         mock_requests.always_mock(
             'http://myanimelist.net/anime/32105',
