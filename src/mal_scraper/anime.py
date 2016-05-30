@@ -3,7 +3,7 @@ from datetime import datetime
 
 from bs4 import BeautifulSoup
 
-from .consts import Format
+from .consts import AiringStatus, Format
 from .requester import request_passthrough
 
 
@@ -41,7 +41,7 @@ def retrieve_anime(id_ref=1, requester=request_passthrough):
         info['scraper_retrieved_at'] = datetime.utcnow()
         info['id_ref'] = id_ref
     else:
-        logger.warn('Failed to process page "%s".', url)
+        logger.error('Failed to process page "%s".', url)
 
     return info
 
@@ -57,6 +57,10 @@ def _process_soup(soup):
         'name_english': _get_english_name(soup),
         'format': _get_format(soup),
         'episodes': _get_episodes(soup),
+        'airing_status': _get_airing_status(soup),
+        'airing_started': _get_start_date(soup),
+        'airing_finished': _get_end_date(soup),
+        'airing_premiere': _get_airing_premiere(soup),
     }
 
     if not all(retrieved.values()):
@@ -127,3 +131,97 @@ def _get_episodes(soup):
         return None
 
     return episodes_number
+
+
+def _get_airing_status(soup):
+    pretag = soup.find('span', string='Status:')
+    if not pretag:
+        logger.warn('No "status" tag found.')
+        return None
+
+    status_text = pretag.next_sibling.strip().lower()
+    status = {
+        'finished airing': AiringStatus.finished,
+    }.get(status_text, None)
+
+    if not status:
+        logger.warn('Unable to identify status text "%s".', status_text)
+        return None
+
+    return status
+
+
+def _convert_to_date(text):
+    """Convert MAL text to a datetime stamp.
+
+    Args:
+        text (str): like "Apr 3, 1998"
+
+    Returns:
+        date object or None.
+
+    Raises:
+        ValueError: if the conversion fails
+
+    Issues:
+        - This may be locale dependent
+    """
+    return datetime.strptime(text, '%b %d, %Y').date()
+
+
+def _get_start_date(soup):
+    pretag = soup.find('span', string='Aired:')
+    if not pretag:
+        logger.warn('No "aired" tag found.')
+        return None
+
+    aired_text = pretag.next_sibling.strip()
+    start_text = aired_text.split(' to ')[0]
+
+    try:
+        start_date = _convert_to_date(start_text)
+    except ValueError:
+        logger.warn('Failed to get start date from text "%s".', start_text)
+        return None
+
+    return start_date
+
+
+def _get_end_date(soup):
+    pretag = soup.find('span', string='Aired:')
+    if not pretag:
+        logger.warn('No "aired" tag found.')
+        return None
+
+    aired_text = pretag.next_sibling.strip()
+    end_text = aired_text.split(' to ')[1]
+
+    try:
+        end_date = _convert_to_date(end_text)
+    except ValueError:
+        logger.warn('Failed to get end date from text "%s".', end_text)
+        return None
+
+    return end_date
+
+
+def _get_airing_premiere(soup):
+    pretag = soup.find('span', string='Premiered:')
+    if not pretag:
+        logger.warn('No "premiered" tag found.')
+        return None
+
+    season, year = pretag.find_next('a').string.lower().split(' ')
+
+    if season == 'fall':
+        season = 'autumn'
+    elif season not in ('spring', 'summer', 'winter'):
+        logger.warn('Unable to identify season "%s".', season)
+        return None
+
+    try:
+        year = int(year)
+    except (ValueError, TypeError):
+        logger.warn('Unable to identify anime year "%s".', year)
+
+    return (year, season)

@@ -1,6 +1,6 @@
 """Can we download anime metadata?"""
 
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 
 import mal_scraper
 
@@ -21,10 +21,10 @@ def test_download_first(mock_requests):
         'name_english': 'Cowboy Bebop',
         'format': mal_scraper.Format.tv,
         'episodes': 26,  # None means unknown
-        # 'airing_status': mal_scraper.AiringStatus.finished,
-        # 'airing_started': datetime(year=1998, month=4, day=3),
-        # 'airing_finished': datetime(year=1999, month=4, day=24),
-        # 'airing_premiere': (2016, 'spring'),
+        'airing_status': mal_scraper.AiringStatus.finished,
+        'airing_started': date(year=1998, month=4, day=3),
+        'airing_finished': date(year=1999, month=4, day=24),
+        'airing_premiere': (1998, 'spring'),
         # 'age_rating': mal_scraper.AgeRating.restricted,
         # 'mal_score': 0,
         # 'mal_rank': 0,
