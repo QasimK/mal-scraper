@@ -19,13 +19,13 @@ def read(*names, **kwargs):
 
 requirements = [
     'requests       >=2, <3',
-    'responses      >=0, <1',
     'beautifulsoup4 >=4, <5',
 ]
 
 
 test_requirements = [
-    'tox'
+    'tox',
+    'responses      >=0, <1',
 ]
 
 
