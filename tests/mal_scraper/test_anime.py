@@ -7,7 +7,7 @@ import mal_scraper
 
 def test_download_first(mock_requests):
     """Can we retrieve the first show ever?"""
-    mock_requests.add('http://myanimelist.net/anime/1')
+    mock_requests.optional_mock('http://myanimelist.net/anime/1')
     info = mal_scraper.retrieve_anime(1)
 
     # Fuzzy match datetime
@@ -15,7 +15,7 @@ def test_download_first(mock_requests):
     assert datetime.utcnow() - retrieval < timedelta(seconds=30)
 
     assert info == {
-        'scraper_retrieved_at': retrieval,
+        'scraper_retrieved_at': retrieval,  # UTC Datetime
         'id_ref': 1,
         'name': 'Cowboy Bebop',
         'name_english': 'Cowboy Bebop',
@@ -36,5 +36,22 @@ def test_download_first(mock_requests):
 
 def test_download_first_fail(mock_requests):
     """Do we get None if the page was bad??"""
-    mock_requests.add('http://myanimelist.net/anime/1', fake='bla')
+    mock_requests.always_mock(
+        'http://myanimelist.net/anime/1',
+        'garbled_anime_page',
+    )
     assert mal_scraper.retrieve_anime(1) is None
+
+
+class TestParsing:
+    """Test parsing of particular parts of the page"""
+
+    @staticmethod
+    def test_unknown_episodes(mock_requests):
+        """Do we return None for an unknown number of episodes?"""
+        mock_requests.always_mock(
+            'http://myanimelist.net/anime/32105',
+            'unknown_episodes',
+        )
+
+        assert mal_scraper.retrieve_anime(32105)['episodes'] is None

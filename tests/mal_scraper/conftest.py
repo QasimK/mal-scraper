@@ -9,48 +9,63 @@ import responses
 class ResponsesWrapper:
     """Mock ALL requests more easily using saved files when use_live.
 
-    You can pass fake in instead which will ALWAYS use the fake response.
+    You can ALWAYS mock a request if there is no safe live page to use.
     """
-    RESPONSES_DIR = os.path.join(os.path.dirname(__file__), 'responses')
+    TODO_DIR = os.path.join(os.path.dirname(__file__), '0_todo_responses')
+    AUTO_DIR = os.path.join(os.path.dirname(__file__), 'auto_responses')
+    MANUAL_DIR = os.path.join(os.path.dirname(__file__), 'manual_responses')
 
     def __init__(self, rsps, use_live):
         self.rsps = rsps
         self.use_live = use_live  # Use live unless we are faking
 
-    def add(self, url, method='get', fake=None):
-        assert method == 'get', 'TODO: Implement other methods.'
-        filename = self._encode(method, url)
-        filepath = os.path.join(self.RESPONSES_DIR, filename)
+    def optional_mock(self, url):
+        """Add an automatic mock for a URL, this can be disabled if desired."""
+        filename = self._encode('get', url)
+        filepath = os.path.join(self.AUTO_DIR, filename)
 
-        pass_method = {
-            'get': responses.GET
-        }[method]
-
-        if fake:
-            # Always mock the response whether it is live or not
-            self.rsps.add(pass_method, url, body=fake)
-        elif os.path.isfile(filepath):  # pragma: no cover
-            # Only mock the response if we are not using live
-            # Otherwise allow a live request to be made
-            if not self.use_live:
+        if os.path.isfile(filepath):
+            # Mock the response unless we are using live
+            if not self.use_live:  # pragma: no cover
                 with open(filepath, 'rb') as fin:
                     body = fin.read()
-                self.rsps.add(pass_method, url, body=body)
-            else:
-                # To avoid an error let's make the request and add it in as mocked
+            else:  # pragma: no cover
+                # Make the request manually, avoiding requests which is mocked.
                 with urllib.request.urlopen(url) as nin:
-                    self.rsps.add(pass_method, url, body=nin.read())
+                    body = nin.read()
+
+            self.rsps.add(responses.GET, url, body=body)
         else:  # pragma: no cover
             # Produce a file to mock this request (needs to be checked manually)
-            todo_filename = 'TODO_' + filename
-            todo_filepath = os.path.join(self.RESPONSES_DIR, todo_filename)
-            with urllib.request.urlopen(url) as nin,\
-                    open(todo_filepath, 'wb') as fout:
-                fout.write(nin.read())
-            print('Response Mocked:', method, url)
-            print('File in responses tests directory: ', todo_filename)
-            print('Look at it and rename it by removing "TODO_".')
-            assert False, 'Look at stdout because a response was mocked for you.'
+            self._save_url(url, filename)
+
+    def always_mock(self, url, filename):
+        """Always mock this response, never test against the live url.
+
+        Args:
+            url (str): The URL to mock.
+            filename (str): The file inside self.RESPONSES_DIR to use.
+        """
+        filepath = os.path.join(self.MANUAL_DIR, filename)
+        if os.path.isfile(filepath):
+            with open(filepath, 'rb') as fin:
+                self.rsps.add(responses.GET, url, body=fin.read())
+        else:  # pragma: no cover
+            # Produce a file to mock this request (needs to be checked manually)
+            self._save_url(url, filename)
+
+    def _save_url(self, url, filename):  # pragma: no cover
+        os.makedirs(self.TODO_DIR, exist_ok=True)
+        todo_filepath = os.path.join(self.TODO_DIR, filename)
+        with urllib.request.urlopen(url) as nin,\
+                open(todo_filepath, 'wb') as fout:
+            fout.write(nin.read())
+
+        print('Response Mocked:', url)
+        print('File in TODO responses directory:', filename)
+        print('If you want to edit the file, move it into manual responses and use always_mock.')
+        print('Otherwise, move it into the auto responses folder.')
+        assert False, 'Look at stdout because a response was mocked for you.'
 
     @staticmethod
     def _encode(method, url):

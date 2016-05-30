@@ -15,15 +15,17 @@ logger = logging.getLogger(__name__)
 #     pass
 
 
-def retrieve_anime(id_ref, requester=request_passthrough):
+def retrieve_anime(id_ref=1, requester=request_passthrough):
     """Return the metadata for a particular show. TODO.
 
-    id_ref: identifier that can be used in iterations
-    requester: funnel requests through a request maker, this allows
-    us to limit requests globally
+    Args:
+        id_ref (Optional(int)): Internal show identifier
+        requester (Optional(requests-like)): HTTP request maker
+            This allows us to control/limit/mock requests.
 
-    Return a dictionary.
-    See tests/mal_scraper/test_anime.py::test_download_first for the keys.
+    Return:
+        A dictionary.
+        See tests/mal_scraper/test_anime.py::test_download_first for the keys.
     """
     url = get_url_from_id_ref(id_ref)
     response = requester.get(url)
@@ -99,8 +101,10 @@ def _get_format(soup):
         'TV': Format.tv
     }.get(text, None)
 
-    if not format_:
+    if not format_:  # pragma: no cover
+        # Either we missed a format, or MAL changed the webpage
         logger.warn('Unknown format for text "%s".', text)
+        return None
 
     return format_
 
@@ -117,7 +121,8 @@ def _get_episodes(soup):
 
     try:
         episodes_number = int(episodes_text)
-    except (ValueError, TypeError):
+    except (ValueError, TypeError):  # pragma: no cover
+        # MAL probably changed the webpage
         logger.warn('Unable to convert episodes text "%s" to int.', episodes_text)
         return None
 

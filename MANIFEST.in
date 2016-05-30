@@ -4,6 +4,8 @@ graft src
 graft ci
 graft tests
 
+resursive-include tests/mal_scraper *
+
 include .bumpversion.cfg
 include .coveragerc
 include .cookiecutterrc
