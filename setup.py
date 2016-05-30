@@ -19,13 +19,13 @@ def read(*names, **kwargs):
 
 requirements = [
     'requests       >=2, <3',
-    'responses      >=0, <1',
     'beautifulsoup4 >=4, <5',
 ]
 
 
 test_requirements = [
-    'tox'
+    'tox',
+    'responses      >=0, <1',
 ]
 
 
@@ -48,18 +48,21 @@ setup(
     zip_safe=False,
     classifiers=[
         # complete classifier list: http://pypi.python.org/pypi?%3Aaction=list_classifiers
-        'Development Status :: 5 - Production/Stable',
+        'Development Status :: 2 - Pre-Alpha',
+        'Framework :: Pytest',
+        'Framework :: Sphinx',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
-        'Operating System :: Unix',
-        'Operating System :: POSIX',
-        'Operating System :: Microsoft :: Windows',
+        'Natural Language :: English',
+        'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: Implementation :: CPython',
         'Topic :: Utilities',
+        'Topic :: Internet',
+        'Topic :: Software Development :: Libraries',
     ],
     keywords=[
         # eg: 'keyword1', 'keyword2', 'keyword3',
