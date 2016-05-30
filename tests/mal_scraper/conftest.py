@@ -24,12 +24,12 @@ class ResponsesWrapper:
         filename = self._encode('get', url)
         filepath = os.path.join(self.AUTO_DIR, filename)
 
-        if os.path.isfile(filepath):  # pragma: no cover
+        if os.path.isfile(filepath):
             # Mock the response unless we are using live
-            if not self.use_live:
+            if not self.use_live:  # pragma: no cover
                 with open(filepath, 'rb') as fin:
                     body = fin.read()
-            else:
+            else:  # pragma: no cover
                 # Make the request manually, avoiding requests which is mocked.
                 with urllib.request.urlopen(url) as nin:
                     body = nin.read()
@@ -54,7 +54,7 @@ class ResponsesWrapper:
             # Produce a file to mock this request (needs to be checked manually)
             self._save_url(url, filename)
 
-    def _save_url(self, url, filename):
+    def _save_url(self, url, filename):  # pragma: no cover
         os.makedirs(self.TODO_DIR, exist_ok=True)
         todo_filepath = os.path.join(self.TODO_DIR, filename)
         with urllib.request.urlopen(url) as nin,\

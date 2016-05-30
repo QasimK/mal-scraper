@@ -101,8 +101,10 @@ def _get_format(soup):
         'TV': Format.tv
     }.get(text, None)
 
-    if not format_:
+    if not format_:  # pragma: no cover
+        # Either we missed a format, or MAL changed the webpage
         logger.warn('Unknown format for text "%s".', text)
+        return None
 
     return format_
 
@@ -119,7 +121,8 @@ def _get_episodes(soup):
 
     try:
         episodes_number = int(episodes_text)
-    except (ValueError, TypeError):
+    except (ValueError, TypeError):  # pragma: no cover
+        # MAL probably changed the webpage
         logger.warn('Unable to convert episodes text "%s" to int.', episodes_text)
         return None
 
