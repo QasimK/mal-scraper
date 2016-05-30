@@ -67,10 +67,10 @@ class ParseError(Exception):
         self.error = error
         logger.warn('Error processing tag "%s": %s.', self.tag, self.error)
 
-    def __repr__(self):
+    def __repr__(self):  # pragma: no cover
         return 'ParseError(tag="{0.tag}", error="{0.error}")'.format(self)
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return 'Tag "{0.tag}" could not be parsed because: {0.error}.'.format(self)
 
 
@@ -164,7 +164,7 @@ def _get_episodes(soup):
         episodes_number = int(episodes_text)
     except (ValueError, TypeError):  # pragma: no cover
         # MAL probably changed the webpage
-        raise ParseError('episodes', 'Unable to convert text "{}" to int'.format(episodes_text))
+        raise ParseError('episodes', 'Unable to convert text "%s" to int' % episodes_text)
 
     return episodes_number
 
@@ -177,11 +177,12 @@ def _get_airing_status(soup):
     status_text = pretag.next_sibling.strip().lower()
     status = {
         'finished airing': AiringStatus.finished,
-        'currently airing': AiringStatus.ongoing
+        'currently airing': AiringStatus.ongoing,
     }.get(status_text, None)
 
-    if not status:
-        raise ParseError('status', 'Unable to identify text "{}"'.format(status_text))
+    if not status:  # pragma: no cover
+        # MAL probably changed the website
+        raise ParseError('status', 'Unable to identify text "%s"' % status_text)
 
     return status
 
@@ -214,8 +215,9 @@ def _get_start_date(soup):
 
     try:
         start_date = _convert_to_date(start_text)
-    except ValueError:
-        raise ParseError('airing start date', 'Cannot process text "%s"'.format(start_text))
+    except ValueError:  # pragma: no cover
+        # MAL probably changed their website
+        raise ParseError('airing start date', 'Cannot process text "%s"' % start_text)
 
     return start_date
 
@@ -233,8 +235,9 @@ def _get_end_date(soup):
 
     try:
         end_date = _convert_to_date(end_text)
-    except ValueError:
-        raise ParseError('airing end date', 'Cannot process text "%s"'.format(start_text))
+    except ValueError:  # pragma: no cover
+        # MAL probably changed their website
+        raise ParseError('airing end date', 'Cannot process text "%s"' % end_text)
 
     return end_date
 
@@ -248,12 +251,14 @@ def _get_airing_premiere(soup):
 
     if season == 'fall':
         season = 'autumn'
-    elif season not in ('spring', 'summer', 'autumn', 'winter'):
-        raise ParseError('premiered', 'Unable to identify season "%s"'.format(season))
+    elif season not in ('spring', 'summer', 'autumn', 'winter'):  # pragma: no cover
+        # MAL probably changed their website
+        raise ParseError('premiered', 'Unable to identify season "%s"' % season)
 
     try:
         year = int(year)
-    except (ValueError, TypeError):
-        raise ParseError('premiered', 'Unable to identify year "%s"'.format(year))
+    except (ValueError, TypeError):  # pragma: no cover
+        # MAL probably changed their website
+        raise ParseError('premiered', 'Unable to identify year "%s"' % year)
 
     return (year, season)
