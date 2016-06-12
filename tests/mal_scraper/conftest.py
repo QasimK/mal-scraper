@@ -39,7 +39,7 @@ class ResponsesWrapper:
             # Produce a file to mock this request (needs to be checked manually)
             self._save_url(url, filename)
 
-    def always_mock(self, url, filename):
+    def always_mock(self, url, filename, status=200):
         """Always mock this response, never test against the live url.
 
         Args:
@@ -49,7 +49,7 @@ class ResponsesWrapper:
         filepath = os.path.join(self.MANUAL_DIR, filename)
         if os.path.isfile(filepath):
             with open(filepath, 'rb') as fin:
-                self.rsps.add(responses.GET, url, body=fin.read())
+                self.rsps.add(responses.GET, url, body=fin.read(), status=status)
         else:  # pragma: no cover
             # Produce a file to mock this request (needs to be checked manually)
             self._save_url(url, filename)
