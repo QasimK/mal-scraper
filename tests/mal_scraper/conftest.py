@@ -10,6 +10,9 @@ class ResponsesWrapper:
     """Mock ALL requests more easily using saved files when use_live.
 
     You can ALWAYS mock a request if there is no safe live page to use.
+
+    AUTO_DIR is used for optional_mock because it is like a cache.
+    MANUAL_DIR is used to always_mock because you are deliberately saving this.
     """
     TODO_DIR = os.path.join(os.path.dirname(__file__), '0_todo_responses')
     AUTO_DIR = os.path.join(os.path.dirname(__file__), 'auto_responses')
@@ -44,7 +47,7 @@ class ResponsesWrapper:
 
         Args:
             url (str): The URL to mock.
-            filename (str): The file inside self.RESPONSES_DIR to use.
+            filename (str): The file inside self.MANUAL_DIR to use.
         """
         filepath = os.path.join(self.MANUAL_DIR, filename)
         if os.path.isfile(filepath):

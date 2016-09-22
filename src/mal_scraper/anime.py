@@ -24,7 +24,9 @@ def retrieve_anime(id_ref=1, requester=request_passthrough):
             This allows us to control/limit/mock requests.
 
     Return:
-        A tuple of two dicts (retrieval information, anime information).
+        None if we failed to download the page, otherwise a tuple of two dicts
+        (retrieval information, anime information).
+
         The retrieval information will include the keys:
             success (bool): Was *all* the information was retrieved?
                 (Some keys from anime information may be missing otherwise.)

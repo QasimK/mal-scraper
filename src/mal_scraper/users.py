@@ -11,10 +11,13 @@ Possible alternative:
 """
 
 import logging
+import re
+from datetime import datetime
 
 from bs4 import BeautifulSoup
 
 from .requester import request_passthrough
+from .anime import ParseError, MissingTagError
 
 logger = logging.getLogger(__name__)
 
@@ -44,6 +47,53 @@ def discover_users(requester=request_passthrough):
     return users
 
 
+def get_user_stats(username, requester=request_passthrough):
+    """Return statistics about a particular user.
+
+    Args:
+        username (string): The username identifier of the MAL user.
+        requester (Optional(requests-like)): HTTP request maker
+            This allows us to control/limit/mock requests.
+
+    Returns:
+        None if we failed to retrieve the page, otherwise a tuple of two dicts
+        (retrieval information, profile information).
+
+        The retrieval information will include the keys:
+            success (bool): Was *all* the information was retrieved?
+                (Some keys from profile information may be missing otherwise.)
+            scraper_retrieved_at (datetime): When the request was completed.
+            username (int): username of this user used for retrieval.
+        The profile information will include the keys:
+            See tests/mal_scraper/test_users.py::TestUserStats::test_user_stats
+    """
+    url = get_profile_url_from_username(username)
+    logging.debug('Retrieving profile for "%s" from "%s"', username, url)
+
+    response = requester.get(url)
+    if not response.ok:
+        logging.error('Unable to retrieve profile ({0.status_code}):\n{0.text}'.format(response))
+        return None
+
+    soup = BeautifulSoup(response.content, 'html.parser')
+    success, info = _process_profile_soup(soup)
+
+    if not success:
+        logger.warn('Failed to properly process the page "%s".', url)
+
+    retrieval_info = {
+        'success': success,
+        'scraper_retrieved_at': datetime.utcnow(),
+        'username': username,
+    }
+
+    return (retrieval_info, info)
+
+
+def get_profile_url_from_username(username):
+    return 'http://myanimelist.net/profile/{:s}'.format(username)
+
+
 def _process_discovery_soup(soup):
     """Return a set of username strings."""
     users = soup.find_all('a', href=lambda link: link and link.startswith('/profile/'))
@@ -52,3 +102,40 @@ def _process_discovery_soup(soup):
 
     stripped_links = set(user['href'][len('/profile/'):] for user in users)
     return stripped_links
+
+
+def _process_profile_soup(soup):
+    """Return (success?, metadata) from a soup of HTML.
+
+    Returns:
+        (success?, metadata) where success is only if there were zero errors.
+    """
+    retrieve = {
+        'name': _get_name,
+    }
+
+    retrieved = {}
+    failed_tags = []
+    for tag, func in retrieve.items():
+        try:
+            result = func(soup)
+        except ParseError:
+            logger.warn('Error processing tag "%s".', tag)
+            failed_tags.append(tag)
+        else:
+            retrieved[tag] = result
+
+    success = not bool(failed_tags)
+    if not success:
+        logger.warn('Failed to process tags: %s', failed_tags)
+
+    return (success, retrieved)
+
+
+def _get_name(soup):
+    tag = soup.find('span', string=re.compile(r"'s Profile$"))
+    if not tag:
+        raise MissingTagError('name')
+
+    text = tag.string.strip()[:-len("'s Profile")]
+    return text
