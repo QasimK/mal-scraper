@@ -1,6 +1,6 @@
 """Can we download user information?"""
 
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 
 import pytest
 
@@ -67,4 +67,11 @@ class TestUserStats(object):
 
         assert info == {
             'name': self.TEST_USER,
+            'joined': date(year=2014, month=1, day=6),
+            'last_online': date.today(),  # Special 'Now'
+            'num_anime_watched': 22,
+            'num_anime_completed': 125,
+            'num_anime_on_hold': 3,
+            'num_anime_dropped': 1,
+            'num_anime_plan_to_watch': 13,
         }

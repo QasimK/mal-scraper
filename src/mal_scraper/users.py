@@ -12,12 +12,13 @@ Possible alternative:
 
 import logging
 import re
-from datetime import datetime
+from datetime import date, datetime
+from functools import partial
 
 from bs4 import BeautifulSoup
 
+from .anime import MissingTagError, ParseError, _convert_to_date
 from .requester import request_passthrough
-from .anime import ParseError, MissingTagError
 
 logger = logging.getLogger(__name__)
 
@@ -112,6 +113,13 @@ def _process_profile_soup(soup):
     """
     retrieve = {
         'name': _get_name,
+        'last_online': _get_last_online,
+        'joined': _get_joined,
+        'num_anime_watched': _get_num_anime_watched,
+        'num_anime_completed': _get_num_anime_completed,
+        'num_anime_on_hold': _get_num_anime_on_hold,
+        'num_anime_dropped': _get_num_anime_dropped,
+        'num_anime_plan_to_watch': _get_num_anime_plan_to_watch,
     }
 
     retrieved = {}
@@ -139,3 +147,59 @@ def _get_name(soup):
 
     text = tag.string.strip()[:-len("'s Profile")]
     return text
+
+
+def _get_last_online(soup):
+    online_title_tag = soup.find('span', class_='user-status-title', string='Last Online')
+    if not online_title_tag:
+        raise MissingTagError('lastonline:title')
+
+    last_online_tag = online_title_tag.next_sibling
+    if not last_online_tag:
+        raise MissingTagError('lastonline:date')
+
+    text = last_online_tag.string.strip()
+    if text == 'Now':
+        return date.today()
+
+    return _convert_to_date(text)  # Jan 6, 2014
+
+
+def _get_joined(soup):
+    joined_title_tag = soup.find('span', class_='user-status-title', string='Joined')
+    if not joined_title_tag:
+        raise MissingTagError('joined:title')
+
+    joined_date_tag = joined_title_tag.next_sibling
+    if not joined_date_tag:
+        raise MissingTagError('joined:date')
+
+    text = joined_date_tag.string.strip()
+    date = _convert_to_date(text)  # Jan 6, 2014
+    return date
+
+
+def _get_num_anime_stats(soup, classname):
+    """Get stats from the stats table. tag is just the class selector."""
+    tag_name = 'num_anime_' + classname
+
+    pretag = soup.find(class_='stats-status').find('a', class_=classname)
+    if not pretag:
+        raise MissingTagError(tag_name + ':title')
+
+    num_text = pretag.next_sibling.string.strip()
+
+    try:
+        num = int(num_text)
+    except (TypeError, ValueError):  # pragma: no cover
+        # MAL probably changed their website
+        raise ParseError(tag_name, 'Unable to convert text "%s" to int' % num_text)
+
+    return num
+
+
+_get_num_anime_watched = partial(_get_num_anime_stats, classname='watching')
+_get_num_anime_completed = partial(_get_num_anime_stats, classname='completed')
+_get_num_anime_on_hold = partial(_get_num_anime_stats, classname='on-hold')
+_get_num_anime_dropped = partial(_get_num_anime_stats, classname='dropped')
+_get_num_anime_plan_to_watch = partial(_get_num_anime_stats, classname='plantowatch')
