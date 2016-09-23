@@ -183,11 +183,15 @@ def _get_num_anime_stats(soup, classname):
     """Get stats from the stats table. tag is just the class selector."""
     tag_name = 'num_anime_' + classname
 
-    pretag = soup.find(class_='stats-status').find('a', class_=classname)
-    if not pretag:
+    stats_table_tag = soup.find(class_='stats-status')
+    if not stats_table_tag:
+        raise MissingTagError(tag_name + ':table')
+
+    stat_tag = stats_table_tag.find('a', class_=classname)
+    if not stat_tag:
         raise MissingTagError(tag_name + ':title')
 
-    num_text = pretag.next_sibling.string.strip()
+    num_text = stat_tag.next_sibling.string.strip()
 
     try:
         num = int(num_text)

@@ -48,6 +48,11 @@ class TestUserStats(object):
     TEST_USER = 'SparkleBunnies'  # Sorry SparkleBunniesm, 'twas a random selection...
     TEST_USER_PAGE = 'http://myanimelist.net/profile/' + TEST_USER
 
+    def test_detect_bad_download(self, mock_requests):
+        """Do we get success failure if the bad is bad?"""
+        mock_requests.always_mock(self.TEST_USER_PAGE, 'garbled_user_page')
+        assert not mal_scraper.get_user_stats(self.TEST_USER)[0]['success']
+
     def test_user_stats(self, mock_requests):
         """Do we retrieve the right stats about a user?"""
         # Always mock this because the user will change it himself
