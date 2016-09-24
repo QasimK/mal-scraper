@@ -37,7 +37,7 @@ class ResponsesWrapper:
                 with urllib.request.urlopen(url) as nin:
                     body = nin.read()
 
-            self.rsps.add(responses.GET, url, body=body)
+            self.rsps.add(responses.GET, url, body=body, match_querystring=True)
         else:  # pragma: no cover
             # Produce a file to mock this request (needs to be checked manually)
             self._save_url(url, filename)
@@ -52,7 +52,7 @@ class ResponsesWrapper:
         filepath = os.path.join(self.MANUAL_DIR, filename)
         if os.path.isfile(filepath):
             with open(filepath, 'rb') as fin:
-                self.rsps.add(responses.GET, url, body=fin.read(), status=status)
+                self.rsps.add(responses.GET, url, body=fin.read(), status=status, match_querystring=True)
         else:  # pragma: no cover
             # Produce a file to mock this request (needs to be checked manually)
             self._save_url(url, filename)
@@ -60,8 +60,13 @@ class ResponsesWrapper:
     def _save_url(self, url, filename):  # pragma: no cover
         os.makedirs(self.TODO_DIR, exist_ok=True)
         todo_filepath = os.path.join(self.TODO_DIR, filename)
-        with urllib.request.urlopen(url) as nin,\
-                open(todo_filepath, 'wb') as fout:
+
+        try:
+            nin_ = urllib.request.urlopen(url)
+        except urllib.error.HTTPError as error:
+            nin_ = error
+
+        with nin_ as nin, open(todo_filepath, 'wb') as fout:
             fout.write(nin.read())
 
         print('Response Mocked:', url)

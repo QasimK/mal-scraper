@@ -67,7 +67,7 @@ class ParseError(Exception):
         super().__init__((tag, error))
         self.tag = tag
         self.error = error
-        logger.warn('Error processing tag "%s": %s.', self.tag, self.error)
+        logger.error('Error processing tag "%s": %s.', self.tag, self.error)
 
     def __repr__(self):  # pragma: no cover
         return 'ParseError(tag="{0.tag}", error="{0.error}")'.format(self)

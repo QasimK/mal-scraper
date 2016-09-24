@@ -18,6 +18,7 @@ from functools import partial
 from bs4 import BeautifulSoup
 
 from .anime import MissingTagError, ParseError, _convert_to_date
+from .consts import ConsumptionStatus
 from .requester import request_passthrough
 
 logger = logging.getLogger(__name__)
@@ -95,11 +96,68 @@ def get_profile_url_from_username(username):
     return 'http://myanimelist.net/profile/{:s}'.format(username)
 
 
+def get_user_anime_list(username, requester=request_passthrough):
+    """Return the categorised anime listed by the user.
+
+    Args:
+        username (str): The user identifier
+
+    Returns:
+        A dict with the keys: watching, completed, on_hold, dropped, plan_to_watch.
+        Each dict has a list of dicts, each of which has the keys:
+        {
+            name: (string) name of the anime
+            id_ref: (id_ref) can be used with retrieve_anime,
+            status: (ConsumptionStatus),
+            is_rewatch: (bool),
+            score: (int) 0-10,
+            start_date: (date or None) may be missing
+            num_watched_episodes: (int) 0+ number of episodes watched
+            finished_date (date or None) may be missing or not finished
+        }
+    """
+    anime = []
+    has_more_anime = True
+    while has_more_anime:
+        url = get_anime_list_url_for_user(username, len(anime))
+        logging.debug('Retrieving anime list from "%s"', url)
+
+        response = requester.get(url)
+        if not response.ok:
+            if response.status_code == 400:
+                logging.info('Forbidden access to user "%s"\'s anime list', username)
+                return None
+
+            logging.error('Unable to retrieve anime list ({0.status_code}):\n{0.text}'.format(response))
+            return None
+
+        additional_anime = _process_anime_list_json(response.json())
+        if additional_anime:
+            anime.extend(additional_anime)
+        else:
+            has_more_anime = False
+
+    return anime
+
+
+def get_anime_list_url_for_user(username, offset=0):
+    """Return the url to the JSON feed for the given user:
+
+    Args:
+        username (string): User identifier
+        offset (int): Feed returns paginated view, use offset to traverse
+
+    Returns: String url
+    """
+    url = 'http://myanimelist.net/animelist/{username}/load.json?offset={offset:d}&status=7'
+    return url.format(username=username, offset=offset)
+
+
 def _process_discovery_soup(soup):
     """Return a set of username strings."""
     users = soup.find_all('a', href=lambda link: link and link.startswith('/profile/'))
     if not users:
-        logging.warn('No users found on the user discovery page.')
+        logging.error('No users found on the user discovery page.')
 
     stripped_links = set(user['href'][len('/profile/'):] for user in users)
     return stripped_links
@@ -115,7 +173,7 @@ def _process_profile_soup(soup):
         'name': _get_name,
         'last_online': _get_last_online,
         'joined': _get_joined,
-        'num_anime_watched': _get_num_anime_watched,
+        'num_anime_watching': _get_num_anime_watching,
         'num_anime_completed': _get_num_anime_completed,
         'num_anime_on_hold': _get_num_anime_on_hold,
         'num_anime_dropped': _get_num_anime_dropped,
@@ -128,14 +186,14 @@ def _process_profile_soup(soup):
         try:
             result = func(soup)
         except ParseError:
-            logger.warn('Error processing tag "%s".', tag)
+            logger.error('Error processing tag "%s".', tag)
             failed_tags.append(tag)
         else:
             retrieved[tag] = result
 
     success = not bool(failed_tags)
     if not success:
-        logger.warn('Failed to process tags: %s', failed_tags)
+        logger.error('Failed to process tags: %s', failed_tags)
 
     return (success, retrieved)
 
@@ -202,8 +260,87 @@ def _get_num_anime_stats(soup, classname):
     return num
 
 
-_get_num_anime_watched = partial(_get_num_anime_stats, classname='watching')
+_get_num_anime_watching = partial(_get_num_anime_stats, classname='watching')
 _get_num_anime_completed = partial(_get_num_anime_stats, classname='completed')
 _get_num_anime_on_hold = partial(_get_num_anime_stats, classname='on-hold')
 _get_num_anime_dropped = partial(_get_num_anime_stats, classname='dropped')
 _get_num_anime_plan_to_watch = partial(_get_num_anime_stats, classname='plantowatch')
+
+
+def _process_anime_list_json(json):
+    """Return a list of anime as described by get_user_anime_list.
+
+    Implementation notes:
+
+        The JSON is a list of objects like
+
+        {
+           "status":1,
+           "score":0,
+           "tags":"",
+           "is_rewatching":0,
+           "num_watched_episodes":1,
+           "anime_title":"91 Days",
+           "anime_num_episodes":12,
+           "anime_airing_status":1,
+           "anime_id":32998,
+           "anime_studios":null,
+           "anime_licensors":null,
+           "anime_season":null,
+           "has_episode_video":true,
+           "has_promotion_video":true,
+           "has_video":true,
+           "video_url":"\/anime\/32998\/91_Days\/video",
+           "anime_url":"\/anime\/32998\/91_Days",
+           "anime_image_path":"https:\/\/myanimelist.cdn-dena.com\/r\/96x136\/images\/anime\/13\/80515.jpg?s=7f9c599ca9dafb64a261bac475b44132",
+           "is_added_to_list":false,
+           "anime_media_type_string":"TV",
+           "anime_mpaa_rating_string":"R",
+           "start_date_string":null,
+           "finish_date_string":null,
+           "anime_start_date_string":"22-03-15",
+           "anime_end_date_string":"01-10-16",
+           "days_string":null,
+           "storage_string":"",
+           "priority_string":"Low"
+        }
+    """
+    anime = []
+    for mal_anime in json:
+        anime.append({
+            'name': mal_anime['anime_title'],
+            'id_ref': int(mal_anime['anime_id']),
+            'status': _convert_status_code_to_const(mal_anime['status']),
+            'is_rewatch': bool(mal_anime['is_rewatching']),  # TODO WHAT?
+            'score': int(mal_anime['score']),
+            'num_watched_episodes': int(mal_anime['num_watched_episodes']),
+            'start_date': _convert_json_date(mal_anime['start_date_string']),  # TODO: WHAT?
+            'finished_date':_convert_json_date(mal_anime['finish_date_string']),  # TODO: WHAT?
+        })
+
+    return anime
+
+
+def _convert_json_date(text):
+    """Return the datetime.date object from the JSON anime list date strings.
+
+    Return None if date is a placeholder, or the information is missing.
+    """
+    if text is None or text.startswith('00-00-'):
+        return None
+
+    try:
+        return datetime.strptime(text, '%d-%m-%y').date()
+    except ValueError:
+        logging.error('Unable to parse the date text "%s" from an anime list', text)
+        return None
+
+
+def _convert_status_code_to_const(code):
+    return {
+        1: ConsumptionStatus.consuming,
+        2: ConsumptionStatus.completed,
+        3: ConsumptionStatus.on_hold,
+        4: ConsumptionStatus.dropped,
+        6: ConsumptionStatus.backlog,
+    }[code]

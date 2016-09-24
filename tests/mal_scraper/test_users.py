@@ -74,9 +74,46 @@ class TestUserStats(object):
             'name': self.TEST_USER,
             'joined': date(year=2014, month=1, day=6),
             'last_online': date.today(),  # Special 'Now'
-            'num_anime_watched': 22,
+            'num_anime_watching': 22,
             'num_anime_completed': 125,
             'num_anime_on_hold': 3,
             'num_anime_dropped': 1,
             'num_anime_plan_to_watch': 13,
+        }
+
+
+class TestUserAnimeList(object):
+    """Test retrieving basic stats information."""
+
+    BASE_URL = 'http://myanimelist.net/animelist/{username}/load.json?offset={offset:d}&status=7'
+    TEST_FORBIDDEN_USERNAME = 'SparkleBunnies'
+    TEST_FORBIDDEN_PAGE = BASE_URL.format(username=TEST_FORBIDDEN_USERNAME, offset=0)
+    TEST_USER_SMALL_NAME = 'Littoface'  # ~100 anime
+    TEST_USER_SMALL_PAGE = BASE_URL.format(username=TEST_USER_SMALL_NAME, offset=0)
+    TEST_USER_SMALL_END_PAGE = BASE_URL.format(username=TEST_USER_SMALL_NAME, offset=158)
+    TEST_USER_LOTS_NAME = 'Vindstot'  # 5k anime...
+    TEST_USER_LOTS_LIST_PAGE = BASE_URL.format(username=TEST_USER_LOTS_NAME, offset=0)
+
+    def test_forbidden_access(self, mock_requests):
+        """"""
+        mock_requests.always_mock(self.TEST_FORBIDDEN_PAGE, 'user_anime_list_forbidden', status=400)
+
+        assert None is mal_scraper.get_user_anime_list(self.TEST_FORBIDDEN_USERNAME)
+
+    def test_download_one_page_anime(self, mock_requests):
+        """"""
+        mock_requests.always_mock(self.TEST_USER_SMALL_PAGE, 'user_anime_list_small')
+        mock_requests.always_mock(self.TEST_USER_SMALL_END_PAGE, 'user_anime_list_end')
+
+        anime = mal_scraper.get_user_anime_list(self.TEST_USER_SMALL_NAME)
+        assert len(anime) == 158
+        assert anime[0] == {
+            'name': 'Danshi Koukousei no Nichijou',
+            'id_ref': 11843,
+            'status': mal_scraper.ConsumptionStatus.consuming,
+            'is_rewatch': False,
+            'score': 0,
+            'start_date': None,
+            'num_watched_episodes': 9,
+            'finished_date': None,
         }
