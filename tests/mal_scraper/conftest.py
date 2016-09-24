@@ -52,7 +52,13 @@ class ResponsesWrapper:
         filepath = os.path.join(self.MANUAL_DIR, filename)
         if os.path.isfile(filepath):
             with open(filepath, 'rb') as fin:
-                self.rsps.add(responses.GET, url, body=fin.read(), status=status, match_querystring=True)
+                self.rsps.add(
+                    responses.GET,
+                    url,
+                    body=fin.read(),
+                    status=status,
+                    match_querystring=True
+                )
         else:  # pragma: no cover
             # Produce a file to mock this request (needs to be checked manually)
             self._save_url(url, filename)

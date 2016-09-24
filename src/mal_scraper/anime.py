@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 def retrieve_anime(id_ref=1, requester=request_passthrough):
-    """Return the metadata for a particular show. TODO.
+    """Return the metadata for a particular show.
 
     Args:
         id_ref (Optional(int)): Internal show identifier

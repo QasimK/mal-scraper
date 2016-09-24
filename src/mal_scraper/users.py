@@ -12,7 +12,7 @@ Possible alternative:
 
 import logging
 import re
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from functools import partial
 
 from bs4 import BeautifulSoup
@@ -103,16 +103,17 @@ def get_user_anime_list(username, requester=request_passthrough):
         username (str): The user identifier
 
     Returns:
-        A dict with the keys: watching, completed, on_hold, dropped, plan_to_watch.
-        Each dict has a list of dicts, each of which has the keys:
+        None if the username is invalid, or the user has forbidden access.
+        Otherwise, a list of anime where each anime is the following dict:
+
         {
             name: (string) name of the anime
             id_ref: (id_ref) can be used with retrieve_anime,
-            status: (ConsumptionStatus),
+            consumption_status: (ConsumptionStatus),
             is_rewatch: (bool),
             score: (int) 0-10,
             start_date: (date or None) may be missing
-            num_watched_episodes: (int) 0+ number of episodes watched
+            progress: (int) 0+ number of episodes watched
             finished_date (date or None) may be missing or not finished
         }
     """
@@ -125,10 +126,10 @@ def get_user_anime_list(username, requester=request_passthrough):
         response = requester.get(url)
         if not response.ok:
             if response.status_code == 400:
-                logging.info('Forbidden access to user "%s"\'s anime list', username)
+                logging.info('Access to user "%s"\'s anime list is forbidden', username)
                 return None
 
-            logging.error('Unable to retrieve anime list ({0.status_code}):\n{0.text}'.format(response))
+            logging.error('Unable to get anime list ({0.status_code}):\n{0.text}'.format(response))
             return None
 
         additional_anime = _process_anime_list_json(response.json())
@@ -207,6 +208,10 @@ def _get_name(soup):
     return text
 
 
+last_online_minutes = re.compile(r'(?P<minutes>\d+) minutes? ago')
+last_online_hours = re.compile(r'(?P<hours>\d+) hours? ago')
+
+
 def _get_last_online(soup):
     online_title_tag = soup.find('span', class_='user-status-title', string='Last Online')
     if not online_title_tag:
@@ -219,6 +224,14 @@ def _get_last_online(soup):
     text = last_online_tag.string.strip()
     if text == 'Now':
         return date.today()
+
+    minutes_match = last_online_minutes.match(text)
+    if minutes_match is not None:
+        return datetime.utcnow() - timedelta(minutes=int(minutes_match.group('minutes')))
+
+    hours_match = last_online_hours.match(text)
+    if hours_match is not None:
+        return datetime.utcnow() - timedelta(hours=int(hours_match.group('hours')))
 
     return _convert_to_date(text)  # Jan 6, 2014
 
@@ -310,12 +323,12 @@ def _process_anime_list_json(json):
         anime.append({
             'name': mal_anime['anime_title'],
             'id_ref': int(mal_anime['anime_id']),
-            'status': _convert_status_code_to_const(mal_anime['status']),
-            'is_rewatch': bool(mal_anime['is_rewatching']),  # TODO WHAT?
+            'consumption_status': _convert_status_code_to_const(mal_anime['status']),
+            'is_rewatch': bool(mal_anime['is_rewatching']),
             'score': int(mal_anime['score']),
-            'num_watched_episodes': int(mal_anime['num_watched_episodes']),
-            'start_date': _convert_json_date(mal_anime['start_date_string']),  # TODO: WHAT?
-            'finished_date':_convert_json_date(mal_anime['finish_date_string']),  # TODO: WHAT?
+            'progress': int(mal_anime['num_watched_episodes']),
+            'start_date': _convert_json_date(mal_anime['start_date_string']),
+            'finished_date': _convert_json_date(mal_anime['finish_date_string']),
         })
 
     return anime
@@ -331,7 +344,8 @@ def _convert_json_date(text):
 
     try:
         return datetime.strptime(text, '%d-%m-%y').date()
-    except ValueError:
+    except ValueError:  # pragma: no cover
+        # It is likely that MAL has changed their format
         logging.error('Unable to parse the date text "%s" from an anime list', text)
         return None
 
