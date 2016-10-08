@@ -17,10 +17,10 @@ from functools import partial
 
 from bs4 import BeautifulSoup
 
-from .anime import MissingTagError, ParseError, _convert_to_date
 from .consts import ConsumptionStatus
+from .exceptions import MissingTagError, ParseError
+from .mal_utils import get_date, get_datetime
 from .requester import request_passthrough
-from .mal_utils import get_datetime
 
 logger = logging.getLogger(__name__)
 
@@ -238,7 +238,7 @@ def _get_joined(soup):
         raise MissingTagError('joined:date')
 
     text = joined_date_tag.string.strip()
-    return _convert_to_date(text)  # Jan 6, 2014
+    return get_date(text)  # Jan 6, 2014
 
 
 def _get_num_anime_stats(soup, classname):

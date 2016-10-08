@@ -29,13 +29,13 @@ def get_datetime(text, relative_to=None):
 
     Raises ValueError if the conversion fails
 
-    Issues: Potentially locale-dependent.
+    Issues:
+        - Potentially locale-dependent.
     """
-
     relative_to = relative_to or datetime.utcnow()
+    text = text.strip()
 
     # Now
-    text = text.strip()
     if text.lower() == 'now':
         return relative_to
 
@@ -62,9 +62,26 @@ def get_datetime(text, relative_to=None):
     # Oct 1, 4:29 AM
     try:
         time = datetime.strptime(text, '%b %d, %I:%M %p')
-        return datetime.replace(time, year=relative_to.year)
     except ValueError:
         pass
+    else:
+        return datetime.replace(time, year=relative_to.year)
 
     # Oct 1, 2013 11:04 PM
     return datetime.strptime(text, '%b %d, %Y %I:%M %p')
+
+
+def get_date(text):
+    """Convert a date like "Apr 3, 1998"
+
+    Args:
+        text (str): like "Apr 3, 1998"
+
+    Returns datetime.date
+
+    Raises ValueError if the conversion fails
+
+    Issues:
+        - This may be locale dependent
+    """
+    return datetime.strptime(text, '%b %d, %Y').date()

@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 
 import pytest
 
@@ -38,3 +38,10 @@ class TestGetDatetime(object):
     def test_get_datetime_relative_to_yesterday(self, text, expected_datetime):
         time_difference = expected_datetime - mal_utils.get_datetime(text, self.yesterdayish)
         assert time_difference < timedelta(minutes=1)
+
+
+@pytest.mark.parametrize('text,expected_date', [
+    ('Apr 3, 1998', date(year=1998, month=4, day=3))
+])
+def test_get_date(text, expected_date):
+    assert expected_date == mal_utils.get_date(text)
