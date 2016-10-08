@@ -12,7 +12,7 @@ Possible alternative:
 
 import logging
 import re
-from datetime import date, datetime, timedelta
+from datetime import datetime
 from functools import partial
 
 from bs4 import BeautifulSoup
@@ -20,6 +20,7 @@ from bs4 import BeautifulSoup
 from .anime import MissingTagError, ParseError, _convert_to_date
 from .consts import ConsumptionStatus
 from .requester import request_passthrough
+from .mal_utils import get_datetime
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +41,7 @@ def discover_users(requester=request_passthrough):
     """
     response = requester.get('http://myanimelist.net/users.php')
     if not response.ok:
-        logging.error('Unable to retrieve user list ({0.status_code}):\n{0.text}'.format(response))
+        logging.error('Unable to retrieve user list (%d):\n%s', response.status_code, response.text)
         return None
 
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -72,10 +73,16 @@ def get_user_stats(username, requester=request_passthrough):
     url = get_profile_url_from_username(username)
     logging.debug('Retrieving profile for "%s" from "%s"', username, url)
 
+    retrieval_info = {
+        'success': False,
+        'scraper_retrieved_at': datetime.utcnow(),
+        'username': username,
+    }
+
     response = requester.get(url)
     if not response.ok:
         logging.error('Unable to retrieve profile ({0.status_code}):\n{0.text}'.format(response))
-        return None
+        return (retrieval_info, {})
 
     soup = BeautifulSoup(response.content, 'html.parser')
     success, info = _process_profile_soup(soup)
@@ -83,11 +90,7 @@ def get_user_stats(username, requester=request_passthrough):
     if not success:
         logger.warn('Failed to properly process the page "%s".', url)
 
-    retrieval_info = {
-        'success': success,
-        'scraper_retrieved_at': datetime.utcnow(),
-        'username': username,
-    }
+    retrieval_info['success'] = success
 
     return (retrieval_info, info)
 
@@ -103,7 +106,8 @@ def get_user_anime_list(username, requester=request_passthrough):
         username (str): The user identifier
 
     Returns:
-        None if the username is invalid, or the user has forbidden access.
+        None if the download failed, the username is invalid, or the
+        user has forbidden access.
         Otherwise, a list of anime where each anime is the following dict:
 
         {
@@ -201,15 +205,12 @@ def _process_profile_soup(soup):
 
 def _get_name(soup):
     tag = soup.find('span', string=re.compile(r"'s Profile$"))
-    if not tag:
+    if not tag:  # pragma: no cover
+        # MAL probably changed their website
         raise MissingTagError('name')
 
     text = tag.string.strip()[:-len("'s Profile")]
     return text
-
-
-last_online_minutes = re.compile(r'(?P<minutes>\d+) minutes? ago')
-last_online_hours = re.compile(r'(?P<hours>\d+) hours? ago')
 
 
 def _get_last_online(soup):
@@ -218,22 +219,12 @@ def _get_last_online(soup):
         raise MissingTagError('lastonline:title')
 
     last_online_tag = online_title_tag.next_sibling
-    if not last_online_tag:
+    if not last_online_tag:  # pragma: no cover
+        # MAL probably changed their website
         raise MissingTagError('lastonline:date')
 
     text = last_online_tag.string.strip()
-    if text == 'Now':
-        return date.today()
-
-    minutes_match = last_online_minutes.match(text)
-    if minutes_match is not None:
-        return datetime.utcnow() - timedelta(minutes=int(minutes_match.group('minutes')))
-
-    hours_match = last_online_hours.match(text)
-    if hours_match is not None:
-        return datetime.utcnow() - timedelta(hours=int(hours_match.group('hours')))
-
-    return _convert_to_date(text)  # Jan 6, 2014
+    return get_datetime(text)
 
 
 def _get_joined(soup):
@@ -242,12 +233,12 @@ def _get_joined(soup):
         raise MissingTagError('joined:title')
 
     joined_date_tag = joined_title_tag.next_sibling
-    if not joined_date_tag:
+    if not joined_date_tag:  # pragma: no cover
+        # MAL probably changed their website
         raise MissingTagError('joined:date')
 
     text = joined_date_tag.string.strip()
-    date = _convert_to_date(text)  # Jan 6, 2014
-    return date
+    return _convert_to_date(text)  # Jan 6, 2014
 
 
 def _get_num_anime_stats(soup, classname):
@@ -255,11 +246,13 @@ def _get_num_anime_stats(soup, classname):
     tag_name = 'num_anime_' + classname
 
     stats_table_tag = soup.find(class_='stats-status')
-    if not stats_table_tag:
+    if not stats_table_tag:  # pragma: no cover
+        # MAL probably changed their website
         raise MissingTagError(tag_name + ':table')
 
     stat_tag = stats_table_tag.find('a', class_=classname)
-    if not stat_tag:
+    if not stat_tag:  # pragma: no cover
+        # MAL probably changed their website
         raise MissingTagError(tag_name + ':title')
 
     num_text = stat_tag.next_sibling.string.strip()

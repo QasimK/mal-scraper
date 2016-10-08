@@ -50,6 +50,13 @@ class TestUserStats(object):
     TEST_LAST_ONLINE_HOURS_USER = 'Lucedrom'
     TEST_LAST_ONLINE_HOURS_PAGE = PROFILE_URL + TEST_LAST_ONLINE_HOURS_USER
 
+    TEST_LAST_ONLINE_DATE_USER = 'xScHeiZe'
+    TEST_LAST_ONLINE_DATE_PAGE = PROFILE_URL + TEST_LAST_ONLINE_DATE_USER
+
+    def test_non_ok_download(self, mock_requests):
+        mock_requests.always_mock(self.TEST_USER_PAGE, 'garbled_user_page', status=400)
+        assert not mal_scraper.get_user_stats(self.TEST_USER)[0]['success']
+
     def test_detect_bad_download(self, mock_requests):
         """Do we get success failure if the bad is bad?"""
         mock_requests.always_mock(self.TEST_USER_PAGE, 'garbled_user_page')
@@ -68,14 +75,18 @@ class TestUserStats(object):
 
         assert meta == {
             'success': True,
-            'scraper_retrieved_at': retrieval,  # UTC Datetime
+            'scraper_retrieved_at': retrieval,  # Already checked
             'username': self.TEST_USER,
         }
+
+        # Fuzzy match datetime
+        last_online = info['last_online']
+        assert datetime.utcnow() - last_online < timedelta(seconds=30)  # Special 'Now'
 
         assert info == {
             'name': self.TEST_USER,
             'joined': date(year=2014, month=1, day=6),
-            'last_online': date.today(),  # Special 'Now'
+            'last_online': last_online,  # Already checked
             'num_anime_watching': 22,
             'num_anime_completed': 125,
             'num_anime_on_hold': 3,
@@ -97,6 +108,12 @@ class TestUserStats(object):
         last_online = info['last_online']
         assert (datetime.utcnow() - timedelta(hours=1)) - last_online < timedelta(minutes=1)
 
+    def test_user_last_online_date(self, mock_requests):
+        mock_requests.always_mock(self.TEST_LAST_ONLINE_DATE_PAGE, 'user_last_online_date')
+
+        _, info = mal_scraper.get_user_stats(self.TEST_LAST_ONLINE_DATE_USER)
+        assert datetime(year=2016, month=10, day=1, hour=4, minute=29) == info['last_online']
+
 
 class TestUserAnimeList(object):
     """Test retrieving basic stats information."""
@@ -113,14 +130,17 @@ class TestUserAnimeList(object):
     TEST_USER_LOTS_NAME = 'Vindstot'  # 5k anime...
     TEST_USER_LOTS_LIST_PAGE = LIST_URL.format(username=TEST_USER_LOTS_NAME, offset=0)
 
+    def test_non_ok_download(self, mock_requests):
+        mock_requests.always_mock(self.TEST_FORBIDDEN_PAGE, 'user_anime_list_forbidden', status=401)
+
+        assert None is mal_scraper.get_user_anime_list(self.TEST_FORBIDDEN_USERNAME)
+
     def test_forbidden_access(self, mock_requests):
-        """"""
         mock_requests.always_mock(self.TEST_FORBIDDEN_PAGE, 'user_anime_list_forbidden', status=400)
 
         assert None is mal_scraper.get_user_anime_list(self.TEST_FORBIDDEN_USERNAME)
 
     def test_download_one_page_anime(self, mock_requests):
-        """"""
         mock_requests.always_mock(self.TEST_USER_SMALL_PAGE, 'user_anime_list_small')
         mock_requests.always_mock(self.TEST_USER_SMALL_END_PAGE, 'user_anime_list_end')
 
