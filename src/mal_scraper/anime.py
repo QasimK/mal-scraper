@@ -4,6 +4,8 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 
 from .consts import AiringStatus, Format
+from .exceptions import MissingTagError, ParseError
+from .mal_utils import get_date
 from .requester import request_passthrough
 
 
@@ -16,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 def retrieve_anime(id_ref=1, requester=request_passthrough):
-    """Return the metadata for a particular show. TODO.
+    """Return the metadata for a particular show.
 
     Args:
         id_ref (Optional(int)): Internal show identifier
@@ -24,7 +26,9 @@ def retrieve_anime(id_ref=1, requester=request_passthrough):
             This allows us to control/limit/mock requests.
 
     Return:
-        A tuple of two dicts (retrieval information, anime information).
+        None if we failed to download the page, otherwise a tuple of two dicts
+        (retrieval information, anime information).
+
         The retrieval information will include the keys:
             success (bool): Was *all* the information was retrieved?
                 (Some keys from anime information may be missing otherwise.)
@@ -56,29 +60,6 @@ def retrieve_anime(id_ref=1, requester=request_passthrough):
 
 def get_url_from_id_ref(id_ref):
     return 'http://myanimelist.net/anime/{:d}'.format(id_ref)
-
-
-class ParseError(Exception):
-    """The given tag could not be parsed properly"""
-
-    def __init__(self, tag, error):
-        super().__init__((tag, error))
-        self.tag = tag
-        self.error = error
-        logger.warn('Error processing tag "%s": %s.', self.tag, self.error)
-
-    def __repr__(self):  # pragma: no cover
-        return 'ParseError(tag="{0.tag}", error="{0.error}")'.format(self)
-
-    def __str__(self):  # pragma: no cover
-        return 'Tag "{0.tag}" could not be parsed because: {0.error}.'.format(self)
-
-
-class MissingTagError(ParseError):
-    """The tag is missing from the soup/webpage."""
-
-    def __init__(self, tag):
-        super().__init__(tag, 'Missing from soup/webpage')
 
 
 def _process_soup(soup):
@@ -187,24 +168,6 @@ def _get_airing_status(soup):
     return status
 
 
-def _convert_to_date(text):
-    """Convert MAL text to a datetime stamp.
-
-    Args:
-        text (str): like "Apr 3, 1998"
-
-    Returns:
-        date object or None.
-
-    Raises:
-        ValueError: if the conversion fails
-
-    Issues:
-        - This may be locale dependent
-    """
-    return datetime.strptime(text, '%b %d, %Y').date()
-
-
 def _get_start_date(soup):
     pretag = soup.find('span', string='Aired:')
     if not pretag:
@@ -214,7 +177,7 @@ def _get_start_date(soup):
     start_text = aired_text.split(' to ')[0]
 
     try:
-        start_date = _convert_to_date(start_text)
+        start_date = get_date(start_text)
     except ValueError:  # pragma: no cover
         # MAL probably changed their website
         raise ParseError('airing start date', 'Cannot process text "%s"' % start_text)
@@ -234,7 +197,7 @@ def _get_end_date(soup):
         return None
 
     try:
-        end_date = _convert_to_date(end_text)
+        end_date = get_date(end_text)
     except ValueError:  # pragma: no cover
         # MAL probably changed their website
         raise ParseError('airing end date', 'Cannot process text "%s"' % end_text)

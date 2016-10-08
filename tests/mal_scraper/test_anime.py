@@ -39,7 +39,7 @@ def test_download_first(mock_requests):
 
 
 def test_download_first_fail(mock_requests):
-    """Do we get None if the page was bad??"""
+    """Do we get a failed success if the page was bad?"""
     mock_requests.always_mock(
         'http://myanimelist.net/anime/1',
         'garbled_anime_page',
