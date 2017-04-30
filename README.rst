@@ -12,7 +12,7 @@ Overview
     * - tests
       - |travis| |requires| |codecov| |codacy|
     * - package
-      - |version| |wheel| |supported-versions| |supported-implementations|
+      - |version| |wheel| |supported-versions|
 
 .. |docs| image:: https://readthedocs.org/projects/mal-scraper/badge/?style=flat
     :target: https://readthedocs.org/projects/mal-scraper
