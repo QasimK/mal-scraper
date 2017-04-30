@@ -80,10 +80,10 @@ To run the all tests, skipping the python interpreters you don't have::
 
     tox --skip-missing-interpreters
 
-Project Notes::
+Project Notes:
 
 - Tests will always mock requests to the internet. You can set the environment
-variable :code:`LIVE_RESPONSES=1` to properly test web scraping.
+  variable :code:`LIVE_RESPONSES=1` to properly test web scraping.
 - You can look at coverage results inside :code:`htmlcov/index.html`.
 
 Note, to combine the coverage data from all the tox environments run:
