@@ -69,8 +69,8 @@ We follow `Semantic Versioning <http://semver.org/>`_.
 Development
 ===========
 
-Please see the `Contributing`_ documentation page for full details, and especially
-look at the tips section there.
+Please see the `Contributing <https://mal-scraper.readthedocs.io/en/latest/contributing.html>`_
+documentation page for full details, and especially look at the tips section.
 
 After cloning, and creating a virtualenv, install the development dependencies::
 
