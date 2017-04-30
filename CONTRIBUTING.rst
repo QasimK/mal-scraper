@@ -37,6 +37,8 @@ Development
 
 To set up `mal-scraper` for local development:
 
+We respect `.editorconfig <http://editorconfig.org/>`.
+
 1. Fork `mal-scraper <https://github.com/QasimK/mal-scraper>`_
    (look for the "Fork" button).
 2. Clone your fork locally::
@@ -52,6 +54,8 @@ To set up `mal-scraper` for local development:
 4. When you're done making changes, run all the checks, doc builder and spell checker with `tox <http://tox.readthedocs.io/en/latest/install.html>`_ one command::
 
     tox
+
+  The newly built HTML docs can be found within the dist folder in the repo.
 
 5. Commit your changes and push your branch to GitHub::
 
@@ -81,9 +85,17 @@ For merging, you should:
 Tips
 ----
 
+To run the test-suite quickly::
+
+    pytest
+
 To run a subset of tests::
 
     tox -e envname -- py.test -k test_myfeature
+
+To skip Python environments that you do not have installed::
+
+    tox --skip-missing-interpreters
 
 To run all the test environments in *parallel* (you need to ``pip install detox``)::
 

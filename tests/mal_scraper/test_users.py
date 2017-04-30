@@ -112,7 +112,8 @@ class TestUserStats(object):
         mock_requests.always_mock(self.TEST_LAST_ONLINE_DATE_PAGE, 'user_last_online_date')
 
         _, info = mal_scraper.get_user_stats(self.TEST_LAST_ONLINE_DATE_USER)
-        assert datetime(year=2016, month=10, day=1, hour=4, minute=29) == info['last_online']
+        this_year = datetime.utcnow().year
+        assert datetime(year=this_year, month=10, day=1, hour=4, minute=29) == info['last_online']
 
 
 class TestUserAnimeList(object):

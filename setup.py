@@ -25,6 +25,7 @@ requirements = [
 
 test_requirements = [
     'tox',
+    'pytest',
     'responses      >=0, <1',
 ]
 
