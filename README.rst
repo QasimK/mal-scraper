@@ -46,11 +46,6 @@ Overview
     :alt: Supported versions
     :target: https://pypi.python.org/pypi/mal-scraper
 
-.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/mal-scraper.svg?style=flat
-    :alt: Supported implementations
-    :target: https://pypi.python.org/pypi/mal-scraper
-
-
 .. end-badges
 
  MyAnimeList web scraper is a Python library for gathering data for analysis.
