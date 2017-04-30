@@ -59,17 +59,17 @@ Overview
 Usage
 =====
 
-Use the `online documentation <https://mal-scraper.readthedocs.io/>`, and just::
+Use the `online documentation <https://mal-scraper.readthedocs.io/>`_, and just::
 
     pip install mal-scraper
 
-We follow `Semantic Versioning <http://semver.org/>`.
+We follow `Semantic Versioning <http://semver.org/>`_.
 
 
 Development
 ===========
 
-Please see the Contributing documentation page for full details, and especially
+Please see the `Contributing`_ documentation page for full details, and especially
 look at the tips section there.
 
 After cloning, and creating a virtualenv, install the development dependencies::
@@ -80,17 +80,15 @@ To run the all tests, skipping the python interpreters you don't have::
 
     tox --skip-missing-interpreters
 
+Project Notes::
+
 - Tests will always mock requests to the internet. You can set the environment
 variable :code:`LIVE_RESPONSES=1` to properly test web scraping.
-- Run tests faster using just :code:`py.test` (useful for intermediate
-development). However, tox must be run as it also tests documentation,
-additional style linting etc.
-- You can look at coverage results inside `htmlcov/index.html`.
+- You can look at coverage results inside :code:`htmlcov/index.html`.
 
 Note, to combine the coverage data from all the tox environments run:
 
 .. list-table::
-    :widths: 10 90
     :stub-columns: 1
 
     - - Windows
