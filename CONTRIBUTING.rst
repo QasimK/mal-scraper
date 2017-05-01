@@ -105,4 +105,4 @@ Pypi Submission
 ===============
 
 1. Bump Version ``bumpversion minor``
-2. Upload to Pypi ``python setup.py sdist upload -r pypi``
+2. Upload to Pypi ``python setup.py sdist bdist_wheel upload -r pypi``
