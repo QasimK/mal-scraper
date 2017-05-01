@@ -35,9 +35,12 @@ If you are proposing a feature:
 Development
 ===========
 
-To set up `mal-scraper` for local development:
+We follow (and our tests check):
 
-We respect `.editorconfig <http://editorconfig.org/>`.
+* `editorconfig <http://editorconfig.org/>`_
+* `isort <https://github.com/timothycrosley/isort>`_
+
+To set up `mal-scraper` for local development:
 
 1. Fork `mal-scraper <https://github.com/QasimK/mal-scraper>`_
    (look for the "Fork" button).
@@ -101,7 +104,7 @@ To run all the test environments in *parallel* (you need to ``pip install detox`
 
     detox
 
-Pypi Submission
+PyPI Submission
 ===============
 
 1. Bump Version ``bumpversion minor``
