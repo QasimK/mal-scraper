@@ -95,10 +95,6 @@ def get_user_stats(username, requester=request_passthrough):
     return (retrieval_info, info)
 
 
-def get_profile_url_from_username(username):
-    return 'http://myanimelist.net/profile/{:s}'.format(username)
-
-
 def get_user_anime_list(username, requester=request_passthrough):
     """Return the categorised anime listed by the user.
 
@@ -145,6 +141,13 @@ def get_user_anime_list(username, requester=request_passthrough):
     return anime
 
 
+# --- URLs ---
+
+
+def get_profile_url_from_username(username):
+    return 'http://myanimelist.net/profile/{:s}'.format(username)
+
+
 def get_anime_list_url_for_user(username, offset=0):
     """Return the url to the JSON feed for the given user:
 
@@ -158,6 +161,9 @@ def get_anime_list_url_for_user(username, offset=0):
     return url.format(username=username, offset=offset)
 
 
+# --- Dynamic User Discovery ---
+
+
 def _process_discovery_soup(soup):
     """Return a set of username strings."""
     users = soup.find_all('a', href=lambda link: link and link.startswith('/profile/'))
@@ -166,6 +172,9 @@ def _process_discovery_soup(soup):
 
     stripped_links = set(user['href'][len('/profile/'):] for user in users)
     return stripped_links
+
+
+# --- Parse Profile Page ---
 
 
 def _process_profile_soup(soup):
@@ -271,6 +280,9 @@ _get_num_anime_completed = partial(_get_num_anime_stats, classname='completed')
 _get_num_anime_on_hold = partial(_get_num_anime_stats, classname='on-hold')
 _get_num_anime_dropped = partial(_get_num_anime_stats, classname='dropped')
 _get_num_anime_plan_to_watch = partial(_get_num_anime_stats, classname='plantowatch')
+
+
+# --- Parse User's Anime List Page(s) ---
 
 
 def _process_anime_list_json(json):

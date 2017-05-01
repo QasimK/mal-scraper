@@ -8,23 +8,38 @@ class MalScraperError(Exception):
 
 
 class ParseError(MalScraperError):
-    """The given tag could not be parsed properly"""
+    """A component of the HTML could not be parsed/processed.
 
-    def __init__(self, tag, error):
-        super().__init__((tag, error))
+    The tag is the "component" under consideration to help determine where
+    the error comes from.
+
+    Args:
+        message (str): Human readable string describing the problem.
+        tag (str, optional): Which part of the page does this pertain to.
+
+    Attributes:
+        message (str): Human readable string describing the problem.
+        tag (str): Which part of the page does this pertain to.
+    """
+
+    def __init__(self, message, tag=None):
+        super().__init__(message)
+        self.message = message
+        self.tag = tag or ''
+
+    def specify_tag(self, tag):
+        """Specify the tag later."""
         self.tag = tag
-        self.error = error
-        logger.error('Error processing tag "%s": %s.', self.tag, self.error)
 
-    def __repr__(self):  # pragma: no cover
-        return 'ParseError(tag="{0.tag}", error="{0.error}")'.format(self)
 
-    def __str__(self):  # pragma: no cover
-        return 'Tag "{0.tag}" could not be parsed because: {0.error}.'.format(self)
+# --- Internal Exceptions ---
 
 
 class MissingTagError(ParseError):
-    """The tag is missing from the soup/webpage."""
+    """The tag is missing from the soup/webpage.
 
-    def __init__(self, tag):
-        super().__init__(tag, 'Missing from soup/webpage')
+    Internal exception to mal_scraper.
+    """
+
+    def __init__(self, tag=None):
+        super().__init__('Missing from soup/webpage', tag)

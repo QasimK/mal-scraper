@@ -2,6 +2,8 @@
 
 from datetime import date, datetime, timedelta
 
+import pytest
+
 import mal_scraper
 
 
@@ -11,13 +13,11 @@ def test_download_first(mock_requests):
     meta, info = mal_scraper.retrieve_anime(1)
 
     # Fuzzy match datetime
-    retrieval = meta['scraper_retrieved_at']
-    assert datetime.utcnow() - retrieval < timedelta(seconds=30)
+    assert datetime.utcnow() - meta['when'] < timedelta(seconds=30)
 
     assert meta == {
-        'success': True,
-        'scraper_retrieved_at': retrieval,  # UTC Datetime
         'id_ref': 1,
+        'when': meta['when'],  # UTC Datetime
     }
 
     assert info == {
@@ -44,7 +44,8 @@ def test_download_first_fail(mock_requests):
         'http://myanimelist.net/anime/1',
         'garbled_anime_page',
     )
-    assert not mal_scraper.retrieve_anime(1)[0]['success']
+    with pytest.raises(mal_scraper.ParseError):
+        mal_scraper.retrieve_anime(1)
 
 
 def test_parsing_unknown_episodes(mock_requests):

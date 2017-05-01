@@ -3,7 +3,7 @@ from datetime import datetime
 
 from bs4 import BeautifulSoup
 
-from .consts import AiringStatus, Format
+from .consts import AiringStatus, Retrieved, Format
 from .exceptions import MissingTagError, ParseError
 from .mal_utils import get_date
 from .requester import request_passthrough
@@ -18,57 +18,105 @@ logger = logging.getLogger(__name__)
 
 
 def retrieve_anime(id_ref=1, requester=request_passthrough):
-    """Return the metadata for a particular show.
+    """mal_scraper.retrieve_anime(id_ref=1, requester)
+
+    Return the information for a particular show.
+
+    This will raise exceptions unless we properly and fully retrieve and process
+    the web-page.
 
     Args:
-        id_ref (Optional(int)): Internal show identifier
-        requester (Optional(requests-like)): HTTP request maker
+        id_ref (int, optional): Internal show identifier.
+        requester (requests-like, optional): HTTP request maker
             This allows us to control/limit/mock requests.
 
-    Return:
-        None if we failed to download the page, otherwise a tuple of two dicts
-        (retrieval information, anime information).
+    Returns:
+        :class:`.Retrieved`: with the attributes `meta` and `data`.
 
-        The retrieval information will include the keys:
-            success (bool): Was *all* the information was retrieved?
-                (Some keys from anime information may be missing otherwise.)
-            scraper_retrieved_at (datetime): When the request was completed.
-            id_ref (int): id_ref of this anime.
-        The anime information will include the keys:
-            See tests/mal_scraper/test_anime.py::test_download_first
+        `data`::
+
+                {
+                    'name': str,
+                    'name_english': str,
+                    'format': mal_scraper.Format,
+                    'episodes': int, or None when MAL does not know,
+                    'airing_status': mal_scraper.AiringStatus,
+                    'airing_started': datetime,
+                    'airing_finished': datetime, or None when MAL does not know,
+                    'airing_premiere': tuple(Year (int), Season (str)),
+                }
+
+        See also :class:`.Format`, :class:`.AiringStatus`.
+
+    Raises:
+        Network and Request Errors: See Requests library.
+        .ParseError: Upon processing the web-page including anything that does
+            not meet expectations.
+
+    Examples:
+
+        Retrieve the first anime and get the next anime to retrieve::
+
+            next_anime = 1
+
+            try:
+                meta, data = mal_scraper.retrieve_anime(next_anime)
+            except mal_scraper.ParseError as err:
+                logger.error('Investigate page %s with error %d', err.url, err.code)
+            except Network and Request Errors:
+                pass  # TODO docs, retry etc.
+            else:
+                mycode.save_data(data, when=meta['when'])
+
+            next_anime = meta['id_ref'] + 1
+
+    .. py:sig:: mal_scrape.retrieve_anime(id_ref=1, requester)
     """
     url = get_url_from_id_ref(id_ref)
+
     response = requester.get(url)
-    if not response.ok:
-        logging.error('Unable to retrieve anime ({0.status_code}):\n{0.text}'.format(response))
-        return None
+    response.raise_for_status()  # May raise
 
     soup = BeautifulSoup(response.content, 'html.parser')
-    success, info = _process_soup(soup)
+    data = retrieve_anime_from_soup(soup)  # May raise
 
-    if not success:
-        logger.warn('Failed to properly process the page "%s".', url)
-
-    retrieval_info = {
-        'success': success,
-        'scraper_retrieved_at': datetime.utcnow(),
+    meta = {
+        'when': datetime.utcnow(),
         'id_ref': id_ref,
     }
 
-    return (retrieval_info, info)
+    return Retrieved(meta, data)
 
 
 def get_url_from_id_ref(id_ref):
     return 'http://myanimelist.net/anime/{:d}'.format(id_ref)
 
 
-def _process_soup(soup):
-    """Return (success?, metadata) from a soup of HTML.
+def retrieve_anime_from_soup(soup):
+    """Return the anime information from a soup of HTML.
+
+    Args:
+        soup (Soup): BeatifulSoup object
 
     Returns:
-        (success?, metadata) where success is only if there were zero errors.
+        A data dictionary::
+
+            {
+                'name': str,
+                'name_english': str,
+                'format': mal_scraper.Format,
+                'episodes': int,
+                'airing_status': TODO,
+                'airing_started': TODO,
+                'airing_finished': TODO,
+                'airing_premiere': TODO,
+            }
+
+    Raises:
+        ParseError: If any component of the page could not be processed
+            or was unexpected.
     """
-    retrieve = {
+    process = {
         'name': _get_name,
         'name_english': _get_english_name,
         'format': _get_format,
@@ -79,22 +127,18 @@ def _process_soup(soup):
         'airing_premiere': _get_airing_premiere,
     }
 
-    retrieved = {}
-    failed_tags = []
-    for tag, func in retrieve.items():
+    data = {}
+    for tag, func in process.items():
         try:
             result = func(soup)
-        except ParseError:
-            logger.warn('Error processing tag "%s".', tag)
-            failed_tags.append(tag)
-        else:
-            retrieved[tag] = result
+        except ParseError as err:
+            logger.debug('Failed to process tag %s', tag)
+            err.specify_tag(tag)
+            raise
 
-    success = not bool(failed_tags)
-    if not success:
-        logger.warn('Failed to process tags: %s', failed_tags)
+        data[tag] = result
 
-    return (success, retrieved)
+    return data
 
 
 def _get_name(soup):
@@ -213,7 +257,7 @@ def _get_airing_premiere(soup):
     season, year = pretag.find_next('a').string.lower().split(' ')
 
     if season == 'fall':
-        season = 'autumn'
+        season = 'autumn'  # There is a reason for this but it is a bad reason
     elif season not in ('spring', 'summer', 'autumn', 'winter'):  # pragma: no cover
         # MAL probably changed their website
         raise ParseError('premiered', 'Unable to identify season "%s"' % season)
