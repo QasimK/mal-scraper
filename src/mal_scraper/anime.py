@@ -3,7 +3,7 @@ from datetime import datetime
 
 from bs4 import BeautifulSoup
 
-from .consts import AiringStatus, Retrieved, Format
+from .consts import AiringStatus, Format, Retrieved, Season
 from .exceptions import MissingTagError, ParseError
 from .mal_utils import get_date
 from .requester import request_passthrough
@@ -43,10 +43,10 @@ def retrieve_anime(id_ref=1, requester=request_passthrough):
                     'airing_status': mal_scraper.AiringStatus,
                     'airing_started': datetime,
                     'airing_finished': datetime, or None when MAL does not know,
-                    'airing_premiere': tuple(Year (int), Season (str)),
+                    'airing_premiere': tuple(Year (int), Season (mal_scraper.Season)),
                 }
 
-        See also :class:`.Format`, :class:`.AiringStatus`.
+        See also :class:`.Format`, :class:`.AiringStatus`, :class:`.Season`.
 
     Raises:
         Network and Request Errors: See Requests library.
@@ -256,9 +256,8 @@ def _get_airing_premiere(soup):
 
     season, year = pretag.find_next('a').string.lower().split(' ')
 
-    if season == 'fall':
-        season = 'autumn'  # There is a reason for this but it is a bad reason
-    elif season not in ('spring', 'summer', 'autumn', 'winter'):  # pragma: no cover
+    season = Season.mal_to_enum(season)
+    if season is None:
         # MAL probably changed their website
         raise ParseError('premiered', 'Unable to identify season "%s"' % season)
 

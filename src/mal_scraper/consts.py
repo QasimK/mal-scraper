@@ -1,7 +1,7 @@
 """All constants/enumerations available directly from `mal_scraper.x`"""
 
 from collections import namedtuple
-from enum import Enum
+from enum import Enum, unique
 
 
 Retrieved = namedtuple('Retrieved', ['meta', 'data'])
@@ -22,6 +22,7 @@ Retrieved = namedtuple('Retrieved', ['meta', 'data'])
 """
 
 
+@unique
 class ConsumptionStatus(Enum):
     """A person's status on a media item, e.g. are they currently watching it?"""
     consuming = 'CONSUMING'
@@ -31,6 +32,7 @@ class ConsumptionStatus(Enum):
     backlog = 'BACKLOG'
 
 
+@unique
 class AiringStatus(Enum):
     """The airing status of a media item."""
     pre_air = 'PREAIR'
@@ -38,11 +40,32 @@ class AiringStatus(Enum):
     finished = 'FINISHED'
 
 
+class Season(Enum):
+    """The season in a year ordered as Winter, Spring, Summer, Autumn."""
+    # _order_ = 'WINTER SPRING SUMMER AUTUMN'  # py3.6? The order in a year
+    winter = 'WINTER'
+    spring = 'SPRING'
+    summer = 'SUMMER'
+    autumn = fall = 'AUTUMN'
+
+    @classmethod
+    def mal_to_enum(cls, text):
+        """Return the enum from the MAL string, or None"""
+        return {
+            'winter': cls.winter,
+            'spring': cls.spring,
+            'summer': cls.summer,
+            'fall': cls.autumn,
+        }.get(text.lower().strip())
+
+
+@unique
 class Format(Enum):
     """The media format of a media item."""
     tv = 'TV'
 
 
+@unique
 class AgeRating(Enum):
     """The age rating of a media item."""
     restricted = 'RESTRICTED'
