@@ -23,7 +23,8 @@ requirements = [
 ]
 
 
-test_requirements = [
+dev_requirements = [
+    'bumpversion',
     'tox',
     'pytest',
     'responses      >=0, <1',
@@ -69,6 +70,6 @@ setup(
     ],
     install_requires=requirements,
     extras_require={
-        'develop': test_requirements,
+        'develop': dev_requirements,
     },
 )

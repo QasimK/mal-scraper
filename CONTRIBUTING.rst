@@ -100,3 +100,9 @@ To skip Python environments that you do not have installed::
 To run all the test environments in *parallel* (you need to ``pip install detox``)::
 
     detox
+
+Pypi Submission
+===============
+
+1. Bump Version ``bumpversion minor``
+2. Upload to Pypi ``python setup.py sdist upload -r pypi``
