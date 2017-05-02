@@ -24,6 +24,9 @@ class TestGetDatetime(object):
     def test_get_datetime(self, text, expected_datetime):
         assert (expected_datetime - mal_utils.get_datetime(text)) < timedelta(minutes=1)
 
+        time_difference = mal_utils.get_datetime(text, self.nowish) - mal_utils.get_datetime(text)
+        assert time_difference < timedelta(minutes=1)
+
     @pytest.mark.parametrize('text,expected_datetime', [
         ('Now', yesterdayish),
         ('Oct 1, 2013 11:04 PM', datetime(year=2013, month=9, day=30, hour=23, minute=4)),
