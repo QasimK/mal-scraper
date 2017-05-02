@@ -24,10 +24,18 @@ requirements = [
 
 
 dev_requirements = [
+    # Publishing
     'bumpversion',
+
+    # Testing
     'tox',
     'pytest',
     'responses      >=0, <1',
+
+    # Helpers
+    'ipython',
+    'isort',
+    'pdbpp',
 ]
 
 
@@ -65,9 +73,10 @@ setup(
         'Topic :: Utilities',
         'Topic :: Internet',
         'Topic :: Software Development :: Libraries',
+        'Topic :: Text Processing :: Markup :: HTML',
     ],
     keywords=[
-        # eg: 'keyword1', 'keyword2', 'keyword3',
+        'web', 'scraper', 'library', 'anime', 'data', 'collector'
     ],
     install_requires=requirements,
     extras_require={
