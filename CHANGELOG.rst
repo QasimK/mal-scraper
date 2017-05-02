@@ -1,6 +1,12 @@
-
+=========
 Changelog
 =========
+
+Development
+-----------------------------------------
+
+* Fix various issues on anime pages
+* Rename `retrieve_anime` to `get_anime` for consistency (backwards-incompatible)
 
 0.2.1 (2017-05-01)
 -----------------------------------------

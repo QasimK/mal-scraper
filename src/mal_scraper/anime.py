@@ -1,3 +1,4 @@
+import itertools
 import logging
 from datetime import datetime
 
@@ -8,7 +9,6 @@ from .exceptions import MissingTagError, ParseError
 from .mal_utils import get_date
 from .requester import request_passthrough
 
-
 logger = logging.getLogger(__name__)
 
 # Future interface?
@@ -17,8 +17,8 @@ logger = logging.getLogger(__name__)
 #     pass
 
 
-def retrieve_anime(id_ref=1, requester=request_passthrough):
-    """mal_scraper.retrieve_anime(id_ref=1, requester)
+def get_anime(id_ref=1, requester=request_passthrough):
+    """mal_scraper.get_anime(id_ref=1, requester)
 
     Return the information for a particular show.
 
@@ -35,16 +35,17 @@ def retrieve_anime(id_ref=1, requester=request_passthrough):
 
         `data`::
 
-                {
-                    'name': str,
-                    'name_english': str,
-                    'format': mal_scraper.Format,
-                    'episodes': int, or None when MAL does not know,
-                    'airing_status': mal_scraper.AiringStatus,
-                    'airing_started': datetime,
-                    'airing_finished': datetime, or None when MAL does not know,
-                    'airing_premiere': tuple(Year (int), Season (mal_scraper.Season)),
-                }
+            {
+                'name': str,
+                'name_english': str,
+                'format': mal_scraper.Format,
+                'episodes': int, or None when MAL does not know,
+                'airing_status': mal_scraper.AiringStatus,
+                'airing_started': date,
+                'airing_finished': date, or None when MAL does not know,
+                'airing_premiere': tuple(Year (int), Season (mal_scraper.Season))
+                    or None (for films, OVAs, specials, ONAs and music),
+            }
 
         See also :class:`.Format`, :class:`.AiringStatus`, :class:`.Season`.
 
@@ -60,17 +61,15 @@ def retrieve_anime(id_ref=1, requester=request_passthrough):
             next_anime = 1
 
             try:
-                meta, data = mal_scraper.retrieve_anime(next_anime)
+                meta, data = mal_scraper.get_anime(next_anime)
             except mal_scraper.ParseError as err:
                 logger.error('Investigate page %s with error %d', err.url, err.code)
-            except Network and Request Errors:
-                pass  # TODO docs, retry etc.
+            except NetworkandRequestErrors:  # Pseudo-code (TODO: These docs)
+                pass  # Retry?
             else:
                 mycode.save_data(data, when=meta['when'])
 
             next_anime = meta['id_ref'] + 1
-
-    .. py:sig:: mal_scrape.retrieve_anime(id_ref=1, requester)
     """
     url = get_url_from_id_ref(id_ref)
 
@@ -78,21 +77,25 @@ def retrieve_anime(id_ref=1, requester=request_passthrough):
     response.raise_for_status()  # May raise
 
     soup = BeautifulSoup(response.content, 'html.parser')
-    data = retrieve_anime_from_soup(soup)  # May raise
+    data = get_anime_from_soup(soup)  # May raise
 
     meta = {
         'when': datetime.utcnow(),
         'id_ref': id_ref,
+        'response': response,
     }
 
     return Retrieved(meta, data)
 
 
 def get_url_from_id_ref(id_ref):
-    return 'http://myanimelist.net/anime/{:d}'.format(id_ref)
+    # Use HTTPS to avoid auto-redirect from HTTP (except for tests)
+    from .__init__ import FORCE_HTTP
+    protocol = 'http' if FORCE_HTTP else 'https'
+    return '{}://myanimelist.net/anime/{:d}'.format(protocol, id_ref)
 
 
-def retrieve_anime_from_soup(soup):
+def get_anime_from_soup(soup):
     """Return the anime information from a soup of HTML.
 
     Args:
@@ -105,32 +108,33 @@ def retrieve_anime_from_soup(soup):
                 'name': str,
                 'name_english': str,
                 'format': mal_scraper.Format,
-                'episodes': int,
-                'airing_status': TODO,
-                'airing_started': TODO,
-                'airing_finished': TODO,
-                'airing_premiere': TODO,
+                'episodes': int, or None when MAL does not know,
+                'airing_status': mal_scraper.AiringStatus,
+                'airing_started': date,
+                'airing_finished': date, or None when MAL does not know,
+                'airing_premiere': tuple(Year (int), Season (mal_scraper.Season))
+                    or None (for films, OVAs, specials, ONAs and music),
             }
 
     Raises:
         ParseError: If any component of the page could not be processed
             or was unexpected.
     """
-    process = {
-        'name': _get_name,
-        'name_english': _get_english_name,
-        'format': _get_format,
-        'episodes': _get_episodes,
-        'airing_status': _get_airing_status,
-        'airing_started': _get_start_date,
-        'airing_finished': _get_end_date,
-        'airing_premiere': _get_airing_premiere,
-    }
+    process = [
+        ('name', _get_name),
+        ('name_english', _get_english_name),
+        ('format', _get_format),
+        ('episodes', _get_episodes),
+        ('airing_status', _get_airing_status),
+        ('airing_started', _get_start_date),
+        ('airing_finished', _get_end_date),
+        ('airing_premiere', _get_airing_premiere),
+    ]
 
     data = {}
-    for tag, func in process.items():
+    for tag, func in process:
         try:
-            result = func(soup)
+            result = func(soup, data)
         except ParseError as err:
             logger.debug('Failed to process tag %s', tag)
             err.specify_tag(tag)
@@ -141,7 +145,7 @@ def retrieve_anime_from_soup(soup):
     return data
 
 
-def _get_name(soup):
+def _get_name(soup, data=None):
     tag = soup.find('span', itemprop='name')
     if not tag:
         raise MissingTagError('name')
@@ -150,33 +154,38 @@ def _get_name(soup):
     return text
 
 
-def _get_english_name(soup):
+def _get_english_name(soup, data=None):
     pretag = soup.find('span', string='English:')
+
+    # This is not always present (https://myanimelist.net/anime/15)
     if not pretag:
-        raise MissingTagError('english name')
+        return ''
 
     text = pretag.next_sibling.strip()
     return text
 
 
-def _get_format(soup):
+def _get_format(soup, data=None):
     pretag = soup.find('span', string='Type:')
     if not pretag:
         raise MissingTagError('type')
 
-    text = pretag.find_next('a').string.strip().upper()
-    format_ = {
-        'TV': Format.tv
-    }.get(text, None)
+    for text in itertools.islice(pretag.next_siblings, 3):
+        text = text.string.strip()
+        if text:
+            break
+    else:
+        text = None
 
+    format_ = Format.mal_to_enum(text)
     if not format_:  # pragma: no cover
         # Either we missed a format, or MAL changed the webpage
-        raise ParseError('type', 'Unknown format for the text "{}"'.format(text))
+        raise ParseError('Unable to identify format from "{}"'.format(text))
 
     return format_
 
 
-def _get_episodes(soup):
+def _get_episodes(soup, data=None):
     pretag = soup.find('span', string='Episodes:')
     if not pretag:
         raise MissingTagError('episodes')
@@ -189,12 +198,12 @@ def _get_episodes(soup):
         episodes_number = int(episodes_text)
     except (ValueError, TypeError):  # pragma: no cover
         # MAL probably changed the webpage
-        raise ParseError('episodes', 'Unable to convert text "%s" to int' % episodes_text)
+        raise ParseError('Unable to convert text "%s" to int' % episodes_text)
 
     return episodes_number
 
 
-def _get_airing_status(soup):
+def _get_airing_status(soup, data=None):
     pretag = soup.find('span', string='Status:')
     if not pretag:
         raise MissingTagError('status')
@@ -207,12 +216,12 @@ def _get_airing_status(soup):
 
     if not status:  # pragma: no cover
         # MAL probably changed the website
-        raise ParseError('status', 'Unable to identify text "%s"' % status_text)
+        raise ParseError('Unable to identify status from "%s"' % status_text)
 
     return status
 
 
-def _get_start_date(soup):
+def _get_start_date(soup, data=None):
     pretag = soup.find('span', string='Aired:')
     if not pretag:
         raise MissingTagError('aired')
@@ -224,18 +233,24 @@ def _get_start_date(soup):
         start_date = get_date(start_text)
     except ValueError:  # pragma: no cover
         # MAL probably changed their website
-        raise ParseError('airing start date', 'Cannot process text "%s"' % start_text)
+        raise ParseError('Unable to identify date from "%s"' % start_text)
 
     return start_date
 
 
-def _get_end_date(soup):
+def _get_end_date(soup, data=None):
     pretag = soup.find('span', string='Aired:')
     if not pretag:
         raise MissingTagError('aired')
 
     aired_text = pretag.next_sibling.strip()
-    end_text = aired_text.split(' to ')[1]
+    date_range_text = aired_text.split(' to ')
+
+    # Not all Aired tags have a date range (https://myanimelist.net/anime/5)
+    try:
+        end_text = date_range_text[1]
+    except IndexError:
+        return None
 
     if end_text == '?':
         return None
@@ -244,27 +259,34 @@ def _get_end_date(soup):
         end_date = get_date(end_text)
     except ValueError:  # pragma: no cover
         # MAL probably changed their website
-        raise ParseError('airing end date', 'Cannot process text "%s"' % end_text)
+        raise ParseError('Unable to identify date from "%s"' % end_text)
 
     return end_date
 
 
-def _get_airing_premiere(soup):
+def _get_airing_premiere(soup, data):
     pretag = soup.find('span', string='Premiered:')
     if not pretag:
-        raise MissingTagError('premiered')
+        # Film: https://myanimelist.net/anime/5
+        # OVA: https://myanimelist.net/anime/44
+        # ONA: https://myanimelist.net/anime/574
+        # TODO: Missing Special, Music links
+        if data['format'] in (Format.film, Format.ova, Format.special, Format.ona, Format.music):
+            return None
+        else:
+            raise MissingTagError('premiered')
 
     season, year = pretag.find_next('a').string.lower().split(' ')
 
     season = Season.mal_to_enum(season)
     if season is None:
         # MAL probably changed their website
-        raise ParseError('premiered', 'Unable to identify season "%s"' % season)
+        raise ParseError('Unable to identify season from "%s"' % season)
 
     try:
         year = int(year)
     except (ValueError, TypeError):  # pragma: no cover
         # MAL probably changed their website
-        raise ParseError('premiered', 'Unable to identify year "%s"' % year)
+        raise ParseError('Unable to identify year from "%s"' % year)
 
     return (year, season)

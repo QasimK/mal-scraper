@@ -50,6 +50,31 @@ def discover_users(requester=request_passthrough):
     return users
 
 
+# TODO: Clean this up
+username_regex = re.compile(
+    r"href=[\"'](https?\://myanimelist\.net)?/profile/(?P<username>\w+)[\w/]*[\"']",
+    re.ASCII | re.DOTALL | re.IGNORECASE,
+)
+
+
+def discover_users_from_html(html):
+    """Generate usernames from the given HTML (repetition is possible)
+
+    Args:
+        html (str): HTML to hunt through
+
+    Yields:
+        Usernames (string)
+
+    Test strings::
+
+        <a href="/profile/TheLlama">
+        <a href="https://myanimelist.net/profile/TheLlama">
+        <a href="/profile/TheLlama/reviews">All reviews</a>
+    """
+    return (m.group('username') for m in username_regex.finditer(html))
+
+
 def get_user_stats(username, requester=request_passthrough):
     """Return statistics about a particular user.
 
@@ -108,7 +133,7 @@ def get_user_anime_list(username, requester=request_passthrough):
 
         {
             name: (string) name of the anime
-            id_ref: (id_ref) can be used with retrieve_anime,
+            id_ref: (id_ref) can be used with get_anime,
             consumption_status: (ConsumptionStatus),
             is_rewatch: (bool),
             score: (int) 0-10,
@@ -145,7 +170,10 @@ def get_user_anime_list(username, requester=request_passthrough):
 
 
 def get_profile_url_from_username(username):
-    return 'http://myanimelist.net/profile/{:s}'.format(username)
+    # Use HTTPS to avoid auto-redirect from HTTP (except for tests)
+    from .__init__ import FORCE_HTTP
+    protocol = 'http' if FORCE_HTTP else 'https'
+    return '{}://myanimelist.net/profile/{:s}'.format(protocol, username)
 
 
 def get_anime_list_url_for_user(username, offset=0):
@@ -157,8 +185,10 @@ def get_anime_list_url_for_user(username, offset=0):
 
     Returns: String url
     """
-    url = 'http://myanimelist.net/animelist/{username}/load.json?offset={offset:d}&status=7'
-    return url.format(username=username, offset=offset)
+    from .__init__ import FORCE_HTTP
+    protocol = 'http' if FORCE_HTTP else 'https'
+    url = '{protocol}://myanimelist.net/animelist/{username}/load.json?offset={offset:d}&status=7'
+    return url.format(protocol=protocol, username=username, offset=offset)
 
 
 # --- Dynamic User Discovery ---

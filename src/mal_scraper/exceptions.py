@@ -1,10 +1,12 @@
+"""All exceptions are available directly from `mal_scraper.x`"""
+
 import logging
 
 logger = logging.getLogger(__name__)
 
 
 class MalScraperError(Exception):
-    """All exceptions raised by this library."""
+    """Parent to all exceptions raised by this library."""
 
 
 class ParseError(MalScraperError):
@@ -36,10 +38,10 @@ class ParseError(MalScraperError):
 
 
 class MissingTagError(ParseError):
-    """The tag is missing from the soup/webpage.
+    """The tag is missing from the soup/web-page.
 
-    Internal exception to mal_scraper.
+    This is internal, so you should instead catch :class:`.ParseError`.
     """
 
     def __init__(self, tag=None):
-        super().__init__('Missing from soup/webpage', tag)
+        super().__init__('Missing from soup/web-page', tag)

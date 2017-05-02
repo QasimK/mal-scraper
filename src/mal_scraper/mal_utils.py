@@ -3,7 +3,6 @@
 import re
 from datetime import datetime, timedelta
 
-
 last_online_minutes = re.compile(r'(?P<minutes>\d+) minutes? ago')
 last_online_hours = re.compile(r'(?P<hours>\d+) hours? ago')
 
@@ -15,7 +14,7 @@ def get_datetime(text, relative_to=None):
     in case the timestamp was generated at a different time.
 
     Args:
-        text (str): The following examples are supported
+        text (str): The following examples are supported (with varying accuracy)
             Oct 1, 2013 11:04 PM
             Oct 1, 4:29 AM
             Yesterday, 9:58 AM
@@ -25,9 +24,11 @@ def get_datetime(text, relative_to=None):
             1 minute ago
             Now
 
-    Returns datetime.datetime
+    Returns:
+        datetime.datetime
 
-    Raises ValueError if the conversion fails
+    Raises:
+        ValueError if the conversion fails
 
     Issues:
         - Potentially locale-dependent.
@@ -72,16 +73,36 @@ def get_datetime(text, relative_to=None):
 
 
 def get_date(text):
-    """Convert a date like "Apr 3, 1998"
+    """Return a datetime from a date like "Apr 3, 1998", or None.
 
     Args:
-        text (str): like "Apr 3, 1998"
+        text (str): The following examples are supported
+            Apr 3, 1998
+            Apr, 1994   (This will convert to 1st Apr 1994 as a best guess;
+                         https://myanimelist.net/anime/730)
+            2003        (This will convert to 1st Jan 2003 as a best guess;
+                         https://myanimelist.net/anime/1190)
 
-    Returns datetime.date
+    Returns:
+        datetime.date
 
-    Raises ValueError if the conversion fails
+    Raises:
+        ValueError if the conversion fails
 
     Issues:
-        - This may be locale dependent
+        This may be locale dependent
     """
-    return datetime.strptime(text, '%b %d, %Y').date()
+    try:
+        return datetime.strptime(text, '%b %d, %Y').date()
+    except ValueError:
+        pass
+
+    try:
+        return datetime.strptime(text, '%b, %Y').date()
+    except ValueError:
+        pass
+
+    try:
+        return datetime.strptime(text, '%Y').date()
+    except ValueError:
+        pass

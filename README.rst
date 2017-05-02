@@ -51,14 +51,17 @@ Overview
  MyAnimeList web scraper is a Python library for gathering data for analysis.
 
 
-Usage
-=====
+Installation & Usage
+====================
 
-Use the `online documentation <https://mal-scraper.readthedocs.io/>`_, and just::
+Installation is simple::
 
     pip install mal-scraper
 
-We follow `Semantic Versioning <http://semver.org/>`_.
+Please use the `documentation <https://mal-scraper.readthedocs.io/>`_ for
+the reference and usage examples.
+
+For your convenience follow `Semantic Versioning <http://semver.org/>`_.
 
 
 Development
