@@ -61,7 +61,7 @@ Installation is simple::
 Please use the `documentation <https://mal-scraper.readthedocs.io/>`_ for
 the reference and usage examples.
 
-For your convenience follow `Semantic Versioning <http://semver.org/>`_.
+We follow `Semantic Versioning <http://semver.org/>`_.
 
 
 Development
