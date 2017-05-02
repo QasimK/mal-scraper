@@ -33,7 +33,7 @@ dev_requirements = [
 
 setup(
     name='mal-scraper',
-    version='0.2.1',
+    version='0.3.0',
     license='MIT',
     description='MyAnimeList web scraper',
     long_description='%s\n%s' % (

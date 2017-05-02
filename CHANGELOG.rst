@@ -1,8 +1,8 @@
-=========
+
 Changelog
 =========
 
-Development
+0.3.0 (2017-05-02)
 -----------------------------------------
 
 * Fix various issues on anime pages
