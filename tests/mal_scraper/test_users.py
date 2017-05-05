@@ -2,6 +2,8 @@
 
 from datetime import date, datetime, timedelta
 
+import pytest
+
 import mal_scraper
 
 
@@ -53,37 +55,31 @@ class TestUserStats(object):
     TEST_LAST_ONLINE_DATE_USER = 'xScHeiZe'
     TEST_LAST_ONLINE_DATE_PAGE = PROFILE_URL + TEST_LAST_ONLINE_DATE_USER
 
-    def test_non_ok_download(self, mock_requests):
-        mock_requests.always_mock(self.TEST_USER_PAGE, 'garbled_user_page', status=400)
-        assert not mal_scraper.get_user_stats(self.TEST_USER)[0]['success']
-
     def test_detect_bad_download(self, mock_requests):
-        """Do we get success failure if the bad is bad?"""
         mock_requests.always_mock(self.TEST_USER_PAGE, 'garbled_user_page')
-        assert not mal_scraper.get_user_stats(self.TEST_USER)[0]['success']
+        with pytest.raises(mal_scraper.ParseError):
+            mal_scraper.get_user_stats(self.TEST_USER)
 
     def test_user_stats(self, mock_requests):
         """Do we retrieve the right stats about a user?"""
         # Always mock this because the user will change it himself
         mock_requests.always_mock(self.TEST_USER_PAGE, 'user_test_page')
 
-        meta, info = mal_scraper.get_user_stats(self.TEST_USER)
+        meta, data = mal_scraper.get_user_stats(self.TEST_USER)
 
         # Fuzzy match datetime
-        retrieval = meta['scraper_retrieved_at']
-        assert datetime.utcnow() - retrieval < timedelta(seconds=30)
+        assert datetime.utcnow() - meta['when'] < timedelta(seconds=30)
 
-        assert meta == {
-            'success': True,
-            'scraper_retrieved_at': retrieval,  # Already checked
-            'username': self.TEST_USER,
-        }
+        # Assert meta contained by ...
+        assert meta.items() >= {
+            'user_id': self.TEST_USER,
+        }.items()
 
         # Fuzzy match datetime
-        last_online = info['last_online']
+        last_online = data['last_online']
         assert datetime.utcnow() - last_online < timedelta(seconds=30)  # Special 'Now'
 
-        assert info == {
+        assert data == {
             'name': self.TEST_USER,
             'joined': date(year=2014, month=1, day=6),
             'last_online': last_online,  # Already checked
@@ -97,8 +93,8 @@ class TestUserStats(object):
     def test_user_last_online_minutes(self, mock_requests):
         mock_requests.always_mock(self.TEST_LAST_ONLINE_MINS_PAGE, 'user_last_online_mins')
 
-        _, info = mal_scraper.get_user_stats(self.TEST_LAST_ONLINE_MINS_USER)
-        last_online = info['last_online']
+        data = mal_scraper.get_user_stats(self.TEST_LAST_ONLINE_MINS_USER).data
+        last_online = data['last_online']
         assert (datetime.utcnow() - timedelta(minutes=21)) - last_online < timedelta(minutes=1)
 
     def test_user_last_online_hours(self, mock_requests):
@@ -134,12 +130,16 @@ class TestUserAnimeList(object):
     def test_non_ok_download(self, mock_requests):
         mock_requests.always_mock(self.TEST_FORBIDDEN_PAGE, 'user_anime_list_forbidden', status=401)
 
-        assert None is mal_scraper.get_user_anime_list(self.TEST_FORBIDDEN_USERNAME)
+        with pytest.raises(mal_scraper.RequestError) as err:
+            mal_scraper.get_user_anime_list(self.TEST_FORBIDDEN_USERNAME)
+        assert err.value.code == mal_scraper.RequestError.Code.forbidden
 
     def test_forbidden_access(self, mock_requests):
         mock_requests.always_mock(self.TEST_FORBIDDEN_PAGE, 'user_anime_list_forbidden', status=400)
 
-        assert None is mal_scraper.get_user_anime_list(self.TEST_FORBIDDEN_USERNAME)
+        with pytest.raises(mal_scraper.RequestError) as err:
+            mal_scraper.get_user_anime_list(self.TEST_FORBIDDEN_USERNAME)
+        assert err.value.code == mal_scraper.RequestError.Code.forbidden
 
     def test_download_one_page_anime(self, mock_requests):
         mock_requests.always_mock(self.TEST_USER_SMALL_PAGE, 'user_anime_list_small')

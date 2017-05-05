@@ -1,12 +1,39 @@
 """All exceptions are available directly from `mal_scraper.x`"""
 
 import logging
+from enum import Enum, unique
 
 logger = logging.getLogger(__name__)
 
 
 class MalScraperError(Exception):
     """Parent to all exceptions raised by this library."""
+
+
+class RequestError(MalScraperError):
+    """An error making the request.
+
+    Args:
+        code (.RequestError.Code): Error code
+        message (str): Human readable string describing the problem.
+
+    Attributes:
+        code (.RequestError.Code): Error code
+        message (str): Human readable string describing the problem.
+    """
+
+    @unique
+    class Code(Enum):
+        forbidden = 'FORBIDDEN'  # Access is forbidden by the user
+        does_not_exist = 'NOEXIST'  # Anime or User does not exist
+
+    def __init__(self, code, message):
+        if code not in self.Code.__members__.values():
+            raise RuntimeError('Invalid RequestError %s' % code)
+
+        super().__init__(message)
+        self.code = code
+        self.message = message
 
 
 class ParseError(MalScraperError):

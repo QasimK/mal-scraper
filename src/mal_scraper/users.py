@@ -1,6 +1,8 @@
 """Retrieve information about a user.
 
-This is really tricky to scrape from MAL because we cannot reference users by ID.
+Users are identified as `user_id` which are username strings.
+
+This is really tricky to scrape from MAL because we cannot enumerate users.
 We must use a user-discovery process which has limitations (see discover_users).
 
 TODO: User discovery from all other pages gets dumped here waiting for discover_users
@@ -17,8 +19,8 @@ from functools import partial
 
 from bs4 import BeautifulSoup
 
-from .consts import ConsumptionStatus
-from .exceptions import MissingTagError, ParseError
+from .consts import ConsumptionStatus, Retrieved
+from .exceptions import MissingTagError, ParseError, RequestError
 from .mal_utils import get_date, get_datetime
 from .requester import request_passthrough
 
@@ -58,7 +60,7 @@ username_regex = re.compile(
 
 
 def discover_users_from_html(html):
-    """Generate usernames from the given HTML (repetition is possible)
+    """Generate usernames from the given HTML (usernames may be duplicated)
 
     Args:
         html (str): HTML to hunt through
@@ -75,89 +77,105 @@ def discover_users_from_html(html):
     return (m.group('username') for m in username_regex.finditer(html))
 
 
-def get_user_stats(username, requester=request_passthrough):
+def get_user_stats(user_id, requester=request_passthrough):
     """Return statistics about a particular user.
 
     Args:
-        username (string): The username identifier of the MAL user.
-        requester (Optional(requests-like)): HTTP request maker
+        user_id (string): The username identifier of the MAL user.
+        requester (requests-like, optional): HTTP request maker
             This allows us to control/limit/mock requests.
 
     Returns:
-        None if we failed to retrieve the page, otherwise a tuple of two dicts
-        (retrieval information, profile information).
+        :class:`.Retrieved`: with the attributes `meta` and `data`.
 
-        The retrieval information will include the keys:
-            success (bool): Was *all* the information was retrieved?
-                (Some keys from profile information may be missing otherwise.)
-            scraper_retrieved_at (datetime): When the request was completed.
-            username (int): username of this user used for retrieval.
-        The profile information will include the keys:
-            See tests/mal_scraper/test_users.py::TestUserStats::test_user_stats
+        `data`::
+
+            {
+                'name': (str) user_id/username,
+                'last_online': (datetime),
+                'joined': (datetime),
+                'num_anime_watching': (int),
+                'num_anime_completed': (int),
+                'num_anime_on_hold': (int),
+                'num_anime_dropped': (int),
+                'num_anime_plan_to_watch': (int),
+            }
+
+    Raises:
+        Network and Request Errors: See Requests library.
+        .ParseError: Upon processing the web-page including anything that does
+            not meet expectations.
     """
-    url = get_profile_url_from_username(username)
-    logging.debug('Retrieving profile for "%s" from "%s"', username, url)
-
-    retrieval_info = {
-        'success': False,
-        'scraper_retrieved_at': datetime.utcnow(),
-        'username': username,
-    }
+    url = get_profile_url_from_username(user_id)
+    logger.debug('Retrieving profile for "%s" from "%s"', user_id, url)
 
     response = requester.get(url)
-    if not response.ok:
-        logging.error('Unable to retrieve profile ({0.status_code}):\n{0.text}'.format(response))
-        return (retrieval_info, {})
+    response.raise_for_status()  # May raise
 
     soup = BeautifulSoup(response.content, 'html.parser')
-    success, info = _process_profile_soup(soup)
+    data = get_user_stats_from_soup(soup)  # May raise
 
-    if not success:
-        logger.warn('Failed to properly process the page "%s".', url)
+    meta = {
+        'when': datetime.utcnow(),
+        'user_id': user_id,
+        'response': response,
+    }
 
-    retrieval_info['success'] = success
-
-    return (retrieval_info, info)
+    return Retrieved(meta, data)
 
 
-def get_user_anime_list(username, requester=request_passthrough):
+def get_user_anime_list(user_id, requester=request_passthrough):
     """Return the categorised anime listed by the user.
 
+    This will make multiple network requests.
+
     Args:
-        username (str): The user identifier
+        user_id (str): The user identifier (i.e. the username).
+        requester (requests-like, optional): HTTP request maker
+            This allows us to control/limit/mock requests.
 
     Returns:
-        None if the download failed, the username is invalid, or the
-        user has forbidden access.
-        Otherwise, a list of anime where each anime is the following dict:
+        A list of anime-info where each anime-info is the following dict::
 
-        {
-            name: (string) name of the anime
-            id_ref: (id_ref) can be used with get_anime,
-            consumption_status: (ConsumptionStatus),
-            is_rewatch: (bool),
-            score: (int) 0-10,
-            start_date: (date or None) may be missing
-            progress: (int) 0+ number of episodes watched
-            finished_date (date or None) may be missing or not finished
-        }
+            {
+                'name': (string) name of the anime,
+                'id_ref': (id_ref) can be used with mal_scraper.get_anime,
+                'consumption_status': (mal_scraper.ConsumptionStatus),
+                'is_rewatch': (bool),
+                'score': (int) 0-10,
+                'start_date': (date, or None) may be missing,
+                'progress': (int) 0+ number of episodes watched,
+                'finished_date': (date, or None) may be missing or not finished,
+            }
+
+        See also :class:`.ConsumptionStatus`.
+
+    Raises:
+        Network and Request Errors: See Requests library.
+        .RequestError: RequestError.Code.forbidden if the user's info is
+            private, or RequestError.Code.does_not_exist if the user_id is
+            invalid.
+        .ParseError: Upon processing the web-page including anything that does
+            not meet expectations.
     """
     anime = []
     has_more_anime = True
     while has_more_anime:
-        url = get_anime_list_url_for_user(username, len(anime))
-        logging.debug('Retrieving anime list from "%s"', url)
+        url = get_anime_list_url_for_user(user_id, len(anime))
+        logging.debug('(Network) Retrieving anime list from "%s"', url)
 
         response = requester.get(url)
-        if not response.ok:
-            if response.status_code == 400:
-                logging.info('Access to user "%s"\'s anime list is forbidden', username)
-                return None
+        if not response.ok:  # Raise an exception
+            if response.status_code in (400, 401):
+                msg = 'Access to user "%s"\'s anime list is forbidden' % user_id
+                raise RequestError(RequestError.Code.forbidden, msg)
+            elif response.status_code == 404:
+                msg = 'User "%s" does not exist' % user_id
+                raise RequestError(RequestError.Code.does_not_exist, msg)
 
-            logging.error('Unable to get anime list ({0.status_code}):\n{0.text}'.format(response))
-            return None
+            response.raise_for_status()  # Will raise
 
-        additional_anime = _process_anime_list_json(response.json())
+        additional_anime = get_user_anime_list_from_json(response.json())
         if additional_anime:
             anime.extend(additional_anime)
         else:
@@ -207,49 +225,70 @@ def _process_discovery_soup(soup):
 # --- Parse Profile Page ---
 
 
-def _process_profile_soup(soup):
-    """Return (success?, metadata) from a soup of HTML.
+def get_user_stats_from_soup(soup):
+    """Return the user stats from a soup of HTML.
+
+    Args:
+        soup (Soup): BeautifulSoup object
 
     Returns:
-        (success?, metadata) where success is only if there were zero errors.
-    """
-    retrieve = {
-        'name': _get_name,
-        'last_online': _get_last_online,
-        'joined': _get_joined,
-        'num_anime_watching': _get_num_anime_watching,
-        'num_anime_completed': _get_num_anime_completed,
-        'num_anime_on_hold': _get_num_anime_on_hold,
-        'num_anime_dropped': _get_num_anime_dropped,
-        'num_anime_plan_to_watch': _get_num_anime_plan_to_watch,
-    }
+        A data dictionary::
 
-    retrieved = {}
-    failed_tags = []
-    for tag, func in retrieve.items():
+            {
+                'name': (str) user_id/username,
+                'last_online': (datetime),
+                'joined': (datetime),
+                'num_anime_watching': (int),
+                'num_anime_completed': (int),
+                'num_anime_on_hold': (int),
+                'num_anime_dropped': (int),
+                'num_anime_plan_to_watch': (int),
+            }
+
+    Raises:
+        ParseError: If any component of the page could not be processed
+            or was unexpected.
+    """
+    process = [
+        ('name', _get_name),
+        ('last_online', _get_last_online),
+        ('joined', _get_joined),
+        ('num_anime_watching', _get_num_anime_watching),
+        ('num_anime_completed', _get_num_anime_completed),
+        ('num_anime_on_hold', _get_num_anime_on_hold),
+        ('num_anime_dropped', _get_num_anime_dropped),
+        ('num_anime_plan_to_watch', _get_num_anime_plan_to_watch),
+    ]
+
+    data = {}
+    for tag, func in process:
         try:
             result = func(soup)
-        except ParseError:
-            logger.error('Error processing tag "%s".', tag)
-            failed_tags.append(tag)
-        else:
-            retrieved[tag] = result
+        except ParseError as err:
+            logger.debug('Failed to process tag %s', tag)
+            err.specify_tag(tag)
+            raise
 
-    success = not bool(failed_tags)
-    if not success:
-        logger.error('Failed to process tags: %s', failed_tags)
+        data[tag] = result
 
-    return (success, retrieved)
+    return data
 
 
 def _get_name(soup):
-    tag = soup.find('span', string=re.compile(r"'s Profile$"))
+    tag = soup.find('h1')
     if not tag:  # pragma: no cover
-        # MAL probably changed their website
-        raise MissingTagError('name')
+        raise MissingTagError('name (outer)')
 
-    text = tag.string.strip()[:-len("'s Profile")]
-    return text
+    innertag = tag.find('span')
+    if not innertag:  # pragma: no cover
+        raise MissingTagError('name (inner)')
+
+    title_text = innertag.contents[0].strip()
+    if not title_text.endswith("'s Profile"):
+        raise ParseError('Unable to identify name on the Profile from "%s"' % title_text)
+
+    username = title_text[:-len("'s Profile")]
+    return username
 
 
 def _get_last_online(soup):
@@ -315,8 +354,10 @@ _get_num_anime_plan_to_watch = partial(_get_num_anime_stats, classname='plantowa
 # --- Parse User's Anime List Page(s) ---
 
 
-def _process_anime_list_json(json):
+def get_user_anime_list_from_json(json):
     """Return a list of anime as described by get_user_anime_list.
+
+    TODO: We should raise .ParseError, but we just don't.
 
     Implementation notes:
 
@@ -340,7 +381,7 @@ def _process_anime_list_json(json):
            "has_video":true,
            "video_url":"\/anime\/32998\/91_Days\/video",
            "anime_url":"\/anime\/32998\/91_Days",
-           "anime_image_path":"https:\/\/myanimelist.cdn-dena.com\/r\/96x136\/images\/anime\/13\/80515.jpg?s=7f9c599ca9dafb64a261bac475b44132",
+           "anime_image_path":"https:\/\/myanimelist.cdn-dena.com\/r\/96x136\/images\/anime\/13\/80515.jpg?s=7f9c599ca9dafb64a261bac475b44132",  # noqa
            "is_added_to_list":false,
            "anime_media_type_string":"TV",
            "anime_mpaa_rating_string":"R",
@@ -358,7 +399,7 @@ def _process_anime_list_json(json):
         anime.append({
             'name': mal_anime['anime_title'],
             'id_ref': int(mal_anime['anime_id']),
-            'consumption_status': _convert_status_code_to_const(mal_anime['status']),
+            'consumption_status': ConsumptionStatus.mal_code_to_enum(mal_anime['status']),
             'is_rewatch': bool(mal_anime['is_rewatching']),
             'score': int(mal_anime['score']),
             'progress': int(mal_anime['num_watched_episodes']),
@@ -383,13 +424,3 @@ def _convert_json_date(text):
         # It is likely that MAL has changed their format
         logging.error('Unable to parse the date text "%s" from an anime list', text)
         return None
-
-
-def _convert_status_code_to_const(code):
-    return {
-        1: ConsumptionStatus.consuming,
-        2: ConsumptionStatus.completed,
-        3: ConsumptionStatus.on_hold,
-        4: ConsumptionStatus.dropped,
-        6: ConsumptionStatus.backlog,
-    }[code]

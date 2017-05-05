@@ -30,6 +30,17 @@ class ConsumptionStatus(Enum):
     dropped = 'DROPPED'
     backlog = 'BACKLOG'
 
+    @classmethod
+    def mal_code_to_enum(cls, code):
+        """Return the enum from the MAL code, or None."""
+        return {
+            1: ConsumptionStatus.consuming,
+            2: ConsumptionStatus.completed,
+            3: ConsumptionStatus.on_hold,
+            4: ConsumptionStatus.dropped,
+            6: ConsumptionStatus.backlog,
+        }.get(code)
+
 
 @unique
 class AiringStatus(Enum):

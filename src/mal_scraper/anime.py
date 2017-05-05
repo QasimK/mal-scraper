@@ -79,6 +79,7 @@ def get_anime(id_ref=1, requester=request_passthrough):
             next_anime = meta['id_ref'] + 1
     """
     url = get_url_from_id_ref(id_ref)
+    logger.debug('Retrieving anime "%s" from "%s"', id_ref, url)
 
     response = requester.get(url)
     response.raise_for_status()  # May raise
@@ -106,7 +107,7 @@ def get_anime_from_soup(soup):
     """Return the anime information from a soup of HTML.
 
     Args:
-        soup (Soup): BeatifulSoup object
+        soup (Soup): BeautifulSoup object
 
     Returns:
         A data dictionary::
