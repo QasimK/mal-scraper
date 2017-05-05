@@ -44,7 +44,8 @@ def get_anime(id_ref=1, requester=request_passthrough):
                 'airing_started': date,
                 'airing_finished': date, or None when MAL does not know,
                 'airing_premiere': tuple(Year (int), Season (mal_scraper.Season))
-                    or None (for films, OVAs, specials, ONAs and music),
+                    or None (for films, OVAs, specials, ONAs, music, or
+                    if MAL does not know),
                 'mal_age_rating': mal_scraper.AgeRating,
                 'mal_score': float, or None when not yet aired,
                 'mal_scored_by': int (number of people),
@@ -121,7 +122,8 @@ def get_anime_from_soup(soup):
                 'airing_started': date,
                 'airing_finished': date, or None when MAL does not know,
                 'airing_premiere': tuple(Year (int), Season (mal_scraper.Season))
-                    or None (for films, OVAs, specials, ONAs and music),
+                    or None (for films, OVAs, specials, ONAs, music, or
+                    if MAL does not know),
                 'mal_age_rating': mal_scraper.AgeRating,
                 'mal_score': float, or None when not yet aired,
                 'mal_scored_by': int (number of people),
@@ -292,11 +294,16 @@ def _get_airing_premiere(soup, data):
         # Film: https://myanimelist.net/anime/5
         # OVA: https://myanimelist.net/anime/44
         # ONA: https://myanimelist.net/anime/574
-        # TODO: Missing Special, Music links
+        # TODO: Missing Special
+        # Music: https://myanimelist.net/anime/3642
         if data['format'] in (Format.film, Format.ova, Format.special, Format.ona, Format.music):
             return None
         else:
             raise MissingTagError('premiered')
+
+    # '?': https://myanimelist.net/anime/3624
+    if pretag.next_sibling.string.strip() == '?':
+        return None
 
     season, year = pretag.find_next('a').string.lower().split(' ')
 

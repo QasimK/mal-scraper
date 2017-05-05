@@ -96,6 +96,8 @@ def test_parsing_airing_started_without_end_date(mock_requests):
     5,  # Film
     44,  # OVA
     574,  # ONA
+    3624,  # '?'
+    3642,  # Music
 ])
 def test_parsing_missing_premiere(mock_requests, id_ref):
     mock_requests.optional_mock('http://myanimelist.net/anime/%d' % id_ref)
