@@ -8,26 +8,22 @@ from .consts import AgeRating, AiringStatus, Format, Retrieved, Season
 from .exceptions import MissingTagError, ParseError
 from .mal_utils import get_date
 from .requester import request_passthrough
+from .user_discovery import default_user_store
 
 logger = logging.getLogger(__name__)
 
-# Future interface?
-# def retrieve_iterative(id_refs, concurrency=10, requester='request_limiter'):
-#     # id_refs = int or Iterable[int]
-#     pass
-
 
 def get_anime(id_ref=1, requester=request_passthrough):
-    """mal_scraper.get_anime(id_ref=1, requester)
+    """Return the information for a particular show.
 
-    Return the information for a particular show.
+    You can simply enumerate through id_refs.
 
     This will raise exceptions unless we properly and fully retrieve and process
     the web-page.
 
     Args:
         id_ref (int, optional): Internal show identifier.
-        requester (requests-like, optional): HTTP request maker
+        requester (requests-like, optional): HTTP request maker.
             This allows us to control/limit/mock requests.
 
     Returns:
@@ -84,6 +80,9 @@ def get_anime(id_ref=1, requester=request_passthrough):
 
     response = requester.get(url)
     response.raise_for_status()  # May raise
+
+    # Dynamic user discovery
+    default_user_store.store_users_from_html(response.text)
 
     soup = BeautifulSoup(response.content, 'html.parser')
     data = get_anime_from_soup(soup)  # May raise

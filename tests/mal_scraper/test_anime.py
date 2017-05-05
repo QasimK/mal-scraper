@@ -106,10 +106,10 @@ def test_parsing_missing_premiere(mock_requests, id_ref):
 
 def test_user_discovery_on_anime_page(mock_requests):
     mock_requests.optional_mock('http://myanimelist.net/anime/1')
-    meta, info = mal_scraper.get_anime(1)
-
+    meta = mal_scraper.get_anime(1).meta
     html = meta['response'].text
-    usernames = list(mal_scraper.discover_users_from_html(html))
+
+    usernames = list(mal_scraper.user_discovery.discover_users_from_html(html))
     assert usernames == [
         'TheLlama', 'TheLlama', 'TheLlama', 'TheLlama', 'Polyphemus',
         'Polyphemus', 'Polyphemus', 'Polyphemus', 'DeusAnima', 'DeusAnima',

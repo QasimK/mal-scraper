@@ -13,7 +13,6 @@ Possible alternative:
 """
 
 import logging
-import re
 from datetime import datetime
 from functools import partial
 
@@ -23,58 +22,10 @@ from .consts import ConsumptionStatus, Retrieved
 from .exceptions import MissingTagError, ParseError, RequestError
 from .mal_utils import get_date, get_datetime
 from .requester import request_passthrough
+from .user_discovery import default_user_store
 
 logger = logging.getLogger(__name__)
-
-
-def discover_users(requester=request_passthrough):
-    """Return a set of user_refs.
-
-    You should call this **many** times, it will probably return different users.
-    Limitations: This is currently biased towards recently active users.
-
-    Args:
-        requester (Optional(requests-like)): HTTP request maker.
-            This allows us to control/limit/mock requests.
-
-    Returns:
-        A set of strings of usernames which can each be used with retrieve_user,
-        or None in case of a non-recoverable error (the error is logged).
-    """
-    response = requester.get('http://myanimelist.net/users.php')
-    if not response.ok:
-        logging.error('Unable to retrieve user list (%d):\n%s', response.status_code, response.text)
-        return None
-
-    soup = BeautifulSoup(response.content, 'html.parser')
-    users = _process_discovery_soup(soup)
-
-    return users
-
-
-# TODO: Clean this up
-username_regex = re.compile(
-    r"href=[\"'](https?\://myanimelist\.net)?/profile/(?P<username>\w+)[\w/]*[\"']",
-    re.ASCII | re.DOTALL | re.IGNORECASE,
-)
-
-
-def discover_users_from_html(html):
-    """Generate usernames from the given HTML (usernames may be duplicated)
-
-    Args:
-        html (str): HTML to hunt through
-
-    Yields:
-        Usernames (string)
-
-    Test strings::
-
-        <a href="/profile/TheLlama">
-        <a href="https://myanimelist.net/profile/TheLlama">
-        <a href="/profile/TheLlama/reviews">All reviews</a>
-    """
-    return (m.group('username') for m in username_regex.finditer(html))
+user_cache = set()  # Global store of discovered users
 
 
 def get_user_stats(user_id, requester=request_passthrough):
@@ -82,7 +33,7 @@ def get_user_stats(user_id, requester=request_passthrough):
 
     Args:
         user_id (string): The username identifier of the MAL user.
-        requester (requests-like, optional): HTTP request maker
+        requester (requests-like, optional): HTTP request maker.
             This allows us to control/limit/mock requests.
 
     Returns:
@@ -106,11 +57,12 @@ def get_user_stats(user_id, requester=request_passthrough):
         .ParseError: Upon processing the web-page including anything that does
             not meet expectations.
     """
-    url = get_profile_url_from_username(user_id)
+    url = get_profile_url_for_user(user_id)
     logger.debug('Retrieving profile for "%s" from "%s"', user_id, url)
 
     response = requester.get(url)
     response.raise_for_status()  # May raise
+    default_user_store.store_users_from_html(response.text)
 
     soup = BeautifulSoup(response.content, 'html.parser')
     data = get_user_stats_from_soup(soup)  # May raise
@@ -125,13 +77,13 @@ def get_user_stats(user_id, requester=request_passthrough):
 
 
 def get_user_anime_list(user_id, requester=request_passthrough):
-    """Return the categorised anime listed by the user.
+    """Return the anime listed by the user on their profile.
 
-    This will make multiple network requests.
+    This will make multiple network requests (possibly > 10).
 
     Args:
         user_id (str): The user identifier (i.e. the username).
-        requester (requests-like, optional): HTTP request maker
+        requester (requests-like, optional): HTTP request maker.
             This allows us to control/limit/mock requests.
 
     Returns:
@@ -152,9 +104,9 @@ def get_user_anime_list(user_id, requester=request_passthrough):
 
     Raises:
         Network and Request Errors: See Requests library.
-        .RequestError: RequestError.Code.forbidden if the user's info is
-            private, or RequestError.Code.does_not_exist if the user_id is
-            invalid.
+        .RequestError: :code:`RequestError.Code.forbidden` if the user's info is
+            private, or :code:`RequestError.Code.does_not_exist` if the user_id is
+            invalid. See :class:`.RequestError.Code`.
         .ParseError: Upon processing the web-page including anything that does
             not meet expectations.
     """
@@ -187,39 +139,35 @@ def get_user_anime_list(user_id, requester=request_passthrough):
 # --- URLs ---
 
 
-def get_profile_url_from_username(username):
-    # Use HTTPS to avoid auto-redirect from HTTP (except for tests)
-    from .__init__ import FORCE_HTTP
-    protocol = 'http' if FORCE_HTTP else 'https'
-    return '{}://myanimelist.net/profile/{:s}'.format(protocol, username)
-
-
-def get_anime_list_url_for_user(username, offset=0):
-    """Return the url to the JSON feed for the given user:
+def get_profile_url_for_user(user_id):
+    """Return the URL of the user's profile page.
 
     Args:
-        username (string): User identifier
+        user_id (string): Username
+
+    Returns:
+        url (str)
+    """
+    # Use HTTPS to avoid auto-redirect from HTTP (except for tests)
+    from .__init__ import FORCE_HTTP  # noqa
+    protocol = 'http' if FORCE_HTTP else 'https'
+    return '{}://myanimelist.net/profile/{:s}'.format(protocol, user_id)
+
+
+def get_anime_list_url_for_user(user_id, offset=0):
+    """Return the url to the JSON feed for the given user.
+
+    Args:
+        user_id (str): Username
         offset (int): Feed returns paginated view, use offset to traverse
 
-    Returns: String url
+    Returns:
+        url (str)
     """
-    from .__init__ import FORCE_HTTP
+    from .__init__ import FORCE_HTTP  # noqa
     protocol = 'http' if FORCE_HTTP else 'https'
-    url = '{protocol}://myanimelist.net/animelist/{username}/load.json?offset={offset:d}&status=7'
-    return url.format(protocol=protocol, username=username, offset=offset)
-
-
-# --- Dynamic User Discovery ---
-
-
-def _process_discovery_soup(soup):
-    """Return a set of username strings."""
-    users = soup.find_all('a', href=lambda link: link and link.startswith('/profile/'))
-    if not users:
-        logging.error('No users found on the user discovery page.')
-
-    stripped_links = set(user['href'][len('/profile/'):] for user in users)
-    return stripped_links
+    url = '{protocol}://myanimelist.net/animelist/{user_id}/load.json?offset={offset:d}&status=7'
+    return url.format(protocol=protocol, user_id=user_id, offset=offset)
 
 
 # --- Parse Profile Page ---

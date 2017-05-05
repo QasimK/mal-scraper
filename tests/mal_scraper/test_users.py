@@ -3,20 +3,24 @@
 from datetime import date, datetime, timedelta
 
 import pytest
+import requests
 
 import mal_scraper
 
 
 class TestDiscovery(object):
-    """Test discovery of usernames"""
+    """Test discovery of usernames."""
 
     DISCOVERY_LINK = 'http://myanimelist.net/users.php'
 
-    def test_discovery(self, mock_requests):
+    # TODO: Test Cache
+    # TODO: Test fall-back
+
+    def test_web_discovery(self, mock_requests):
         """Can we discover usernames?"""
         mock_requests.always_mock(self.DISCOVERY_LINK, 'users_discovery')
 
-        users = mal_scraper.discover_users()
+        users = mal_scraper.discover_users(use_cache=False, use_web=True)
         assert len(users) == 20
         assert users == {
             'WitcherEnvy', 'TrollTama', 'Kumatetsu_Rei82', 'Dragh', 'Tom_West',
@@ -25,17 +29,17 @@ class TestDiscovery(object):
             '0ldboy', 'alkodrak', 'Derin', 'Insufance', 'fatalbert357',
         }
 
-    def test_discovery_garbled_page(self, mock_requests):
+    def test_web_discovery_on_garbled_page(self, mock_requests):
         """Do we return a failure on bad pages?"""
         mock_requests.always_mock(self.DISCOVERY_LINK, 'garbled_user_discovery_page')
-        users = mal_scraper.discover_users()
+        users = mal_scraper.discover_users(use_cache=False, use_web=True)
         assert users == set()
 
-    def test_discovery_failed_page(self, mock_requests):
+    def test_web_discovery_on_failed_page(self, mock_requests):
         """Do we return a failure on failed pages?"""
         mock_requests.always_mock(self.DISCOVERY_LINK, 'garbled_user_discovery_page', status=500)
-        users = mal_scraper.discover_users()
-        assert users is None
+        with pytest.raises(requests.exceptions.HTTPError):
+            mal_scraper.discover_users(use_cache=False, use_web=True)
 
 
 class TestUserStats(object):
@@ -110,6 +114,24 @@ class TestUserStats(object):
         _, info = mal_scraper.get_user_stats(self.TEST_LAST_ONLINE_DATE_USER)
         this_year = datetime.utcnow().year
         assert datetime(year=this_year, month=10, day=1, hour=4, minute=29) == info['last_online']
+
+    def test_user_discovery_on_user_profile_page(self, mock_requests):
+        mock_requests.always_mock('http://myanimelist.net/profile/SparkleBunnies', 'user_test_page')
+        meta = mal_scraper.get_user_stats('SparkleBunnies').meta
+        html = meta['response'].text
+
+        usernames = list(mal_scraper.user_discovery.discover_users_from_html(html))
+        assert usernames == [
+            'SparkleBunnies', 'SparkleBunnies', 'SparkleBunnies', 'SparkleBunnies', 'Subpyro',
+            'TimeToRepent', 'Cigarette', 'Exmortus420', 'Phraze', 'HaXXspetten',
+            'Senpaoi', 'Exo_x', 'DatRandomDude', 'Solos', 'Solos',
+            'FallingUmbrella', 'FallingUmbrella', 'lemoncup', 'lemoncup', 'Star_Slayer',
+            'Star_Slayer', 'Skye12', 'Skye12', 'Mooncake', 'Mooncake',
+            'Nekonaut', 'Nekonaut', 'okies', 'okies', 'Turnip',
+            'Turnip', 'Kyle', 'Kyle', 'Roth', 'Roth',
+            'Vacuous', 'Vacuous', 'Funky', 'Funky', 'Wrath',
+            'Wrath', 'Kyrex', 'Kyrex',
+        ]
 
 
 class TestUserAnimeList(object):

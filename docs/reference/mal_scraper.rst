@@ -3,9 +3,8 @@ Core API
 
 The library supports retrieving Anime, User Profile/Stats, and User-Anime Info.
 
-Anime and Users are identified by `id_ref`s which are integers for anime and
-strings for Users, so while you can enumerate through Anime, you must 'discover'
-Users.
+Anime and Users are identified by id_ref (int), and user_id (str) respectively,
+so while you can enumerate through Anime, you must 'discover' Users.
 
 .. testsetup::
 
@@ -15,4 +14,4 @@ Users.
     :members:
     :imported-members:
     :exclude-members: AgeRating, AiringStatus, ConsumptionStatus, Format,
-        Season, ParseError
+        Season, RequestError, ParseError

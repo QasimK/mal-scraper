@@ -14,7 +14,7 @@ class RequestError(MalScraperError):
     """An error making the request.
 
     Args:
-        code (.RequestError.Code): Error code
+        code (RequestError.Code): Error code
         message (str): Human readable string describing the problem.
 
     Attributes:

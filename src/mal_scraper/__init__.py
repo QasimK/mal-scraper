@@ -4,9 +4,8 @@ __version__ = "0.3.0"
 from .anime import get_anime  # noqa
 from .consts import AgeRating, AiringStatus, ConsumptionStatus, Format, Season  # noqa
 from .exceptions import ParseError, RequestError  # noqa
-from .users import (  # noqa
-    discover_users, discover_users_from_html, get_user_anime_list, get_user_stats
-)
+from .user_discovery import discover_users  # noqa
+from .users import get_user_anime_list, get_user_stats  # noqa
 
 # Don't use this
 FORCE_HTTP = False
