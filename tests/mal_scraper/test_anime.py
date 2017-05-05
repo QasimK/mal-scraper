@@ -29,12 +29,13 @@ def test_get_anime_successful(mock_requests):
         'airing_started': date(year=1998, month=4, day=3),
         'airing_finished': date(year=1999, month=4, day=24),
         'airing_premiere': (1998, mal_scraper.Season.spring),
-        # 'age_rating': mal_scraper.AgeRating.restricted,
-        # 'mal_score': 0,
-        # 'mal_rank': 0,
-        # 'mal_popularity': 0,
-        # 'mal_members': 0,
-        # 'mal_favourites': 0,
+        'mal_age_rating': mal_scraper.AgeRating.mal_r1,
+        'mal_score': 8.83,
+        'mal_scored_by': 232183,
+        'mal_rank': 22,
+        'mal_popularity': 31,
+        'mal_members': 415050,
+        'mal_favourites': 26287,
     }
 
 

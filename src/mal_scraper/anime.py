@@ -4,7 +4,7 @@ from datetime import datetime
 
 from bs4 import BeautifulSoup
 
-from .consts import AiringStatus, Format, Retrieved, Season
+from .consts import AgeRating, AiringStatus, Format, Retrieved, Season
 from .exceptions import MissingTagError, ParseError
 from .mal_utils import get_date
 from .requester import request_passthrough
@@ -45,6 +45,13 @@ def get_anime(id_ref=1, requester=request_passthrough):
                 'airing_finished': date, or None when MAL does not know,
                 'airing_premiere': tuple(Year (int), Season (mal_scraper.Season))
                     or None (for films, OVAs, specials, ONAs and music),
+                'mal_age_rating': mal_scraper.AgeRating,
+                'mal_score': float, or None when not yet aired,
+                'mal_scored_by': int (number of people),
+                'mal_rank': int, or None when not yet aired/some R rated anime,
+                'mal_popularity': int,
+                'mal_members': int,
+                'mal_favourites': int,
             }
 
         See also :class:`.Format`, :class:`.AiringStatus`, :class:`.Season`.
@@ -114,6 +121,13 @@ def get_anime_from_soup(soup):
                 'airing_finished': date, or None when MAL does not know,
                 'airing_premiere': tuple(Year (int), Season (mal_scraper.Season))
                     or None (for films, OVAs, specials, ONAs and music),
+                'mal_age_rating': mal_scraper.AgeRating,
+                'mal_score': float, or None when not yet aired,
+                'mal_scored_by': int (number of people),
+                'mal_rank': int, or None when not yet aired/some R rated anime,
+                'mal_popularity': int,
+                'mal_members': int,
+                'mal_favourites': int,
             }
 
     Raises:
@@ -129,6 +143,13 @@ def get_anime_from_soup(soup):
         ('airing_started', _get_start_date),
         ('airing_finished', _get_end_date),
         ('airing_premiere', _get_airing_premiere),
+        ('mal_age_rating', _get_mal_age_rating),
+        ('mal_score', _get_mal_score),
+        ('mal_scored_by', _get_mal_scored_by),
+        ('mal_rank', _get_mal_rank),
+        ('mal_popularity', _get_mal_popularity),
+        ('mal_members', _get_mal_members),
+        ('mal_favourites', _get_mal_favourites),
     ]
 
     data = {}
@@ -290,3 +311,108 @@ def _get_airing_premiere(soup, data):
         raise ParseError('Unable to identify year from "%s"' % year)
 
     return (year, season)
+
+
+def _get_mal_age_rating(soup, data=None):
+    pretag = soup.find('span', string='Rating:')
+    if not pretag:
+        raise MissingTagError('Rating')
+
+    full_text = pretag.next_sibling.strip()
+    rating_text = full_text.split('(')[0]
+    if not rating_text.startswith('R - 17+'):
+        rating_text = rating_text.split(' - ')[0]  # A little hacky for PG-13
+
+    rating = AgeRating.mal_to_enum(rating_text)
+    if rating is None:
+        raise ParseError(
+            'Unable to identify age rating from "%s" part of "%s"' % (rating_text, full_text)
+        )
+
+    return rating
+
+
+def _get_mal_score(soup, data):
+    pretag = soup.find('span', string='Score:')
+    if not pretag:
+        raise MissingTagError('Score')
+
+    rating_text = pretag.find_next_sibling('span').string.strip()
+    # Not aired yet anime are excluded
+    if data['airing_status'] == AiringStatus.pre_air and rating_text == 'N/A':
+        return None  # Not aired yet is excluded
+
+    try:
+        return float(rating_text)
+    except ValueError:
+        raise ParseError('Unable to identify rating from "%s"' % rating_text)
+
+
+def _get_mal_scored_by(soup, data=None):
+    pretag = soup.find('span', string='Score:')
+    if not pretag:
+        raise MissingTagError('Score')
+
+    count_text = pretag.find_next_siblings('span')[1].string.strip().replace(',', '')
+    try:
+        return int(count_text)
+    except ValueError:
+        raise ParseError('Unable to identify #people scoring from "%s"' % count_text)
+
+
+def _get_mal_rank(soup, data):
+    pretag = soup.find('span', string='Ranked:')
+    if not pretag:
+        raise MissingTagError('Ranked')
+
+    full_text = pretag.next_sibling.strip()
+    # Not aired yet and some R+ anime are excluded
+    if ((data['airing_status'] == AiringStatus.pre_air
+            or data['mal_age_rating'] in (AgeRating.mal_r1, AgeRating.mal_r2, AgeRating.mal_r3))
+            and full_text == 'N/A'):
+        return None
+
+    number_value = full_text.replace(',', '').replace('#', '')
+    try:
+        return int(number_value)
+    except ValueError:
+        raise ParseError('Unable to identify rank "%s"' % full_text)
+
+
+def _get_mal_popularity(soup, data=None):
+    pretag = soup.find('span', string='Popularity:')
+    if not pretag:
+        raise MissingTagError('Popularity')
+
+    full_text = pretag.next_sibling.strip()
+    number_value = full_text.replace(',', '').replace('#', '')
+    try:
+        return int(number_value)
+    except ValueError:
+        raise ParseError('Unable to identify popularity "%s"' % full_text)
+
+
+def _get_mal_members(soup, data=None):
+    pretag = soup.find('span', string='Members:')
+    if not pretag:
+        raise MissingTagError('Members')
+
+    full_text = pretag.next_sibling.strip()
+    number_value = full_text.replace(',', '')
+    try:
+        return int(number_value)
+    except ValueError:
+        raise ParseError('Unable to identify #members "%s"' % full_text)
+
+
+def _get_mal_favourites(soup, data=None):
+    pretag = soup.find('span', string='Favorites:')
+    if not pretag:
+        raise MissingTagError('Favorites')
+
+    full_text = pretag.next_sibling.strip()
+    number_value = full_text.replace(',', '')
+    try:
+        return int(number_value)
+    except ValueError:
+        raise ParseError('Unable to identify #favourites "%s"' % full_text)

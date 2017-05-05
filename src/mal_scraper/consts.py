@@ -82,5 +82,29 @@ class Format(Enum):
 
 @unique
 class AgeRating(Enum):
-    """The age rating of a media item."""
-    restricted = 'RESTRICTED'
+    """The age rating of a media item.
+
+    MAL Ratings are dubious.
+
+    Reference: https://myanimelist.net/forum/?topicid=16816
+    """
+    mal_none = 'NONE'
+    mal_g = 'ALL'
+    mal_pg = 'CHILDREN'
+    mal_t = 'TEEN'
+    mal_r1 = 'RESTRICTEDONE'
+    mal_r2 = 'RESTRICTEDTWO'
+    mal_r3 = 'RESTRICTEDTHREE'
+
+    @classmethod
+    def mal_to_enum(cls, text):
+        """Return the enum from the MAL string, or None."""
+        return {
+            'none': cls.mal_none,
+            'g': cls.mal_g,
+            'pg': cls.mal_pg,
+            'pg-13': cls.mal_t,
+            'r - 17+': cls.mal_r1,
+            'r+':  cls.mal_r2,
+            'rx': cls.mal_r3,
+        }.get(text.lower().strip())
