@@ -231,15 +231,12 @@ def _get_airing_status(soup, data=None):
     if not pretag:
         raise MissingTagError('status')
 
-    status_text = pretag.next_sibling.strip().lower()
-    status = {
-        'finished airing': AiringStatus.finished,
-        'currently airing': AiringStatus.ongoing,
-    }.get(status_text, None)
+    status_text = pretag.next_sibling
+    status = AiringStatus.mal_to_enum(status_text)
 
     if not status:  # pragma: no cover
         # MAL probably changed the website
-        raise ParseError('Unable to identify status from "%s"' % status_text)
+        raise ParseError('Unable to identify airing status from "%s"' % status_text)
 
     return status
 

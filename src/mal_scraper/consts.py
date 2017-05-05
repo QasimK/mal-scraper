@@ -45,9 +45,17 @@ class ConsumptionStatus(Enum):
 @unique
 class AiringStatus(Enum):
     """The airing status of a media item."""
-    pre_air = 'PREAIR'
+    pre_air = 'PREAIR'  # e.g. https://myanimelist.net/anime/3786
     ongoing = 'ONGOING'
     finished = 'FINISHED'
+
+    @classmethod
+    def mal_to_enum(cls, text):
+        return {
+            'not yet aired': AiringStatus.pre_air,
+            'finished airing': AiringStatus.finished,
+            'currently airing': AiringStatus.ongoing,
+        }.get(text.strip().lower())
 
 
 class Season(Enum):
@@ -66,7 +74,7 @@ class Season(Enum):
             'spring': cls.spring,
             'summer': cls.summer,
             'fall': cls.autumn,
-        }.get(text.lower().strip())
+        }.get(text.strip().lower())
 
 
 class Format(Enum):
@@ -88,7 +96,7 @@ class Format(Enum):
             'special': cls.special,
             'ona':  cls.ona,
             'music': cls.music,
-        }.get(text.lower().strip())
+        }.get(text.strip().lower())
 
 
 @unique
@@ -118,4 +126,4 @@ class AgeRating(Enum):
             'r - 17+': cls.mal_r1,
             'r+':  cls.mal_r2,
             'rx': cls.mal_r3,
-        }.get(text.lower().strip())
+        }.get(text.strip().lower())
