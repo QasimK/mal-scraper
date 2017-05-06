@@ -17,6 +17,7 @@ def get_datetime(text, relative_to=None):
         text (str): The following examples are supported (with varying accuracy)
             Oct 1, 2013 11:04 PM
             Oct 1, 4:29 AM
+            Today, 1:22 AM
             Yesterday, 9:58 AM
             4 hours ago
             1 hour ago
@@ -34,7 +35,7 @@ def get_datetime(text, relative_to=None):
         - Potentially locale-dependent.
     """
     relative_to = relative_to or datetime.utcnow()
-    text = text.strip()
+    text = text.strip().lower()
 
     # Now
     if text.lower() == 'now':
@@ -50,15 +51,23 @@ def get_datetime(text, relative_to=None):
     if hours_match is not None:
         return relative_to - timedelta(hours=int(hours_match.group('hours')))
 
-    # Yesterday, 9:58 AM
-    base = relative_to - timedelta(days=1)
-    time_text = text.strip('Yesterday, ')
-    try:
-        time = datetime.strptime(time_text, '%I:%M %p')
-    except ValueError:
-        pass
-    else:
-        return datetime.replace(time, year=base.year, month=base.month, day=base.day)
+    if text.startswith(('today,', 'yesterday,')):
+        if text.startswith('today'):
+            # Today, 1:22 AM
+            base = relative_to
+        elif text.startswith('yesterday'):
+            # Yesterday, 9:58 AM
+            base = relative_to - timedelta(days=1)
+        else:
+            raise RuntimeError('Invalid Branch')
+
+        time_text = text.split(',')[1].lstrip()
+        try:
+            time = datetime.strptime(time_text, '%I:%M %p')
+        except ValueError:
+            pass
+        else:
+            return datetime.replace(time, year=base.year, month=base.month, day=base.day)
 
     # Oct 1, 4:29 AM
     try:
