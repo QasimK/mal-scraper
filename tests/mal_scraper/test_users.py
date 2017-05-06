@@ -186,6 +186,10 @@ class TestUserAnimeList(object):
     TEST_USER_LOTS_NAME = 'Vindstot'  # 5k anime...
     TEST_USER_LOTS_LIST_PAGE = LIST_URL.format(username=TEST_USER_LOTS_NAME, offset=0)
 
+    TEST_USER_TAGS_NAME = 'reltats'
+    TEST_USER_TAGS_PAGE = LIST_URL.format(username=TEST_USER_TAGS_NAME, offset=0)
+    TEST_USER_TAGS_END_PAGE = LIST_URL.format(username=TEST_USER_TAGS_NAME, offset=263)
+
     def test_non_ok_download(self, mock_requests):
         mock_requests.always_mock(self.TEST_FORBIDDEN_PAGE, 'user_anime_list_forbidden', status=401)
 
@@ -215,4 +219,16 @@ class TestUserAnimeList(object):
             # 'start_date': None,
             'progress': 9,
             # 'finish_date': None,
+            'tags': [],
         }
+
+    def test_user_tags(self, mock_requests):
+        mock_requests.always_mock(self.TEST_USER_TAGS_PAGE, 'user_anime_list_tags')
+        mock_requests.always_mock(self.TEST_USER_TAGS_END_PAGE, 'user_anime_list_tags_end')
+
+        anime_list = mal_scraper.get_user_anime_list(self.TEST_USER_TAGS_NAME)
+        assert len(anime_list) == 263
+        assert anime_list[99]['tags'] == [
+            'A masterpiece of failures. Yami wo Kirisaku',
+            'LOAD THIS DRYER!',
+        ]

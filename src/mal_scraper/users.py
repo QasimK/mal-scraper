@@ -114,6 +114,7 @@ def get_user_anime_list(user_id, requester=request_passthrough):
                 'is_rewatch': (bool),
                 'score': (int) 0-10,
                 'progress': (int) 0+ number of episodes watched,
+                'tags': (set of strings) user tags,
 
                 The following tags have been removed for now:
                 'start_date': (date, or None) may be missing,
@@ -382,15 +383,27 @@ def get_user_anime_list_from_json(json):
         #     err.specify_tag('finish_date_string')
         #     raise
 
+        tags = set(
+            filter(
+                bool,  # Ignore empty tags
+                map(
+                    str.strip,  # Splitting by ',' leaves whitespaces
+                    str(mal_anime['tags']).split(','),  # Produce a list
+                    # Sometimes the tag is an integer itself
+                )
+            )
+        )
+
         anime.append({
             'name': mal_anime['anime_title'],
             'id_ref': int(mal_anime['anime_id']),
             'consumption_status': ConsumptionStatus.mal_code_to_enum(mal_anime['status']),
             'is_rewatch': bool(mal_anime['is_rewatching']),
             'score': int(mal_anime['score']),
-            'progress': int(mal_anime['num_watched_episodes']),
             # 'start_date': start_date,
+            'progress': int(mal_anime['num_watched_episodes']),
             # 'finish_date': finish_date,
+            'tags': tags,
         })
 
     return anime

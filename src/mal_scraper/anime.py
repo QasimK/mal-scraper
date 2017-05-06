@@ -21,6 +21,10 @@ def get_anime(id_ref=1, requester=request_passthrough):
     This will raise exceptions unless we properly and fully retrieve and process
     the web-page.
 
+    TODO: Genres https://myanimelist.net/info.php?go=genre
+    # Broadcast? Producers? Licensors? Studios? Source? Duration?
+
+
     Args:
         id_ref (int, optional): Internal show identifier.
         requester (requests-like, optional): HTTP request maker.
@@ -122,7 +126,7 @@ def get_anime_from_soup(soup):
                 'airing_started': date, or None when MAL does not know,
                 'airing_finished': date, or None when MAL does not know,
                 'airing_premiere': tuple(Year (int), Season (mal_scraper.Season))
-                    or None (for films, OVAs, specials, ONAs, music, or
+                    or None (for films, OVAs, specials, ONAs, music, unknown, or
                     if MAL does not know),
                 'mal_age_rating': mal_scraper.AgeRating,
                 'mal_score': float, or None when not yet aired/MAL does not know,
@@ -296,7 +300,9 @@ def _get_airing_premiere(soup, data):
         # ONA: https://myanimelist.net/anime/574
         # TODO: Missing Special
         # Music: https://myanimelist.net/anime/3642
-        if data['format'] in (Format.film, Format.ova, Format.special, Format.ona, Format.music):
+        # Unknown: https://myanimelist.net/anime/33352
+        skip = (Format.film, Format.ova, Format.special, Format.ona, Format.music, Format.unknown)
+        if data['format'] in skip:
             return None
         else:
             raise MissingTagError('premiered')

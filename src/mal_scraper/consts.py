@@ -85,6 +85,7 @@ class Format(Enum):
     special = 'SPECIAL'
     ona = 'ONA'  # (Original Net Animation) https://myanimelist.net/anime/574
     music = 'MUSIC'  # Seriously? https://myanimelist.net/anime/731
+    unknown = 'UNKNOWN'  # https://myanimelist.net/anime/33352
 
     @classmethod
     def mal_to_enum(cls, text):
@@ -96,6 +97,7 @@ class Format(Enum):
             'special': cls.special,
             'ona':  cls.ona,
             'music': cls.music,
+            'unknown': cls.unknown,
         }.get(text.strip().lower())
 
 
@@ -104,6 +106,8 @@ class AgeRating(Enum):
     """The age rating of a media item.
 
     MAL Ratings are dubious.
+
+    None == Unknown.
 
     Reference: https://myanimelist.net/forum/?topicid=16816
     """
