@@ -42,7 +42,7 @@ class TestDiscovery(object):
             mal_scraper.discover_users(use_cache=False, use_web=True)
 
 
-class TestUserStats(object):
+class TestUserStats:
     """Test retrieving basic stats information."""
 
     PROFILE_URL = 'http://myanimelist.net/profile/'
@@ -50,13 +50,19 @@ class TestUserStats(object):
     TEST_USER = 'SparkleBunnies'  # Sorry SparkleBunniesm, 'twas a random selection...
     TEST_USER_PAGE = PROFILE_URL + TEST_USER
 
-    TEST_LAST_ONLINE_MINS_USER = 'Sakana-san'
+    TEST_LAST_ONLINE_NOW_USER = 'Ichigo_Shiba'
+    TEST_LAST_ONLINE_NOW_PAGE = PROFILE_URL + TEST_LAST_ONLINE_NOW_USER
+
+    TEST_LAST_ONLINE_MINS_USER = 'El_Anciano'
     TEST_LAST_ONLINE_MINS_PAGE = PROFILE_URL + TEST_LAST_ONLINE_MINS_USER
 
-    TEST_LAST_ONLINE_HOURS_USER = 'Lucedrom'
+    TEST_LAST_ONLINE_HOURS_USER = 'snip-snip'
     TEST_LAST_ONLINE_HOURS_PAGE = PROFILE_URL + TEST_LAST_ONLINE_HOURS_USER
 
-    TEST_LAST_ONLINE_DATE_USER = 'xScHeiZe'
+    TEST_LAST_ONLINE_YESTERDAY_USER = 'Nyanloveanimes'
+    TEST_LAST_ONLINE_YESTERDAY_PAGE = PROFILE_URL + TEST_LAST_ONLINE_YESTERDAY_USER
+
+    TEST_LAST_ONLINE_DATE_USER = 'Elizi'
     TEST_LAST_ONLINE_DATE_PAGE = PROFILE_URL + TEST_LAST_ONLINE_DATE_USER
 
     def test_detect_bad_download(self, mock_requests):
@@ -79,41 +85,62 @@ class TestUserStats(object):
             'user_id': self.TEST_USER,
         }.items()
 
-        # Fuzzy match datetime
+        # Fuzzy match datetime - last online was "10 hours ago"
         last_online = data['last_online']
-        assert datetime.utcnow() - last_online < timedelta(seconds=30)  # Special 'Now'
+        assert datetime.utcnow() - last_online < timedelta(hours=11)
 
         assert data == {
             'name': self.TEST_USER,
             'joined': date(year=2014, month=1, day=6),
             'last_online': last_online,  # Already checked
-            'num_anime_watching': 22,
-            'num_anime_completed': 125,
-            'num_anime_on_hold': 3,
-            'num_anime_dropped': 1,
-            'num_anime_plan_to_watch': 13,
+            'num_anime_watching': 14,
+            'num_anime_completed': 129,
+            'num_anime_on_hold': 9,
+            'num_anime_dropped': 4,
+            'num_anime_plan_to_watch': 16,
         }
 
+    def test_user_last_online_now(self, mock_requests):
+        mock_requests.always_mock(self.TEST_LAST_ONLINE_NOW_PAGE, 'user_last_online_now')
+
+        data = mal_scraper.get_user_stats(self.TEST_LAST_ONLINE_NOW_USER).data
+        last_online = data['last_online']
+        assert datetime.utcnow() - last_online < timedelta(seconds=10)
+
     def test_user_last_online_minutes(self, mock_requests):
+        # 23 minutes ago
         mock_requests.always_mock(self.TEST_LAST_ONLINE_MINS_PAGE, 'user_last_online_mins')
 
         data = mal_scraper.get_user_stats(self.TEST_LAST_ONLINE_MINS_USER).data
         last_online = data['last_online']
-        assert (datetime.utcnow() - timedelta(minutes=21)) - last_online < timedelta(minutes=1)
+        assert (datetime.utcnow() - timedelta(minutes=23)) - last_online < timedelta(minutes=1)
 
     def test_user_last_online_hours(self, mock_requests):
         mock_requests.always_mock(self.TEST_LAST_ONLINE_HOURS_PAGE, 'user_last_online_hours')
 
-        _, info = mal_scraper.get_user_stats(self.TEST_LAST_ONLINE_HOURS_USER)
-        last_online = info['last_online']
-        assert (datetime.utcnow() - timedelta(hours=1)) - last_online < timedelta(minutes=1)
+        data = mal_scraper.get_user_stats(self.TEST_LAST_ONLINE_HOURS_USER).data
+        last_online = data['last_online']  # '6 hours ago'
+        assert (datetime.utcnow() - timedelta(hours=6)) - last_online < timedelta(seconds=10)
+
+    def test_user_last_online_yesterday(self, mock_requests):
+        # Yesterday, 9:01 AM
+        mock_requests.always_mock(
+            self.TEST_LAST_ONLINE_YESTERDAY_PAGE,
+            'user_last_online_yesterday',
+        )
+
+        data = mal_scraper.get_user_stats(self.TEST_LAST_ONLINE_YESTERDAY_USER).data
+        yesterday = datetime.utcnow() - timedelta(days=1)
+        expected_date = yesterday.replace(hour=9, minute=1, second=0, microsecond=0)
+        assert data['last_online'] == expected_date
 
     def test_user_last_online_date(self, mock_requests):
+        # May 4, 8:09 AM
         mock_requests.always_mock(self.TEST_LAST_ONLINE_DATE_PAGE, 'user_last_online_date')
 
         _, info = mal_scraper.get_user_stats(self.TEST_LAST_ONLINE_DATE_USER)
         this_year = datetime.utcnow().year
-        assert datetime(year=this_year, month=10, day=1, hour=4, minute=29) == info['last_online']
+        assert datetime(year=this_year, month=5, day=4, hour=8, minute=9) == info['last_online']
 
     def test_user_discovery_on_user_profile_page(self, mock_requests):
         mock_requests.always_mock('http://myanimelist.net/profile/SparkleBunnies', 'user_test_page')
@@ -122,15 +149,14 @@ class TestUserStats(object):
 
         usernames = list(mal_scraper.user_discovery.discover_users_from_html(html))
         assert usernames == [
-            'SparkleBunnies', 'SparkleBunnies', 'SparkleBunnies', 'SparkleBunnies', 'Subpyro',
-            'TimeToRepent', 'Cigarette', 'Exmortus420', 'Phraze', 'HaXXspetten',
-            'Senpaoi', 'Exo_x', 'DatRandomDude', 'Solos', 'Solos',
-            'FallingUmbrella', 'FallingUmbrella', 'lemoncup', 'lemoncup', 'Star_Slayer',
-            'Star_Slayer', 'Skye12', 'Skye12', 'Mooncake', 'Mooncake',
-            'Nekonaut', 'Nekonaut', 'okies', 'okies', 'Turnip',
-            'Turnip', 'Kyle', 'Kyle', 'Roth', 'Roth',
-            'Vacuous', 'Vacuous', 'Funky', 'Funky', 'Wrath',
-            'Wrath', 'Kyrex', 'Kyrex',
+            'SparkleBunnies', 'SparkleBunnies', 'SparkleBunnies', 'SparkleBunnies', 'AkitoKazuki',
+            'Exmortus420', 'ChannelOrange', 'Brandon', 'Zeally', 'Daedalus',
+            'HaXXspetten', 'Kagami', 'no_good_name', 'BlackFIFA19', 'Ichigo_Shiba',
+            'Ichigo_Shiba', 'Sacchie', 'Sacchie', 'Woodenspoon', 'Woodenspoon',
+            'Teddy_Bear56', 'Teddy_Bear56', 'Speeku', 'Speeku', 'stonemask',
+            'stonemask', 'IIDarkII', 'IIDarkII', 'ThisNameSucks', 'ThisNameSucks',
+            'Z6890', 'Z6890', 'BKZekken', 'BKZekken', 'Woodenspoon',
+            'Woodenspoon', 'ChannelOrange', 'ChannelOrange', 'Padgit', 'Padgit',
         ]
 
 

@@ -81,6 +81,8 @@ def get_user_anime_list(user_id, requester=request_passthrough):
 
     This will make multiple network requests (possibly > 10).
 
+    TODO: Return Meta
+
     Args:
         user_id (str): The user identifier (i.e. the username).
         requester (requests-like, optional): HTTP request maker.
@@ -294,9 +296,9 @@ def _get_num_anime_stats(soup, classname):
 
 _get_num_anime_watching = partial(_get_num_anime_stats, classname='watching')
 _get_num_anime_completed = partial(_get_num_anime_stats, classname='completed')
-_get_num_anime_on_hold = partial(_get_num_anime_stats, classname='on-hold')
+_get_num_anime_on_hold = partial(_get_num_anime_stats, classname='on_hold')
 _get_num_anime_dropped = partial(_get_num_anime_stats, classname='dropped')
-_get_num_anime_plan_to_watch = partial(_get_num_anime_stats, classname='plantowatch')
+_get_num_anime_plan_to_watch = partial(_get_num_anime_stats, classname='plan_to_watch')
 
 
 # --- Parse User's Anime List Page(s) ---

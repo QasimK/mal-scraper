@@ -1,24 +1,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>    
 
 <title>
-Lucedrom&#039;s Profile - MyAnimeList.net
+snip-snip&#039;s Profile - MyAnimeList.net
 </title>
-<meta name="description" content="Check out Lucedrom&#039;s anime and manga lists, stats, favorites and so much more on MyAnimeList, the largest online anime and manga database in the world! Join the online community, create your anime and manga list, read reviews, explore the forums, follow news, and so much more!" />
+<meta name="description" content="Check out snip-snip&#039;s anime and manga lists, stats, favorites and so much more on MyAnimeList, the largest online anime and manga database in the world! Join the online community, create your anime and manga list, read reviews, explore the forums, follow news, and so much more!" />
 
   
 <meta name="keywords" content="anime, myanimelist, anime news, manga" />
   
 
-<meta property="og:locale" content="en_US"><meta property="fb:app_id" content="360769957454434"><meta property="og:site_name" content="MyAnimeList.net"><meta name="twitter:card" content="summary"><meta name="twitter:site" content="@myanimelist"><meta property="og:title" content=" Lucedrom&#039;s Profile - MyAnimeList.net "><meta property="og:image" content="https://myanimelist.cdn-dena.com/img/sp/icon/apple-touch-icon-256.png"><meta name="twitter:image:src" content="https://myanimelist.cdn-dena.com/img/sp/icon/apple-touch-icon-256.png"><meta property="og:url" content="https://myanimelist.net/profile/Lucedrom"><meta property="og:description" content="Check out Lucedrom&#039;s anime and manga lists, stats, favorites and so much more on MyAnimeList, the largest online anime and manga database in the world! Join the online community, create your anime and manga list, read reviews, explore the forums, follow news, and so much more!">
-<meta name='csrf_token' content='96d862086ab8302e49ed2c3d34624fae666c9d12'>
-<link rel="stylesheet" type="text/css" href="https://myanimelist.cdn-dena.com/static/assets/css/pc/style-9db6d6639c.css" />
+<meta property="og:locale" content="en_US"><meta property="fb:app_id" content="360769957454434"><meta property="og:site_name" content="MyAnimeList.net"><meta name="twitter:card" content="summary"><meta name="twitter:site" content="@myanimelist"><meta property="og:title" content=" snip-snip&#039;s Profile - MyAnimeList.net "><meta property="og:image" content="https://myanimelist.cdn-dena.com/img/sp/icon/apple-touch-icon-256.png"><meta name="twitter:image:src" content="https://myanimelist.cdn-dena.com/img/sp/icon/apple-touch-icon-256.png"><meta property="og:url" content="https://myanimelist.net/profile/snip-snip"><meta property="og:description" content="Check out snip-snip&#039;s anime and manga lists, stats, favorites and so much more on MyAnimeList, the largest online anime and manga database in the world! Join the online community, create your anime and manga list, read reviews, explore the forums, follow news, and so much more!">
+<link rel="manifest" href="/manifest.json">
 
-<script type="text/javascript" src="https://myanimelist.cdn-dena.com/static/assets/js/pc/header-bdf99b7b53.js"></script>
-<script type="text/javascript" src="https://myanimelist.cdn-dena.com/static/assets/js/pc/all-dd3de99c60.js"
+<meta name='csrf_token' content='5dba74fa787729875f930977809fa9578445a0b4'><link rel="stylesheet" type="text/css" href="https://myanimelist.cdn-dena.com/static/assets/css/pc/style-cfe6975aa5.css" />
+
+<script type="text/javascript" src="https://myanimelist.cdn-dena.com/static/assets/js/pc/header-61a5e90384.js"></script>
+<script type="text/javascript" src="https://myanimelist.cdn-dena.com/static/assets/js/pc/all-2c21754fe3.js"
         id="alljs" data-params='{&quot;origin_url&quot;:&quot;https:\/\/myanimelist.net&quot;,&quot;is_request_bot_filter_log&quot;:true}' defer></script>
 
 
-<script type="text/javascript" src="https://myanimelist.cdn-dena.com/js/profile.js?v=63"></script>
+<script type="text/javascript" src="https://myanimelist.cdn-dena.com/js/profile.js?v=65"></script>
 
 <link rel="search" type="application/opensearchdescription+xml" href="https://myanimelist.net/plugins/myanimelist.xml" title="MyAnimeList" />
 
@@ -34,7 +35,7 @@ Lucedrom&#039;s Profile - MyAnimeList.net
   ga('require', 'linkid'); // Enhanced Link Attribution
   ga('send', 'pageview');
 </script>
-<!-- ### Load GPT Library ### -->
+  <!-- ### Load GPT Library ### -->
 <script type='text/javascript'>
  var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
@@ -53,21 +54,20 @@ Lucedrom&#039;s Profile - MyAnimeList.net
 
   </head>
 
-    <body class="page-common profile">  
+    <body class="page-common profile">    
       <div id="myanimelist">
-  
-<div class="_unit " style="width:1px;display: block !important;" data-height="1">
-  <div id="skin_detail" class="" style="width:1px;">
-    <script type='text/javascript'>
-      googletag.cmd.push(function() {
-             var slot = googletag.defineOutOfPageSlot("/84947469/skin_detail", "skin_detail").addService(googletag.pubads())
-    .setTargeting("adult", "gray")
-    .setCollapseEmptyDiv(true,true);googletag.enableServices();
+      
+        <div class="_unit " style="width:1px;display: block !important;" data-height="1">
+      <div id="skin_detail" class="" style="width:1px;">
+        <script type='text/javascript'>
+          googletag.cmd.push(function() {
+                      var slot = googletag.defineOutOfPageSlot("/84947469/skin_detail", "skin_detail").addService(googletag.pubads())
+      .setTargeting("adult", "gray").setCollapseEmptyDiv(true,true);googletag.enableServices();
 
-  googletag.display("skin_detail");
-         });</script>
-  </div>
-</div>
+      googletag.display("skin_detail");
+              });</script>
+      </div>
+    </div>
     <script type='text/javascript'>
     window.MAL.SkinAd.prepareForSkin('skin_detail');
   </script>
@@ -78,24 +78,27 @@ Lucedrom&#039;s Profile - MyAnimeList.net
         <div id="ad-skin-left-fixed-block"></div>
       </div>
     </div>
-  </div><div class="wrapper">
-                <div id="headerSmall">
-<a href="https://myanimelist.net/manga_translation_battle_vol5?_location=mal_h_b" class="banner-header-anime-straming" target="_blank">
-  <img src="https://myanimelist.cdn-dena.com/images/mtb/banner-mtb_vol5.png?v=1" srcset="https://myanimelist.cdn-dena.com/images/mtb/banner-mtb_vol5.png?v=1 1x, https://myanimelist.cdn-dena.com/images/mtb/banner-mtb_vol5@2x.png?v=1 2x" alt="Manga Translation Battle vol.5" title="Manga Translation Battle vol.5">
-</a>
-
-<div id="header-menu" ><div class="header-menu-login"><a class="btn-login" href="https://myanimelist.net/login.php?from=%2Fprofile%2FLucedrom" id="malLogin">Login</a><a class="btn-signup" href="https://myanimelist.net/register.php?from=%2Fprofile%2FLucedrom">Sign Up</a></div></div><a href="/" class="link-mal-logo">MyAnimeList.net</a>
+  </div><div class="wrapper ">
+                <div id="headerSmall" class="">
+<a href="https://myanimelist.net/account/membership?_location=mal_h_b&amp;_type=3"
+   class="banner-header-anime-straming" target="_self">
+  <img src="https://myanimelist.cdn-dena.com/images/membership/banner2.gif?v=1" width="250" height="36"
+       srcset="https://myanimelist.cdn-dena.com/images/membership/banner2.gif?v=1 1x, https://myanimelist.cdn-dena.com/images/membership/banner2@2x.gif?v=1 2x"
+       alt="Become a MAL Supporter" title="Become a MAL Supporter">
+</a><div id="header-menu" ><div class="header-menu-login"><a class="btn-mal-service" href="https://myanimelist.net/membership?_location=mal_h_u">Hide Ads</a><a class="btn-login" href="https://myanimelist.net/login.php?from=%2Fprofile%2Fsnip-snip" id="malLogin">Login</a><a class="btn-signup" href="https://myanimelist.net/register.php?from=%2Fprofile%2Fsnip-snip">Sign Up</a></div></div><a href="/" class="link-mal-logo">MyAnimeList.net</a>
         </div>
         
                 
-          <div id="menu">
-    <div id="menu_right"><script type="text/x-template" id="incremental-result-item-anime"><div class="list anime" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info anime"><div class="name">${ item.name } <span class="media-type">(${ item.payload.media_type })</span></div><div class="extra-info">Aired: ${ item.payload.aired }<br>Score: ${ item.payload.score }<br>Status: ${ item.payload.status }</div></div></div><div class="off" v-else><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info anime"><div class="name">${ item.name }</div><div class="media-type">(${ mediaTypeWithStartYear })</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-manga"><div class="list manga" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info manga"><div class="name">${ item.name } <span class="media-type">(${ item.payload.media_type })</span></div><div class="extra-info">Published: ${ item.payload.published }<br>Score: ${ item.payload.score }<br>Status: ${ item.payload.status }</div></div></div><div class="off" v-else><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info manga"><div class="name">${ item.name }</div><div class="media-type">(${ mediaTypeWithStartYear })</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-character"><div class="list character" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info character"><div class="name">${ item.name }</div><div class="extra-info"><ul class="related-works"><li v-for="work in item.payload.related_works" class="fs-i">- ${ work }</li></ul>Favorites: ${ item.payload.favorites }</div></div></div><div class="off" v-else><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info character"><div class="name">${ item.name }</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-person"><div class="list person" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info person"><div class="name">${ item.name }</div><div class="extra-info"><span v-if="item.payload.alternative_name">${ item.payload.alternative_name }<br></span>Birthday: ${ item.payload.birthday }<br>Favorites: ${ item.payload.favorites }</div></div></div><div class="off" v-else><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info person"><div class="name">${ item.name }</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-club"><div class="list club" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info club"><div class="name">${ item.name }</div><div class="extra-info">Members: ${ item.payload.members }<br>Category: ${ item.payload.category }<br>Created by: ${ item.payload.created_by }</div></div></div><div class="off" v-else><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info club"><div class="name">${ item.name }</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-user"><div class="list user" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info user"><div class="name">${ item.name }</div><div class="extra-info"><span v-if="item.payload.authority">${ item.payload.authority }<br></span>Joined: ${ item.payload.joined }</div></div></div><div class="off" v-else><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info user"><div class="name">${ item.name }</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-news"><div class="list news" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info news"><div class="name">${ item.name }</div><div class="extra-info">${ item.payload.date }</div></div></div><div class="off" v-else><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info news"><div class="name">${ item.name }</div><div class="media-type">${ item.payload.date }</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-featured"><div class="list featured" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info featured"><div class="name">${ item.name }</div><div class="extra-info">${ item.payload.date }</div></div></div><div class="off" v-else><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info featured"><div class="name">${ item.name }</div><div class="media-type">${ item.payload.date }</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-forum"><div class="list forum" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info forum"><div class="name"><span v-show="item.payload.work_title">${ item.payload.work_title}
-                      <i class="fa fa-caret-right"></i></span> ${ item.name }</div><div class="extra-info">${ item.payload.date }<br><span>in ${ item.payload.category }</span></div></div></div><div class="off" v-else><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info forum"><div class="name"><span v-show="item.payload.work_title">${ item.payload.work_title}
-                      <i class="fa fa-caret-right"></i></span> ${ item.name }</div><div class="media-type">${ item.payload.date }</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-separator"><div class="list separator"><div class="separator"><span v-show="item.name == 'anime'">Anime</span><span v-show="item.name == 'manga'">Manga</span><span v-show="item.name == 'character'">Characters</span><span v-show="item.name == 'person'">People</span></div></div></script><div id="top-search-bar"><form id="searchBar" method="get" class="searchBar" @submit.prevent="jump()"><div class="form-select-outer fl-l"><select name="type" id="topSearchValue" class="inputtext" v-model="type"><option value="all">All</option><option value="anime">Anime</option><option value="manga">Manga</option><option value="character">Characters</option><option value="person">People</option><option value="news">News</option><option value="featured">Featured Articles</option><option value="forum">Forum</option><option value="club">Clubs</option><option value="user">Users</option></select></div><input v-model="keyword" id="topSearchText" type="text" name="keyword" class="inputtext fl-l" placeholder="Search Anime, Manga, and more..." size="30" autocomplete="off"
-                 @keydown.up.prevent="moveSelection(-1)" @keydown.down.prevent="moveSelection(1)"
-                 @focus="isFocused = true" @blur="isFocused = false"><input id="topSearchButon" class="fl-l" :class="{'notActive': (keyword.length < 3)}" type="submit" value="&#xf002"></form><div id="topSearchResultList" class="incrementalSearchResultList" :style="{display: (showResult ? 'block' : 'none')}" @mousedown.prevent=""><component v-for="item in items" :is="resolveComponent(item)" :item="item" :focus="selection == $index" :url="generateItemPageUrl(item)" @mouseover="selection = $index"></component><div class="list list-bottom" :class="{'focus': selection == -1}" @mouseover="selection = -1"
+          <div id="menu" class="">
+    <div id="menu_right"><script type="text/x-template" id="incremental-result-item-anime"><div class="list anime" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info anime"><div class="name">${ item.name } <span class="media-type">(${ item.payload.media_type })</span></div><div class="extra-info">Aired: ${ item.payload.aired }<br>Score: ${ item.payload.score }<br>Status: ${ item.payload.status }</div></div></div><div class="off" v-if="!focus"><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info anime"><div class="name">${ item.name }</div><div class="media-type">(${ mediaTypeWithStartYear })</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-manga"><div class="list manga" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info manga"><div class="name">${ item.name } <span class="media-type">(${ item.payload.media_type })</span></div><div class="extra-info">Published: ${ item.payload.published }<br>Score: ${ item.payload.score }<br>Status: ${ item.payload.status }</div></div></div><div class="off" v-if="!focus"><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info manga"><div class="name">${ item.name }</div><div class="media-type">(${ mediaTypeWithStartYear })</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-character"><div class="list character" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info character"><div class="name">${ item.name }</div><div class="extra-info"><ul class="related-works"><li v-for="work in item.payload.related_works" class="fs-i">- ${ work }</li></ul>Favorites: ${ item.payload.favorites }</div></div></div><div class="off" v-if="!focus"><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info character"><div class="name">${ item.name }</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-person"><div class="list person" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info person"><div class="name">${ item.name }</div><div class="extra-info"><span v-if="item.payload.alternative_name">${ item.payload.alternative_name }<br></span>Birthday: ${ item.payload.birthday }<br>Favorites: ${ item.payload.favorites }</div></div></div><div class="off" v-if="!focus"><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info person"><div class="name">${ item.name }</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-club"><div class="list club" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info club"><div class="name">${ item.name }</div><div class="extra-info">Members: ${ item.payload.members }<br>Category: ${ item.payload.category }<br>Created by: ${ item.payload.created_by }</div></div></div><div class="off" v-if="!focus"><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info club"><div class="name">${ item.name }</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-user"><div class="list user" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info user"><div class="name">${ item.name }</div><div class="extra-info"><span v-if="item.payload.authority">${ item.payload.authority }<br></span>Joined: ${ item.payload.joined }</div></div></div><div class="off" v-if="!focus"><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info user"><div class="name">${ item.name }</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-news"><div class="list news" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info news"><div class="name">${ item.name }</div><div class="extra-info">${ item.payload.date }</div></div></div><div class="off" v-if="!focus"><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info news"><div class="name">${ item.name }</div><div class="media-type">${ item.payload.date }</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-featured"><div class="list featured" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info featured"><div class="name">${ item.name }</div><div class="extra-info">${ item.payload.date }</div></div></div><div class="off" v-if="!focus"><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info featured"><div class="name">${ item.name }</div><div class="media-type">${ item.payload.date }</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-forum"><div class="list forum" :class="{'focus': focus}"><a :href="url" class="clearfix"><div class="on" v-if="focus"><span class="image" :style="{'background-image': 'url(' + item.image_url + ')'}"></span><div class="info forum"><div class="name"><span v-show="item.payload.work_title">${ item.payload.work_title}
+                      <i class="fa fa-caret-right"></i></span> ${ item.name }</div><div class="extra-info">${ item.payload.date }<br><span>in ${ item.payload.category }</span></div></div></div><div class="off" v-if="!focus"><span class="image" :style="{'background-image': 'url(' + item.thumbnail_url + ')'}"></span><div class="info forum"><div class="name"><span v-show="item.payload.work_title">${ item.payload.work_title}
+                      <i class="fa fa-caret-right"></i></span> ${ item.name }</div><div class="media-type">${ item.payload.date }</div></div></div></a></div></script><script type="text/x-template" id="incremental-result-item-separator"><div class="list separator"><div class="separator"><span v-show="item.name == 'anime'">Anime</span><span v-show="item.name == 'manga'">Manga</span><span v-show="item.name == 'character'">Characters</span><span v-show="item.name == 'person'">People</span></div></div></script><div id="top-search-bar"><form id="searchBar" method="get" class="searchBar" @submit.prevent="jump()"><div class="form-select-outer fl-l"><select name="type" id="topSearchValue" class="inputtext" v-model="type"><option value="all">All</option><option value="anime">Anime</option><option value="manga">Manga</option><option value="character">Characters</option><option value="person">People</option><option value="news">News</option><option value="featured">Featured Articles</option><option value="forum">Forum</option><option value="club">Clubs</option><option value="user">Users</option></select></div><input v-model="keyword" id="topSearchText" type="text"
+            name="keyword" class="inputtext fl-l" placeholder="Search Anime, Manga, and more..."
+            size="30" autocomplete="off"
+            @keydown.up.prevent="moveSelection(-1)" @keydown.down.prevent="moveSelection(1)"
+            @focus="isFocused = true" @blur="isFocused = false"><input id="topSearchButon" class="fl-l" :class="{'notActive': (keyword.length < 3)}" type="submit" value="&#xf002"></form><div id="topSearchResultList" class="incrementalSearchResultList" :style="{display: (showResult ? 'block' : 'none')}" @mousedown.prevent=""><div v-for="(item, i) in items" @mouseover="selection=i"><component :is="resolveComponent(item)" :item="item" :focus="selection == i" :url="generateItemPageUrl(item)"></component></div><div class="list list-bottom" :class="{'focus': selection == -1}" @mouseover="selection = -1"
                :style="{display: (showViewAllLink ? 'block' : 'none')}"><a :href="resultPageUrl">
-              View all results for <span class="fw-b">${ keyword }</span><i v-show="currentAjaxRequest != null" class="fa fa-spinner fa-spin ml4"></i></a></div></div></div></div><div id="menu_left">
+              View all results for <span class="fw-b">${ keyword }</span><i v-show="isRequesting" class="fa fa-spinner fa-spin ml4"></i></a></div></div></div></div><div id="menu_left">
       <ul id="nav">
         <li class="small"><a href="#" class="non-link">Anime</a>
           <ul class="wider">
@@ -105,6 +108,7 @@ Lucedrom&#039;s Profile - MyAnimeList.net
                         <li><a href="https://myanimelist.net/watch/episode?_location=mal_h_m_a">Videos</a></li>
             <li><a href="https://myanimelist.net/reviews.php?t=anime&amp;_location=mal_h_m">Reviews</a></li>
             <li><a href="https://myanimelist.net/recommendations.php?s=recentrecs&amp;t=anime&amp;_location=mal_h_m">Recommendations</a></li>
+            <li><a href="https://myanimelist.net/forum?topicid=1582476&amp;_location=mal_h_m">2017 Challenge</a></li>
           </ul>
         </li>
         <li class="small"><a href="#" class="non-link">Manga</a>
@@ -113,6 +117,7 @@ Lucedrom&#039;s Profile - MyAnimeList.net
             <li><a href="https://myanimelist.net/topmanga.php?_location=mal_h_m">Top Manga</a></li>
             <li><a href="https://myanimelist.net/reviews.php?t=manga&amp;_location=mal_h_m">Reviews</a></li>
             <li><a href="https://myanimelist.net/recommendations.php?s=recentrecs&amp;t=manga&amp;_location=mal_h_m">Recommendations</a></li>
+            <li><a href="https://myanimelist.net/forum?topicid=1582478&amp;_location=mal_h_m">2017 Challenge</a></li>
           </ul>
         </li>
         <li><a href="#" class="non-link">Community</a>
@@ -147,12 +152,14 @@ Lucedrom&#039;s Profile - MyAnimeList.net
             <li><a href="https://myanimelist.net/about.php?go=team&amp;_location=mal_h_m">Staff</a></li><li><a href="https://myanimelist.net/membership?_location=mal_h_m">MAL Supporter</a></li>
           </ul>
         </li>
+        
               </ul>
-    </div>  </div>        <div id="contentWrapper" >
+    </div>  </div>
+        <div id="contentWrapper" >
           <div>
                                         <h1 class="h1">
                   <span class="di-ib po-r">
-  Lucedrom's Profile
+  snip-snip's Profile
   </span>              </h1>
                       </div>
           <div id="content">
@@ -163,41 +170,56 @@ Lucedrom&#039;s Profile - MyAnimeList.net
 <div class="user-profile">
 
   <div class="user-image mb8">
-    <div class="btn-detail-add-picture nolink"><i class="fa fa-camera fs48"></i><br><span class="text">No Picture</span></div>  </div>
+          <img src="https://myanimelist.cdn-dena.com/images/userimages/5261192.jpg">
+      </div>
 
   
   <div class="user-function mb8">
-    <a href="https://myanimelist.net/profile/Lucedrom#lastcomment" title="Comments of Lucedrom's Profile" class="icon-user-function icon-comment js-user-function" id="comment"><span class="text">Comment</span></a><a href="https://myanimelist.net/mymessages.php?go=send&amp;toname=Lucedrom" title="Private Message to Lucedrom" class="icon-user-function icon-message js-user-function" id="message"><span class="text">Message</span></a><a href="https://myanimelist.net/login.php?from=%2Fprofile%2FLucedrom" class="icon-user-function icon-request js-user-function" id="request"><span class="text">Request</span></a>  </div>
+    <a href="https://myanimelist.net/profile/snip-snip#lastcomment" title="Comments of snip-snip's Profile" class="icon-user-function icon-comment js-user-function" id="comment"><span class="text">Comment</span></a><a href="https://myanimelist.net/mymessages.php?go=send&amp;toname=snip-snip" title="Private Message to snip-snip" class="icon-user-function icon-message js-user-function" id="message"><span class="text">Message</span></a><a href="https://myanimelist.net/login.php?from=%2Fprofile%2Fsnip-snip" class="icon-user-function icon-request js-user-function" id="request"><span class="text">Request</span></a>  </div>
 
   <ul class="user-status border-top pb8 mb4">
-    <li class="clearfix"><span class="user-status-title di-ib fl-l fw-b">Last Online</span><span class="user-status-data di-ib fl-r">1 hour ago</span></li><li class="clearfix"><span class="user-status-title di-ib fl-l fw-b">Joined</span><span class="user-status-data di-ib fl-r">Dec 3, 2015</span></li>  </ul>
+    <li class="clearfix"><span class="user-status-title di-ib fl-l fw-b">Last Online</span><span class="user-status-data di-ib fl-r">6 hours ago</span></li><li class="clearfix"><span class="user-status-title di-ib fl-l fw-b">Gender</span><span class="user-status-data di-ib fl-r">Female</span></li><li class="clearfix"><span class="user-status-title di-ib fl-l fw-b">Birthday</span><span class="user-status-data di-ib fl-r">Feb 18</span></li><li class="clearfix"><span class="user-status-title di-ib fl-l fw-b">Joined</span><span class="user-status-data di-ib fl-r">Mar 14, 2016</span></li>  </ul>
 
   <div class="user-button clearfix mb12">
-    <a class="btn-profile-submit fl-l" href="https://myanimelist.net/animelist/Lucedrom">Anime List</a>
-    <a class="btn-profile-submit fl-r" href="https://myanimelist.net/mangalist/Lucedrom">Manga List</a>
+    <a class="btn-profile-submit fl-l" href="https://myanimelist.net/animelist/snip-snip">Anime List</a>
+    <a class="btn-profile-submit fl-r" href="https://myanimelist.net/mangalist/snip-snip">Manga List</a>
   </div>
 
   <ul class="user-status border-top">
-    <li class="icon-statistics link"><a href="https://myanimelist.net/profile/Lucedrom#statistics" class="di-b"><span class="user-status-title di-ib fw-b">Statistics</span></a></li><li class="icon-history link"><a href="https://myanimelist.net/history/Lucedrom"><span class="user-status-title di-ib fw-b w100">History</span></a></li>  </ul>
+    <li class="icon-statistics link"><a href="https://myanimelist.net/profile/snip-snip#statistics" class="di-b"><span class="user-status-title di-ib fw-b">Statistics</span></a></li><li class="icon-history link"><a href="https://myanimelist.net/history/snip-snip"><span class="user-status-title di-ib fw-b w100">History</span></a></li>  </ul>
 
   <ul class="user-status border-top mt12 mb12">
-    <li class="link"><a href="https://myanimelist.net/forum/index.php?action=search&amp;u=Lucedrom&amp;q=&amp;uloc=1&amp;loc=-1" class="clearfix of-h" rel="nofollow"><span class="user-status-title di-ib fl-l fw-b">Forum Posts</span><span class="user-status-data di-ib fl-r fw-b">0</span></a></li><li class="link"><a href="https://myanimelist.net/profile/Lucedrom/reviews" class="clearfix of-h" rel="nofollow"><span class="user-status-title di-ib fl-l fw-b">Reviews</span><span class="user-status-data di-ib fl-r fw-b">0</span></a></li><li class="link"><a href="https://myanimelist.net/profile/Lucedrom/recommendations" class="clearfix of-h" rel="nofollow"><span class="user-status-title di-ib fl-l fw-b">Recommendations</span><span class="user-status-data di-ib fl-r fw-b">0</span></a></li><li class="link"><a href="https://myanimelist.net/blog/Lucedrom" class="clearfix of-h" rel="nofollow"><span class="user-status-title di-ib fl-l fw-b">Blog Posts</span><span class="user-status-data di-ib fl-r fw-b">0</span></a></li><li class="link"><a href="https://myanimelist.net/profile/Lucedrom/clubs" class="clearfix of-h" rel="nofollow"><span class="user-status-title di-ib fl-l fw-b">Clubs</span><span class="user-status-data di-ib fl-r fw-b">0</span></a></li>  </ul>
+    <li class="link"><a href="https://myanimelist.net/forum/search?u=snip-snip&amp;q=&amp;uloc=1&amp;loc=-1" class="clearfix of-h"><span class="user-status-title di-ib fl-l fw-b">Forum Posts</span><span class="user-status-data di-ib fl-r fw-b">1,044</span></a></li><li class="link"><a href="https://myanimelist.net/profile/snip-snip/reviews" class="clearfix of-h" rel="nofollow"><span class="user-status-title di-ib fl-l fw-b">Reviews</span><span class="user-status-data di-ib fl-r fw-b">0</span></a></li><li class="link"><a href="https://myanimelist.net/profile/snip-snip/recommendations" class="clearfix of-h" rel="nofollow"><span class="user-status-title di-ib fl-l fw-b">Recommendations</span><span class="user-status-data di-ib fl-r fw-b">0</span></a></li><li class="link"><a href="https://myanimelist.net/blog/snip-snip" class="clearfix of-h" rel="nofollow"><span class="user-status-title di-ib fl-l fw-b">Blog Posts</span><span class="user-status-data di-ib fl-r fw-b">0</span></a></li><li class="link"><a href="https://myanimelist.net/profile/snip-snip/clubs" class="clearfix of-h"><span class="user-status-title di-ib fl-l fw-b">Clubs</span><span class="user-status-data di-ib fl-r fw-b">3</span></a></li>  </ul>
 
   
-  
-  <h4><a href="https://myanimelist.net/profile/Lucedrom/friends" class="fl-r fs11 fw-n ff-Verdana" rel="nofollow">All (0)</a>Friends</h4>
-  <div class="user-friends pt4 pb12">
-    No friend yet.  </div>
+  <h4><a href="https://myanimelist.net/profile/snip-snip/friends" class="fl-r fs11 fw-n ff-Verdana">All (104)</a>Friends</h4>
+  <div class="user-friends pt4 pb12"><a href="https://myanimelist.net/profile/Iizbakaokay" class="icon-friend lazyload" data-bg="https://myanimelist.cdn-dena.com/r/76x120/images/userimages/4146885.jpg?s=d43ce1c43442e6c2864c6a1cc5e3b924" title="Iizbakaokay">Iizbakaokay</a><a href="https://myanimelist.net/profile/Cap_topkek" class="icon-friend lazyload" data-bg="https://myanimelist.cdn-dena.com/r/76x120/images/userimages/4706672.jpg?s=e2d7ce316d78c6e1c35bc82f8d2a4c5f" title="Cap_topkek">Cap_topkek</a><a href="https://myanimelist.net/profile/Suryansu" class="icon-friend lazyload" data-bg="https://myanimelist.cdn-dena.com/r/76x120/images/userimages/5034328.jpg?s=fe7893a34e00799600f02213b006bc40" title="Suryansu">Suryansu</a><a href="https://myanimelist.net/profile/Maker_X" class="icon-friend lazyload" data-bg="https://myanimelist.cdn-dena.com/r/76x120/images/userimages/5394081.jpg?s=1be9d953bdb4d5071342ef5fb655432f" title="Maker_X">Maker_X</a><a href="https://myanimelist.net/profile/Partyjerk" class="icon-friend lazyload" data-bg="https://myanimelist.cdn-dena.com/r/76x120/images/userimages/4682790.jpg?s=8f21f073e6ef392306d2fec3a534daf2" title="Partyjerk">Partyjerk</a><a href="https://myanimelist.net/profile/Intelligenza" class="icon-friend lazyload" data-bg="https://myanimelist.cdn-dena.com/r/76x120/images/userimages/4662406.jpg?s=49634eca4c1e35836470caa4e6867fba" title="Intelligenza">Intelligenza</a><a href="https://myanimelist.net/profile/Anshaj" class="icon-friend lazyload" data-bg="https://myanimelist.cdn-dena.com/r/76x120/images/userimages/5405835.jpg?s=d409fb97ab6668c9f98143645a725289" title="Anshaj">Anshaj</a><a href="https://myanimelist.net/profile/DarkSentinel" class="icon-friend lazyload" data-bg="https://myanimelist.cdn-dena.com/r/76x120/images/userimages/1432101.jpg?s=66550a6670f53898f2345e24fa1060f7" title="DarkSentinel">DarkSentinel</a><a href="https://myanimelist.net/profile/aureate-chan" class="icon-friend lazyload" data-bg="https://myanimelist.cdn-dena.com/r/76x120/images/userimages/5005057.jpg?s=7d792fa65bdcde2e98bcdd142afa2b50" title="aureate-chan">aureate-chan</a><a href="https://myanimelist.net/profile/kakashi91" class="icon-friend lazyload" data-bg="https://myanimelist.cdn-dena.com/r/76x120/images/userimages/2523507.jpg?s=c0766b6544e02446910b2d90984f8e00" title="kakashi91">kakashi91</a></div>
 
+      <h4>Also Available at</h4>
+    <div class="user-profile-sns">
+      <span class="ww-bw">&gt;&gt;&gt; _</span><br><span class="ww-bw">&gt;&gt;&gt; __</span><br><span class="ww-bw">&gt;&gt;&gt; ___</span><br>    </div>
   
   <h4 class="icon-rss">RSS Feeds</h4>
   <div class="user-profile-sns">
-    <a class="di-ib mb8" href="https://myanimelist.net/rss.php?type=rw&amp;u=Lucedrom" rel="nofollow">Recent Anime</a><br><a class="di-ib mb8" href="https://myanimelist.net/rss.php?type=rwe&amp;u=Lucedrom" rel="nofollow">Recent Anime by Episode</a><br><a class="di-ib mb8" href="https://myanimelist.net/rss.php?type=rm&amp;u=Lucedrom" rel="nofollow">Recent Manga</a><br><a class="di-ib mb8" href="https://myanimelist.net/rss.php?type=rrm&amp;u=Lucedrom" rel="nofollow">Recent Manga by Chapter</a><br><a class="di-ib mb8" href="https://myanimelist.net/rss.php?type=blog&amp;id=5029344" rel="nofollow">Blog Feed</a><br>  </div>
+    <a class="di-ib mb8" href="https://myanimelist.net/rss.php?type=rw&amp;u=snip-snip" rel="nofollow">Recent Anime</a><br><a class="di-ib mb8" href="https://myanimelist.net/rss.php?type=rwe&amp;u=snip-snip" rel="nofollow">Recent Anime by Episode</a><br><a class="di-ib mb8" href="https://myanimelist.net/rss.php?type=rm&amp;u=snip-snip" rel="nofollow">Recent Manga</a><br><a class="di-ib mb8" href="https://myanimelist.net/rss.php?type=rrm&amp;u=snip-snip" rel="nofollow">Recent Manga by Chapter</a><br><a class="di-ib mb8" href="https://myanimelist.net/rss.php?type=blog&amp;id=5261192" rel="nofollow">Blog Feed</a><br>  </div>
 
 </div>
     </div>
 
         <div class="container-right">
+              <div class="user-profile-about js-truncate-outer">
+          <div class="profile-about-user js-truncate-inner">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed">
+              <tr>
+                <td>
+                  <div class="word-break">
+                    <img class="userimg img-a-r" src="https://image.ibb.co/bvzumQ/huigj_k.jpg" />
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
       
             <div class="user-statistics mb24" id="statistics">
         <h2>Statistics</h2>
@@ -208,79 +230,80 @@ Lucedrom&#039;s Profile - MyAnimeList.net
 
                                     
             <div class="stat-score di-t w100 pt8">
-              <div class="di-tc al pl8 fs12 fw-b"><span class="fn-grey2 fw-n">Days: </span>27.6</div>
-              <div class="di-tc ar pr8 fs12 fw-b"><span class="fn-grey2 fw-n">Mean Score: </span>8.65</div>
+              <div class="di-tc al pl8 fs12 fw-b"><span class="fn-grey2 fw-n">Days: </span>107.4</div>
+              <div class="di-tc ar pr8 fs12 fw-b"><span class="fn-grey2 fw-n">Mean Score: </span>8.13</div>
             </div>
 
-            <div class="stats-graph mt8"><span class="graph watching" style="width: 78.620689655172px"></span><span class="graph completed" style="width: 183.44827586207px"></span><span class="graph on-hold" style="width: 0px"></span><span class="graph dropped" style="width: 39.310344827586px"></span><span class="graph plantowatch" style="width: 78.620689655172px"></span></div>
+            <div class="stats-graph mt8"><span class="graph anime watching" style="width: 1.4px"></span><span class="graph anime completed" style="width: 246.2px"></span><span class="graph anime on_hold" style="width: 11.2px"></span><span class="graph anime dropped" style="width: 39.4px"></span><span class="graph anime plan_to_watch" style="width: 81.6px"></span></div>
             <div class="mt12 ml8 mr8 clearfix">
-              <ul class="stats-status fl-l"><li class="clearfix mb12"><a href="https://myanimelist.net/animelist/Lucedrom?status=1" class="di-ib fl-l lh10 circle watching">Watching</a><span class="di-ib fl-r lh10">6</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/animelist/Lucedrom?status=2" class="di-ib fl-l lh10 circle completed">Completed</a><span class="di-ib fl-r lh10">14</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/animelist/Lucedrom?status=3" class="di-ib fl-l lh10 circle on-hold">On-Hold</a><span class="di-ib fl-r lh10">0</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/animelist/Lucedrom?status=4" class="di-ib fl-l lh10 circle dropped">Dropped</a><span class="di-ib fl-r lh10">3</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/animelist/Lucedrom?status=6" class="di-ib fl-l lh10 circle plantowatch">Plan to Watch</a><span class="di-ib fl-r lh10">6</span></li></ul><ul class="stats-data fl-r"><li class="clearfix mb12"><span class="di-ib fl-l fn-grey2">Total Entries</span><span class="di-ib fl-r">29</span></li><li class="clearfix mb12"><span class="di-ib fl-l fn-grey2">Rewatched</span><span class="di-ib fl-r">0</span></li><li class="clearfix mb12"><span class="di-ib fl-l fn-grey2">Episodes</span><span class="di-ib fl-r">1,679</span></li></ul>            </div>
+              <ul class="stats-status fl-l"><li class="clearfix mb12"><a href="https://myanimelist.net/animelist/snip-snip?status=1" class="di-ib fl-l lh10 circle anime watching">Watching</a><span class="di-ib fl-r lh10">1</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/animelist/snip-snip?status=2" class="di-ib fl-l lh10 circle anime completed">Completed</a><span class="di-ib fl-r lh10">175</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/animelist/snip-snip?status=3" class="di-ib fl-l lh10 circle anime on_hold">On-Hold</a><span class="di-ib fl-r lh10">8</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/animelist/snip-snip?status=4" class="di-ib fl-l lh10 circle anime dropped">Dropped</a><span class="di-ib fl-r lh10">28</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/animelist/snip-snip?status=6" class="di-ib fl-l lh10 circle anime plan_to_watch">Plan to Watch</a><span class="di-ib fl-r lh10">58</span></li></ul><ul class="stats-data fl-r"><li class="clearfix mb12"><span class="di-ib fl-l fn-grey2">Total Entries</span><span class="di-ib fl-r">270</span></li><li class="clearfix mb12"><span class="di-ib fl-l fn-grey2">Rewatched</span><span class="di-ib fl-r">54</span></li><li class="clearfix mb12"><span class="di-ib fl-l fn-grey2">Episodes</span><span class="di-ib fl-r">6,587</span></li></ul>            </div>
           </div>
 
                     <div class="updates anime">
             <h5 class="mb12">
-              <a class="floatRightHeader ff-Verdana" href="https://myanimelist.net/history/Lucedrom/anime">Anime History</a>
+              <a class="floatRightHeader ff-Verdana" href="https://myanimelist.net/history/snip-snip/anime">Anime History</a>
               Last Anime Updates
             </h5>
                             
 <div class="statistics-updates di-b w100 mb8">
-  <a href="https://myanimelist.net/anime/32182/Mob_Psycho_100" class="fl-l di-ib mr8 image">
-    <img src="https://myanimelist.cdn-dena.com/r/80x120/images/anime/8/80356.jpg?s=32f9aef0fed8b332e041b2628e6d6426" width="40" alt="Mob Psycho 100">
+  <a href="https://myanimelist.net/anime/19/Monster" class="fl-l di-ib mr8 image">
+    <img src="https://myanimelist.cdn-dena.com/r/80x120/images/anime/10/18793.jpg?s=130adec919de8da660f7df9d5b7ec6e4" width="40" alt="Monster">
   </a>
 
-                        
+                      
   <div class="data">
-    <a href="https://myanimelist.net/anime/32182/Mob_Psycho_100">Mob Psycho 100</a>
+    <a href="https://myanimelist.net/anime/19/Monster">Monster</a>
     <div class="clearfix graph-content pt8">
-      <span class="fl-r fn-grey2">Yesterday, 6:27 PM</span>
-      <div class="graph fl-l"><span class="graph-inner watching" style="width:95px"></span></div>
+      <span class="fl-r fn-grey2">6 hours ago</span>
+      <div class="graph fl-l"><span class="graph-inner anime watching" style="width:13px"></span></div>
     </div>
 
     <div class="fn-grey2">
             Watching
-                        <span class="text watching">6</span>/12
+                        <span class="text anime watching">5</span>/74
                     &middot;             Scored
-      <span class="text watching">9</span></div>
+      -</div>
   </div>
 </div>
                 
 <div class="statistics-updates di-b w100 mb8">
-  <a href="https://myanimelist.net/anime/31964/Boku_no_Hero_Academia" class="fl-l di-ib mr8 image">
-    <img src="https://myanimelist.cdn-dena.com/r/80x120/images/anime/10/78745.jpg?s=16c2b9b5e62aeb6a3dfc5dadaa275284" width="40" alt="Boku no Hero Academia">
+  <a href="https://myanimelist.net/anime/22297/Fate_stay_night__Unlimited_Blade_Works" class="fl-l di-ib mr8 image">
+    <img src="https://myanimelist.cdn-dena.com/r/80x120/images/anime/12/67333.jpg?s=b97565411f186bd0fa7dbe53a97c09ea" width="40" alt="Fate/stay night: Unlimited Blade Works">
   </a>
 
-                        
+                      
   <div class="data">
-    <a href="https://myanimelist.net/anime/31964/Boku_no_Hero_Academia">Boku no Hero Academia</a>
+    <a href="https://myanimelist.net/anime/22297/Fate_stay_night__Unlimited_Blade_Works">Fate/stay night: Unlimited Blade Works</a>
     <div class="clearfix graph-content pt8">
-      <span class="fl-r fn-grey2">Jun 28, 10:10 AM</span>
-      <div class="graph fl-l"><span class="graph-inner completed" style="width:190px"></span></div>
+      <span class="fl-r fn-grey2">6 hours ago</span>
+      <div class="graph fl-l"><span class="graph-inner anime on_hold" style="width:32px"></span></div>
     </div>
 
     <div class="fn-grey2">
-            Completed
-                        <span class="text completed">13</span>/13
+            On-Hold
+                        <span class="text anime on_hold">2</span>/12
                     &middot;             Scored
-      <span class="text completed">10</span></div>
+      -</div>
   </div>
 </div>
                 
 <div class="statistics-updates di-b w100 mb8">
-  <a href="https://myanimelist.net/anime/32729/Orange" class="fl-l di-ib mr8 image">
-    <img src="https://myanimelist.cdn-dena.com/r/80x120/images/anime/4/80110.jpg?s=061ca2fa87379708a8fb813215fb2320" width="40" alt="Orange">
+  <a href="https://myanimelist.net/anime/14397/Chihayafuru_2" class="fl-l di-ib mr8 image">
+    <img src="https://myanimelist.cdn-dena.com/r/80x120/images/anime/6/47435.jpg?s=a55235c3c3d10d9fe5ecc0be0a3c2872" width="40" alt="Chihayafuru 2">
   </a>
 
-                        
+                      
   <div class="data">
-    <a href="https://myanimelist.net/anime/32729/Orange">Orange</a>
+    <a href="https://myanimelist.net/anime/14397/Chihayafuru_2">Chihayafuru 2</a>
     <div class="clearfix graph-content pt8">
-      <span class="fl-r fn-grey2">May 30, 12:22 PM</span>
-      <div class="graph fl-l"><span class="graph-inner plantowatch" style="width:0px"></span></div>
+      <span class="fl-r fn-grey2">7 hours ago</span>
+      <div class="graph fl-l"><span class="graph-inner anime dropped" style="width:15px"></span></div>
     </div>
 
     <div class="fn-grey2">
-            Plan to Watch
-            &middot;             Scored
+            Dropped
+                        <span class="text anime dropped">2</span>/25
+                    &middot;             Scored
       -</div>
   </div>
 </div>
@@ -292,82 +315,82 @@ Lucedrom&#039;s Profile - MyAnimeList.net
             <h5>Manga Stats</h5>
 
                                     
-                        <div class="stat-score di-t w100 pt8 mb8">
-              <div class="di-tc al pl8 fs12 fw-b"><span class="fn-grey2 fw-n">Days: </span>7.9</div>
-              <div class="di-tc ar pr8 fs12 fw-b"><span class="fn-grey2 fw-n">Mean Score: </span>10.00</div>
+            <div class="stat-score di-t w100 pt8 mb8">
+              <div class="di-tc al pl8 fs12 fw-b"><span class="fn-grey2 fw-n">Days: </span>46.1</div>
+              <div class="di-tc ar pr8 fs12 fw-b"><span class="fn-grey2 fw-n">Mean Score: </span>8.25</div>
             </div>
 
-            <div class="stats-graph mt8"><span class="graph reading" style="width: 325.71428571429px"></span><span class="graph completed" style="width: 54.285714285714px"></span><span class="graph on-hold" style="width: 0px"></span><span class="graph dropped" style="width: 0px"></span><span class="graph plantoread" style="width: 0px"></span></div>
+            <div class="stats-graph mt8"><span class="graph manga reading" style="width: 31.9px"></span><span class="graph manga completed" style="width: 76.6px"></span><span class="graph manga on_hold" style="width: 132.5px"></span><span class="graph manga dropped" style="width: 3.1px"></span><span class="graph manga plan_to_read" style="width: 135.7px"></span></div>
             <div class="mt12 ml8 mr8 clearfix">
-              <ul class="stats-status fl-l"><li class="clearfix mb12"><a href="https://myanimelist.net/mangalist/Lucedrom?status=1" class="di-ib fl-l lh10 circle reading">Reading</a><span class="di-ib fl-r lh10">6</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/mangalist/Lucedrom?status=2" class="di-ib fl-l lh10 circle completed">Completed</a><span class="di-ib fl-r lh10">1</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/mangalist/Lucedrom?status=3" class="di-ib fl-l lh10 circle on-hold">On-Hold</a><span class="di-ib fl-r lh10">0</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/mangalist/Lucedrom?status=4" class="di-ib fl-l lh10 circle dropped">Dropped</a><span class="di-ib fl-r lh10">0</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/mangalist/Lucedrom?status=6" class="di-ib fl-l lh10 circle plantoread">Plan to Read</a><span class="di-ib fl-r lh10">0</span></li></ul><ul class="stats-data fl-r"><li class="clearfix mb12"><span class="di-ib fl-l fn-grey2">Total Entries</span><span class="di-ib fl-r">7</span></li><li class="clearfix mb12"><span class="di-ib fl-l fn-grey2">Reread</span><span class="di-ib fl-r">0</span></li><li class="clearfix mb12"><span class="di-ib fl-l fn-grey2">Chapters</span><span class="di-ib fl-r">1,417</span></li><li class="clearfix mb12"><span class="di-ib fl-l fn-grey2">Volumes</span><span class="di-ib fl-r">93</span></li></ul>            </div>
+              <ul class="stats-status fl-l"><li class="clearfix mb12"><a href="https://myanimelist.net/mangalist/snip-snip?status=1" class="di-ib fl-l lh10 circle manga reading">Reading</a><span class="di-ib fl-r lh10">20</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/mangalist/snip-snip?status=2" class="di-ib fl-l lh10 circle manga completed">Completed</a><span class="di-ib fl-r lh10">48</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/mangalist/snip-snip?status=3" class="di-ib fl-l lh10 circle manga on_hold">On-Hold</a><span class="di-ib fl-r lh10">83</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/mangalist/snip-snip?status=4" class="di-ib fl-l lh10 circle manga dropped">Dropped</a><span class="di-ib fl-r lh10">2</span></li><li class="clearfix mb12"><a href="https://myanimelist.net/mangalist/snip-snip?status=6" class="di-ib fl-l lh10 circle manga plan_to_read">Plan to Read</a><span class="di-ib fl-r lh10">85</span></li></ul><ul class="stats-data fl-r"><li class="clearfix mb12"><span class="di-ib fl-l fn-grey2">Total Entries</span><span class="di-ib fl-r">238</span></li><li class="clearfix mb12"><span class="di-ib fl-l fn-grey2">Reread</span><span class="di-ib fl-r">5</span></li><li class="clearfix mb12"><span class="di-ib fl-l fn-grey2">Chapters</span><span class="di-ib fl-r">8,297</span></li><li class="clearfix mb12"><span class="di-ib fl-l fn-grey2">Volumes</span><span class="di-ib fl-r">403</span></li></ul>            </div>
           </div>
 
                     <div class="updates manga">
             <h5 class="mb12">
-              <a class="floatRightHeader ff-Verdana" href="https://myanimelist.net/history/Lucedrom/manga">Manga History</a>
+              <a class="floatRightHeader ff-Verdana" href="https://myanimelist.net/history/snip-snip/manga">Manga History</a>
               Last Manga Updates
             </h5>
                             
 <div class="statistics-updates di-b w100 mb8">
-  <a href="https://myanimelist.net/manga/13/One_Piece" class="fl-l di-ib mr8 image">
-    <img src="https://myanimelist.cdn-dena.com/r/80x120/images/manga/3/55539.jpg?s=caa89c62df153ac45fe75f11a163c95a" width="40" alt="One Piece">
+  <a href="https://myanimelist.net/manga/44/Gintama" class="fl-l di-ib mr8 image">
+    <img src="https://myanimelist.cdn-dena.com/r/80x120/images/manga/1/143121.jpg?s=c0a32e6116fcf462d2af2a0132f3d421" width="40" alt="Gintama">
   </a>
 
-                        
+                      
   <div class="data">
-    <a href="https://myanimelist.net/manga/13/One_Piece">One Piece</a>
+    <a href="https://myanimelist.net/manga/44/Gintama">Gintama</a>
     <div class="clearfix graph-content pt8">
-      <span class="fl-r fn-grey2">Sep 7, 7:35 AM</span>
-      <div class="graph fl-l"><span class="graph-inner reading" style="width:95px"></span></div>
+      <span class="fl-r fn-grey2">May 3, 8:19 AM</span>
+      <div class="graph fl-l"><span class="graph-inner manga reading" style="width:95px"></span></div>
     </div>
 
     <div class="fn-grey2">
             Reading
-                        <span class="text reading">838</span>/?
+                        <span class="text manga reading">615</span>/?
                     &middot;             Scored
-      <span class="text reading">10</span></div>
+      <span class="text manga reading">9</span></div>
   </div>
 </div>
                 
 <div class="statistics-updates di-b w100 mb8">
-  <a href="https://myanimelist.net/manga/44347/One_Punch-Man" class="fl-l di-ib mr8 image">
-    <img src="https://myanimelist.cdn-dena.com/r/80x120/images/manga/3/80661.jpg?s=1e161a43418d7e7bd8d774882d123abc" width="40" alt="One Punch-Man">
+  <a href="https://myanimelist.net/manga/25297/Prison_School" class="fl-l di-ib mr8 image">
+    <img src="https://myanimelist.cdn-dena.com/r/80x120/images/manga/2/102683.jpg?s=0d00cf14adb688dbd9c6996cb6a89815" width="40" alt="Prison School">
   </a>
 
-                        
+                      
   <div class="data">
-    <a href="https://myanimelist.net/manga/44347/One_Punch-Man">One Punch-Man</a>
+    <a href="https://myanimelist.net/manga/25297/Prison_School">Prison School</a>
     <div class="clearfix graph-content pt8">
-      <span class="fl-r fn-grey2">Aug 21, 7:38 PM</span>
-      <div class="graph fl-l"><span class="graph-inner reading" style="width:95px"></span></div>
+      <span class="fl-r fn-grey2">May 2, 3:56 AM</span>
+      <div class="graph fl-l"><span class="graph-inner manga reading" style="width:95px"></span></div>
     </div>
 
     <div class="fn-grey2">
             Reading
-                        <span class="text reading">97</span>/?
+                        <span class="text manga reading">251</span>/?
                     &middot;             Scored
-      <span class="text reading">10</span></div>
+      -</div>
   </div>
 </div>
                 
 <div class="statistics-updates di-b w100 mb8">
-  <a href="https://myanimelist.net/manga/23390/Shingeki_no_Kyojin" class="fl-l di-ib mr8 image">
-    <img src="https://myanimelist.cdn-dena.com/r/80x120/images/manga/2/37846.jpg?s=0f3ff812fb8e101ae10ced71af5bc0bc" width="40" alt="Shingeki no Kyojin">
+  <a href="https://myanimelist.net/manga/70345/Grand_Blue" class="fl-l di-ib mr8 image">
+    <img src="https://myanimelist.cdn-dena.com/r/80x120/images/manga/2/166124.jpg?s=0cdc8c09e2e3a198bece0e9b848fe530" width="40" alt="Grand Blue">
   </a>
 
-                        
+                      
   <div class="data">
-    <a href="https://myanimelist.net/manga/23390/Shingeki_no_Kyojin">Shingeki no Kyojin</a>
+    <a href="https://myanimelist.net/manga/70345/Grand_Blue">Grand Blue</a>
     <div class="clearfix graph-content pt8">
-      <span class="fl-r fn-grey2">Aug 15, 7:20 PM</span>
-      <div class="graph fl-l"><span class="graph-inner reading" style="width:95px"></span></div>
+      <span class="fl-r fn-grey2">Apr 13, 3:51 PM</span>
+      <div class="graph fl-l"><span class="graph-inner manga reading" style="width:95px"></span></div>
     </div>
 
     <div class="fn-grey2">
             Reading
-                        <span class="text reading">84</span>/?
+                        <span class="text manga reading">4</span>/?
                     &middot;             Scored
-      <span class="text reading">10</span></div>
+      -</div>
   </div>
 </div>
           </div>
@@ -385,73 +408,109 @@ Lucedrom&#039;s Profile - MyAnimeList.net
                       <ul class="favorites-list anime">
                                               <li class="list di-t mb8">
   <div class="di-tc">
-    <a class="image" href="https://myanimelist.net/anime/21/One_Piece" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/anime/6/73245.jpg?s=863b16ac7b76f7783ac11f165012ea8c')"></a>
+    <a class="image" href="https://myanimelist.net/anime/205/Samurai_Champloo" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/anime/11/29134.jpg?s=3563e0da37850b1a1c2b4bcaa31e3a95')"></a>
   </div>
   <div class="di-tc va-t pl8 data">
-    <a href="https://myanimelist.net/anime/21/One_Piece">One Piece</a><br>
+    <a href="https://myanimelist.net/anime/205/Samurai_Champloo">Samurai Champloo</a><br>
     <span class="di-ib mt4 fn-grey2">
                           TV
-                    &middot; 1999
+                    &middot; 2004
                       </span>
   </div>
 </li>
                                               <li class="list di-t mb8">
   <div class="di-tc">
-    <a class="image" href="https://myanimelist.net/anime/1535/Death_Note" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/anime/9/9453.jpg?s=ca5753dbe542b46af7b7351a249754d5')"></a>
+    <a class="image" href="https://myanimelist.net/anime/13125/Shinsekai_yori" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/anime/12/36775.jpg?s=8d02240d3a6ce23a0b7472100625deda')"></a>
   </div>
   <div class="di-tc va-t pl8 data">
-    <a href="https://myanimelist.net/anime/1535/Death_Note">Death Note</a><br>
+    <a href="https://myanimelist.net/anime/13125/Shinsekai_yori">Shinsekai yori</a><br>
     <span class="di-ib mt4 fn-grey2">
                           TV
-                    &middot; 2006
+                    &middot; 2012
                       </span>
   </div>
 </li>
                                               <li class="list di-t mb8">
   <div class="di-tc">
-    <a class="image" href="https://myanimelist.net/anime/1735/Naruto__Shippuuden" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/anime/5/17407.jpg?s=3b0dd50fb2125acb63aced4d31f3420c')"></a>
+    <a class="image" href="https://myanimelist.net/anime/11741/Fate_Zero_2nd_Season" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/anime/8/41125.jpg?s=ce0b4e70fbff463b5bf62257198a1e71')"></a>
   </div>
   <div class="di-tc va-t pl8 data">
-    <a href="https://myanimelist.net/anime/1735/Naruto__Shippuuden">Naruto: Shippuuden</a><br>
+    <a href="https://myanimelist.net/anime/11741/Fate_Zero_2nd_Season">Fate/Zero 2nd Season</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          TV
+                    &middot; 2012
+                      </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/anime/10087/Fate_Zero" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/anime/2/73249.jpg?s=8379a1c3fbd718cd17298e8861505f81')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/anime/10087/Fate_Zero">Fate/Zero</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          TV
+                    &middot; 2011
+                      </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/anime/15335/Gintama_Movie__Kanketsu-hen_-_Yorozuya_yo_Eien_Nare" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/anime/10/51723.jpg?s=56f5812a43a0b2e341278774680692f7')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/anime/15335/Gintama_Movie__Kanketsu-hen_-_Yorozuya_yo_Eien_Nare">Gintama Movie: Kanketsu-hen - Yorozuya yo Eien Nare</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          Movie
+                    &middot; 2013
+                      </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/anime/22135/Ping_Pong_The_Animation" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/anime/10/58041.jpg?s=638919098be12505e20e0e6e1b4d9b65')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/anime/22135/Ping_Pong_The_Animation">Ping Pong The Animation</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          TV
+                    &middot; 2014
+                      </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/anime/20583/Haikyuu" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/anime/7/76014.jpg?s=4c29bff4fcaae482e0c7b0d68bb844b2')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/anime/20583/Haikyuu">Haikyuu!!</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          TV
+                    &middot; 2014
+                      </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/anime/6746/Durarara" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/anime/10/71772.jpg?s=4dd9323275ba9a0305c38b0b0b67bf11')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/anime/6746/Durarara">Durarara!!</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          TV
+                    &middot; 2010
+                      </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/anime/2001/Tengen_Toppa_Gurren_Lagann" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/anime/4/5123.jpg?s=be2454544fb31044414aca031c5af1ed')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/anime/2001/Tengen_Toppa_Gurren_Lagann">Tengen Toppa Gurren Lagann</a><br>
     <span class="di-ib mt4 fn-grey2">
                           TV
                     &middot; 2007
-                      </span>
-  </div>
-</li>
-                                              <li class="list di-t mb8">
-  <div class="di-tc">
-    <a class="image" href="https://myanimelist.net/anime/19815/No_Game_No_Life" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/anime/5/65187.jpg?s=1e1bef0927ac8979d9c950640db32a91')"></a>
-  </div>
-  <div class="di-tc va-t pl8 data">
-    <a href="https://myanimelist.net/anime/19815/No_Game_No_Life">No Game No Life</a><br>
-    <span class="di-ib mt4 fn-grey2">
-                          TV
-                    &middot; 2014
-                      </span>
-  </div>
-</li>
-                                              <li class="list di-t mb8">
-  <div class="di-tc">
-    <a class="image" href="https://myanimelist.net/anime/23755/Nanatsu_no_Taizai" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/anime/8/65409.jpg?s=a9f3c2881f24399db6d1bc9c5f1bca79')"></a>
-  </div>
-  <div class="di-tc va-t pl8 data">
-    <a href="https://myanimelist.net/anime/23755/Nanatsu_no_Taizai">Nanatsu no Taizai</a><br>
-    <span class="di-ib mt4 fn-grey2">
-                          TV
-                    &middot; 2014
-                      </span>
-  </div>
-</li>
-                                              <li class="list di-t mb8">
-  <div class="di-tc">
-    <a class="image" href="https://myanimelist.net/anime/30276/One_Punch_Man" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/anime/12/76049.jpg?s=95b6b51bc6a7a80d9a0ab7333e00dff2')"></a>
-  </div>
-  <div class="di-tc va-t pl8 data">
-    <a href="https://myanimelist.net/anime/30276/One_Punch_Man">One Punch Man</a><br>
-    <span class="di-ib mt4 fn-grey2">
-                          TV
-                    &middot; 2015
                       </span>
   </div>
 </li>
@@ -460,17 +519,360 @@ Lucedrom&#039;s Profile - MyAnimeList.net
 
         <div class="di-tc">
           <h5 class="mb8 mr8">Manga</h5>
-                      <p class="favorites-list">No favorite manga yet.</p>
+                      <ul class="favorites-list manga">
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/manga/42691/Welcome_to_Room_305" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/manga/4/167348.jpg?s=564b61b17102e264b2397886de58632a')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/manga/42691/Welcome_to_Room_305">Welcome to Room #305!</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          Manhwa
+                    &middot; 2008
+                      </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/manga/1649/Liar_Game" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/manga/2/149018.jpg?s=548bda5462941094ba094ecc95b368bb')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/manga/1649/Liar_Game">Liar Game</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          Manga
+                    &middot; 2005
+                      </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/manga/336/GTO" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/manga/2/172982.jpg?s=310ae41a6e4db81c108c016fc444ea71')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/manga/336/GTO">GTO</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          Manga
+                    &middot; 1996
+                      </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/manga/11327/One_Outs" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/manga/3/169329.jpg?s=96b37ea968070a871322b5f496edd1ab')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/manga/11327/One_Outs">One Outs</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          Manga
+                    &middot; 1998
+                      </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/manga/7519/Kami_nomi_zo_Shiru_Sekai" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/manga/2/188974.jpg?s=293a6a0347ee632a83323223335bf6d4')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/manga/7519/Kami_nomi_zo_Shiru_Sekai">Kami nomi zo Shiru Sekai</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          Manga
+                    &middot; 2008
+                      </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/manga/25297/Prison_School" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/manga/2/102683.jpg?s=0d00cf14adb688dbd9c6996cb6a89815')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/manga/25297/Prison_School">Prison School</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          Manga
+                    &middot; 2011
+                      </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/manga/70345/Grand_Blue" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/manga/2/166124.jpg?s=0cdc8c09e2e3a198bece0e9b848fe530')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/manga/70345/Grand_Blue">Grand Blue</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          Manga
+                    &middot; 2014
+                      </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/manga/3866/Kuroshitsuji" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/manga/1/28128.jpg?s=637ee47dd920805ffee63be4f1c38fcb')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/manga/3866/Kuroshitsuji">Kuroshitsuji</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          Manga
+                    &middot; 2006
+                      </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/manga/44/Gintama" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/manga/1/143121.jpg?s=c0a32e6116fcf462d2af2a0132f3d421')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/manga/44/Gintama">Gintama</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          Manga
+                    &middot; 2003
+                      </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/manga/29983/Noblesse" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/manga/1/50987.jpg?s=9488f911c3aa86d56c5239cd97a1a72b')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/manga/29983/Noblesse">Noblesse</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                          Manhwa
+                    &middot; 2007
+                      </span>
+  </div>
+</li>
+                          </ul>
                   </div>
 
         <div class="di-tc">
           <h5 class="mb8 mr8">Characters</h5>
-                      <p class="favorites-list">No favorite characters yet.</p>
+                      <ul class="favorites-list characters">
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/character/14957/Undertaker" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/characters/15/43415.jpg?s=8c525c19dd579dd1b6739a84be2521bf')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/character/14957/Undertaker">Undertaker</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                                                <a href="/anime/4898/Kuroshitsuji" class="fn-grey2">
+                        Kuroshitsuji
+                      </a>
+                                          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/character/24596/Izaya_Orihara" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/characters/12/313152.jpg?s=827eb76de6c43a1209b2ca2c85998818')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/character/24596/Izaya_Orihara">Orihara, Izaya</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                                                <a href="/anime/6746/Durarara" class="fn-grey2">
+                        Durarara!!
+                      </a>
+                                          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/character/1081/Ulquiorra_Cifer" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/characters/12/85334.jpg?s=0239fa159c86e445712e4b349acb9ea0')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/character/1081/Ulquiorra_Cifer">Cifer, Ulquiorra</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                                                <a href="/anime/269/Bleach" class="fn-grey2">
+                        Bleach
+                      </a>
+                                          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/character/24595/Shizuo_Heiwajima" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/characters/5/110552.jpg?s=9bc044e094e83df0d0f0bb671234730b')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/character/24595/Shizuo_Heiwajima">Heiwajima, Shizuo</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                                                <a href="/anime/6746/Durarara" class="fn-grey2">
+                        Durarara!!
+                      </a>
+                                          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/character/103409/Rize_Kamishiro" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/characters/15/251965.jpg?s=ebfefc46af26a880198c77e264b9d22e')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/character/103409/Rize_Kamishiro">Kamishiro, Rize</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                                                <a href="/anime/22319/Tokyo_Ghoul" class="fn-grey2">
+                        Tokyo Ghoul
+                      </a>
+                                          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/character/2282/Sougo_Okita" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/characters/6/112926.jpg?s=d7576d4a6d0df66bb7f1e1b88da65bb8')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/character/2282/Sougo_Okita">Okita, Sougo</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                                                <a href="/anime/918/Gintama" class="fn-grey2">
+                        Gintama
+                      </a>
+                                          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/character/14796/Russia" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/characters/5/292491.jpg?s=6ba51178ff513d4ca131500567bda62a')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/character/14796/Russia">Russia</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                                                <a href="/anime/5060/Hetalia_Axis_Powers" class="fn-grey2">
+                        Hetalia Axis Powers
+                      </a>
+                                          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/character/1535/Hayato_Gokudera" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/characters/8/61975.jpg?s=e9f3ee66fe8539a458c86607ed7becce')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/character/1535/Hayato_Gokudera">Gokudera, Hayato</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                                                <a href="/anime/1604/Katekyo_Hitman_Reborn" class="fn-grey2">
+                        Katekyo Hitman Reborn!
+                      </a>
+                                          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/character/96065/Tanaka" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/characters/3/301027.jpg?s=3157bd87961e459d407795f943e0efa9')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/character/96065/Tanaka">Tanaka</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                                                <a href="/anime/32093/Tanaka-kun_wa_Itsumo_Kedaruge" class="fn-grey2">
+                        Tanaka-kun wa Itsumo Kedaruge
+                      </a>
+                                          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/character/16022/Lancer" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/characters/11/116250.jpg?s=61734b346a00db213f3c3d18a84aaf79')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/character/16022/Lancer">Lancer</a><br>
+    <span class="di-ib mt4 fn-grey2">
+                                                <a href="/anime/10087/Fate_Zero" class="fn-grey2">
+                        Fate/Zero
+                      </a>
+                                          </span>
+  </div>
+</li>
+                          </ul>
                   </div>
 
         <div class="di-tc">
           <h5 class="mb8">People</h5>
-                      <p class="favorites-list">No favorite people yet.</p>
+                      <ul class="favorites-list people">
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/people/212/Daisuke_Ono" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/voiceactors/1/40492.jpg?s=1650470a8d0168bf37a143ee9751b37a')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/people/212/Daisuke_Ono">Ono, Daisuke</a><br>
+    <span class="di-ib mt4 fn-grey2">
+          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/people/86/Jun_Fukuyama" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/voiceactors/1/46269.jpg?s=b540ac6706fec0a94345ce9cae05519d')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/people/86/Jun_Fukuyama">Fukuyama, Jun</a><br>
+    <span class="di-ib mt4 fn-grey2">
+          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/people/4/Aya_Hirano" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/voiceactors/3/47927.jpg?s=435f9224264354b60f3f96c2e2dad5dd')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/people/4/Aya_Hirano">Hirano, Aya</a><br>
+    <span class="di-ib mt4 fn-grey2">
+          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/people/118/Hiroshi_Kamiya" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/voiceactors/3/44026.jpg?s=4e77d11cf423b87bbc566dd11f597125')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/people/118/Hiroshi_Kamiya">Kamiya, Hiroshi</a><br>
+    <span class="di-ib mt4 fn-grey2">
+          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/people/65/Mamoru_Miyano" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/voiceactors/1/42141.jpg?s=fdadca38e656f005e71de7e9c86a968d')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/people/65/Mamoru_Miyano">Miyano, Mamoru</a><br>
+    <span class="di-ib mt4 fn-grey2">
+          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/people/7539/SID" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/voiceactors/3/4646.jpg?s=6c24d53990e830495a38950f5d6c2864')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/people/7539/SID">SID</a><br>
+    <span class="di-ib mt4 fn-grey2">
+          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/people/19169/EGOIST" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/voiceactors/2/23655.jpg?s=2851e1df594bffa68737a56f3e37f96f')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/people/19169/EGOIST">EGOIST</a><br>
+    <span class="di-ib mt4 fn-grey2">
+          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/people/5750/Susumu_Hirasawa" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/voiceactors/3/18841.jpg?s=1bf0e36f7be8d032cc78dd3d2bb17610')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/people/5750/Susumu_Hirasawa">Hirasawa, Susumu</a><br>
+    <span class="di-ib mt4 fn-grey2">
+          </span>
+  </div>
+</li>
+                                              <li class="list di-t mb8">
+  <div class="di-tc">
+    <a class="image" href="https://myanimelist.net/people/12557/Galileo_Galilei" style="background-image:url('https://myanimelist.cdn-dena.com/r/80x120/images/voiceactors/3/18687.jpg?s=66ab8967d9e0745a3ab2b0bcf69f128b')"></a>
+  </div>
+  <div class="di-tc va-t pl8 data">
+    <a href="https://myanimelist.net/people/12557/Galileo_Galilei">Galileo Galilei</a><br>
+    <span class="di-ib mt4 fn-grey2">
+          </span>
+  </div>
+</li>
+                          </ul>
                   </div>
       </div>
       </div>
@@ -479,59 +881,283 @@ Lucedrom&#039;s Profile - MyAnimeList.net
                         <div class="user-comments mt24 pt24" id="lastcomment">
         <h2>
                       <span class="floatRightHeader ff-Verdana">
-                            <a href="https://myanimelist.net/comments.php?id=5029344">All Comments (0)</a>
+                            <a href="https://myanimelist.net/comments.php?id=5261192">All Comments (1756)</a>
             </span>
                     Comments
         </h2>
 
                             <div class="comment-form mt12 mb24">
                           Would you like to post a comment?
-              Please <a href="/login.php?from=%2Fprofile%2FLucedrom%23lastcomment">login</a>
-              or <a href="/register.php?from=%2Fprofile%2FLucedrom%23lastcomment">sign up</a> first!
+              Please <a href="/login.php?from=%2Fprofile%2Fsnip-snip%23lastcomment">login</a>
+              or <a href="/register.php?from=%2Fprofile%2Fsnip-snip%23lastcomment">sign up</a> first!
                       </div>
 
-                              
+                                          <div class="comment clearfix" id="comBox33833153"><a class="image" href="https://myanimelist.net/profile/Iizbakaokay">
+                <img class="lazyload" src="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4146885_thumb.jpg" srcset="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4146885_thumb.jpg 1x, https://myanimelist.cdn-dena.com/images/userimages/4146885.jpg 2x" width="48">
+              </a>
+              <div class="text">
+                <div class="pb8">
+                  <a class="fw-b" href="https://myanimelist.net/profile/Iizbakaokay">Iizbakaokay</a>
+                  <span class="di-ib fl-r fn-grey1">2 hours ago</span>
+                </div>
+                <div class="lh16 comment-text" id="comtext33833153">
+                  <img class="userimg img-a-r" src="https://cdn.discordapp.com/emojis/303966399439831041.png" /><img class="userimg img-a-l" src="https://cdn.discordapp.com/emojis/303966399439831041.png" /><div style="text-align: center;"><img class="userimg" src="https://cdn.discordapp.com/emojis/303966399439831041.png" /><img class="userimg" src="https://cdn.discordapp.com/emojis/303966399439831041.png" /><img class="userimg" src="https://cdn.discordapp.com/emojis/303966399439831041.png" /><img class="userimg" src="https://cdn.discordapp.com/emojis/303966399439831041.png" /><img class="userimg" src="https://cdn.discordapp.com/emojis/303966399439831041.png" /><img class="userimg" src="https://cdn.discordapp.com/emojis/303966399439831041.png" /><img class="userimg" src="https://cdn.discordapp.com/emojis/303966399439831041.png" /><img class="userimg" src="https://cdn.discordapp.com/emojis/303966399439831041.png" /><img class="userimg" src="https://cdn.discordapp.com/emojis/303966399439831041.png" /></div>
+                </div>
+
+                </div>
+            </div>                      <div class="comment clearfix" id="comBox33833083"><a class="image" href="https://myanimelist.net/profile/Ichigo_Shiba">
+                <img class="lazyload" src="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4743892_thumb.jpg" srcset="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4743892_thumb.jpg 1x, https://myanimelist.cdn-dena.com/images/userimages/4743892.jpg 2x" width="48">
+              </a>
+              <div class="text">
+                <div class="pb8">
+                  <a class="fw-b" href="https://myanimelist.net/profile/Ichigo_Shiba">Ichigo_Shiba</a>
+                  <span class="di-ib fl-r fn-grey1">2 hours ago</span>
+                </div>
+                <div class="lh16 comment-text" id="comtext33833083">
+                  hi hi<br />
+<br />
+how r u
+                </div>
+
+                </div>
+            </div>                      <div class="comment clearfix" id="comBox33832740"><a class="image" href="https://myanimelist.net/profile/venomshadez">
+                <img class="lazyload" src="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4645567_thumb.jpg" srcset="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4645567_thumb.jpg 1x, https://myanimelist.cdn-dena.com/images/userimages/4645567.jpg 2x" width="48">
+              </a>
+              <div class="text">
+                <div class="pb8">
+                  <a class="fw-b" href="https://myanimelist.net/profile/venomshadez">venomshadez</a>
+                  <span class="di-ib fl-r fn-grey1">4 hours ago</span>
+                </div>
+                <div class="lh16 comment-text" id="comtext33832740">
+                  sure
+                </div>
+
+                </div>
+            </div>                      <div class="comment clearfix" id="comBox33832455"><a class="image" href="https://myanimelist.net/profile/Suryansu">
+                <img class="lazyload" src="https://myanimelist.cdn-dena.com/images/userimages/thumbs/5034328_thumb.jpg" srcset="https://myanimelist.cdn-dena.com/images/userimages/thumbs/5034328_thumb.jpg 1x, https://myanimelist.cdn-dena.com/images/userimages/5034328.jpg 2x" width="48">
+              </a>
+              <div class="text">
+                <div class="pb8">
+                  <a class="fw-b" href="https://myanimelist.net/profile/Suryansu">Suryansu</a>
+                  <span class="di-ib fl-r fn-grey1">6 hours ago</span>
+                </div>
+                <div class="lh16 comment-text" id="comtext33832455">
+                  senpai didn&#039;t know what was qunka :O ?
+                </div>
+
+                </div>
+            </div>                      <div class="comment clearfix" id="comBox33832454"><a class="image" href="https://myanimelist.net/profile/ChRoNoS-Chan">
+                <img class="lazyload" src="https://myanimelist.cdn-dena.com/images/userimages/thumbs/6025977_thumb.jpg" srcset="https://myanimelist.cdn-dena.com/images/userimages/thumbs/6025977_thumb.jpg 1x, https://myanimelist.cdn-dena.com/images/userimages/6025977.jpg 2x" width="48">
+              </a>
+              <div class="text">
+                <div class="pb8">
+                  <a class="fw-b" href="https://myanimelist.net/profile/ChRoNoS-Chan">ChRoNoS-Chan</a>
+                  <span class="di-ib fl-r fn-grey1">6 hours ago</span>
+                </div>
+                <div class="lh16 comment-text" id="comtext33832454">
+                  Really?<br />
+<br />
+I&#039;d then probably check it out then.
+                </div>
+
+                </div>
+            </div>                      <div class="comment clearfix" id="comBox33832109"><a class="image" href="https://myanimelist.net/profile/Jada117">
+                <img class="lazyload" src="https://myanimelist.cdn-dena.com/images/userimages/thumbs/5989851_thumb.jpg" srcset="https://myanimelist.cdn-dena.com/images/userimages/thumbs/5989851_thumb.jpg 1x, https://myanimelist.cdn-dena.com/images/userimages/5989851.jpg 2x" width="48">
+              </a>
+              <div class="text">
+                <div class="pb8">
+                  <a class="fw-b" href="https://myanimelist.net/profile/Jada117">Jada117</a>
+                  <span class="di-ib fl-r fn-grey1">8 hours ago</span>
+                </div>
+                <div class="lh16 comment-text" id="comtext33832109">
+                  Lol its going good so far XD<br />
+<br />
+ooo monster is also awesommee.I havent completed it but of what i saw,it was amazing :D
+                </div>
+
+                </div>
+            </div>                      <div class="comment clearfix" id="comBox33825379"><a class="image" href="https://myanimelist.net/profile/bluebear_tora">
+                <img class="lazyload" src="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4994112_thumb.jpg" srcset="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4994112_thumb.jpg 1x, https://myanimelist.cdn-dena.com/images/userimages/4994112.jpg 2x" width="48">
+              </a>
+              <div class="text">
+                <div class="pb8">
+                  <a class="fw-b" href="https://myanimelist.net/profile/bluebear_tora">bluebear_tora</a>
+                  <span class="di-ib fl-r fn-grey1">May 4, 7:07 PM</span>
+                </div>
+                <div class="lh16 comment-text" id="comtext33825379">
+                  YOU&#039;RE WATCHING MONSTER!!!<br />
+so sweet &gt;.&lt;<br />
+<br />
+&gt; ayy nu prof in class, time fer some lulz<br />
+I like the way it sounds XD
+                </div>
+
+                </div>
+            </div>                      <div class="comment clearfix" id="comBox33813486"><a class="image" href="https://myanimelist.net/profile/ShoyoB0SS">
+                <img class="lazyload" src="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4614756_thumb.jpg" srcset="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4614756_thumb.jpg 1x, https://myanimelist.cdn-dena.com/images/userimages/4614756.jpg 2x" width="48">
+              </a>
+              <div class="text">
+                <div class="pb8">
+                  <a class="fw-b" href="https://myanimelist.net/profile/ShoyoB0SS">ShoyoB0SS</a>
+                  <span class="di-ib fl-r fn-grey1">May 3, 2:15 AM</span>
+                </div>
+                <div class="lh16 comment-text" id="comtext33813486">
+                  lol oke<br />
+
+                </div>
+
+                </div>
+            </div>                      <div class="comment clearfix" id="comBox33813180"><a class="image" href="https://myanimelist.net/profile/venomshadez">
+                <img class="lazyload" src="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4645567_thumb.jpg" srcset="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4645567_thumb.jpg 1x, https://myanimelist.cdn-dena.com/images/userimages/4645567.jpg 2x" width="48">
+              </a>
+              <div class="text">
+                <div class="pb8">
+                  <a class="fw-b" href="https://myanimelist.net/profile/venomshadez">venomshadez</a>
+                  <span class="di-ib fl-r fn-grey1">May 3, 12:35 AM</span>
+                </div>
+                <div class="lh16 comment-text" id="comtext33813180">
+                  yesh ask me something 
+                </div>
+
+                </div>
+            </div>                      <div class="comment clearfix" id="comBox33811171"><a class="image" href="https://myanimelist.net/profile/Jada117">
+                <img class="lazyload" src="https://myanimelist.cdn-dena.com/images/userimages/thumbs/5989851_thumb.jpg" srcset="https://myanimelist.cdn-dena.com/images/userimages/thumbs/5989851_thumb.jpg 1x, https://myanimelist.cdn-dena.com/images/userimages/5989851.jpg 2x" width="48">
+              </a>
+              <div class="text">
+                <div class="pb8">
+                  <a class="fw-b" href="https://myanimelist.net/profile/Jada117">Jada117</a>
+                  <span class="di-ib fl-r fn-grey1">May 2, 3:44 PM</span>
+                </div>
+                <div class="lh16 comment-text" id="comtext33811171">
+                  THAT WAZ LIKE ZE SADDEST MOMMEEENNT :///((((<br />
+I completed naruto and started shippuden ;)<br />
+<br />
+yup yup 91 days was pretty dramatic
+                </div>
+
+                </div>
+            </div>                      <div class="comment clearfix" id="comBox33809565"><a class="image" href="https://myanimelist.net/profile/Nyanloveanimes">
+                <img class="lazyload" src="https://myanimelist.cdn-dena.com/images/userimages/thumbs/5898764_thumb.jpg" srcset="https://myanimelist.cdn-dena.com/images/userimages/thumbs/5898764_thumb.jpg 1x, https://myanimelist.cdn-dena.com/images/userimages/5898764.jpg 2x" width="48">
+              </a>
+              <div class="text">
+                <div class="pb8">
+                  <a class="fw-b" href="https://myanimelist.net/profile/Nyanloveanimes">Nyanloveanimes</a>
+                  <span class="di-ib fl-r fn-grey1">May 2, 11:19 AM</span>
+                </div>
+                <div class="lh16 comment-text" id="comtext33809565">
+                  Ohayo :3
+                </div>
+
+                </div>
+            </div>                      <div class="comment clearfix" id="comBox33809117"><a class="image" href="https://myanimelist.net/profile/YeAhx">
+                <img class="lazyload" src="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4506935_thumb.jpg" srcset="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4506935_thumb.jpg 1x, https://myanimelist.cdn-dena.com/images/userimages/4506935.jpg 2x" width="48">
+              </a>
+              <div class="text">
+                <div class="pb8">
+                  <a class="fw-b" href="https://myanimelist.net/profile/YeAhx">YeAhx</a>
+                  <span class="di-ib fl-r fn-grey1">May 2, 10:16 AM</span>
+                </div>
+                <div class="lh16 comment-text" id="comtext33809117">
+                  nuu killing not naicuuu. baka
+                </div>
+
+                </div>
+            </div>                      <div class="comment clearfix" id="comBox33808216"><a class="image" href="https://myanimelist.net/profile/Ichigo_Shiba">
+                <img class="lazyload" src="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4743892_thumb.jpg" srcset="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4743892_thumb.jpg 1x, https://myanimelist.cdn-dena.com/images/userimages/4743892.jpg 2x" width="48">
+              </a>
+              <div class="text">
+                <div class="pb8">
+                  <a class="fw-b" href="https://myanimelist.net/profile/Ichigo_Shiba">Ichigo_Shiba</a>
+                  <span class="di-ib fl-r fn-grey1">May 2, 7:00 AM</span>
+                </div>
+                <div class="lh16 comment-text" id="comtext33808216">
+                  Hi I&#039;m new here
+                </div>
+
+                </div>
+            </div>                      <div class="comment clearfix" id="comBox33808167"><a class="image" href="https://myanimelist.net/profile/ChRoNoS-Chan">
+                <img class="lazyload" src="https://myanimelist.cdn-dena.com/images/userimages/thumbs/6025977_thumb.jpg" srcset="https://myanimelist.cdn-dena.com/images/userimages/thumbs/6025977_thumb.jpg 1x, https://myanimelist.cdn-dena.com/images/userimages/6025977.jpg 2x" width="48">
+              </a>
+              <div class="text">
+                <div class="pb8">
+                  <a class="fw-b" href="https://myanimelist.net/profile/ChRoNoS-Chan">ChRoNoS-Chan</a>
+                  <span class="di-ib fl-r fn-grey1">May 2, 6:48 AM</span>
+                </div>
+                <div class="lh16 comment-text" id="comtext33808167">
+                  🤡
+                </div>
+
+                </div>
+            </div>                      <div class="comment clearfix" id="comBox33807278"><a class="image" href="https://myanimelist.net/profile/Iizbakaokay">
+                <img class="lazyload" src="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4146885_thumb.jpg" srcset="https://myanimelist.cdn-dena.com/images/userimages/thumbs/4146885_thumb.jpg 1x, https://myanimelist.cdn-dena.com/images/userimages/4146885.jpg 2x" width="48">
+              </a>
+              <div class="text">
+                <div class="pb8">
+                  <a class="fw-b" href="https://myanimelist.net/profile/Iizbakaokay">Iizbakaokay</a>
+                  <span class="di-ib fl-r fn-grey1">May 2, 3:09 AM</span>
+                </div>
+                <div class="lh16 comment-text" id="comtext33807278">
+                  Nu. 
+                </div>
+
+                </div>
+            </div>          
+                    <div class="pt16 pb8 ac">
+            <a href="https://myanimelist.net/comments.php?id=5261192" class="btn-form-submit fs12 pt4 pb4 pl8 pr8">All Comments</a>
+          </div>
                         </div><div class="clearfix" style="padding:16px 3px 20px;">
         <div class="fl-l db-ib">
-          
-<div class="_unit " style="width:336px;display: block !important;" data-height="280">
-  <div id="pc_other_bottom_rec_l" class="" style="width:336px;">
-    <script type='text/javascript'>
-      googletag.cmd.push(function() {
-             var slot = googletag.defineSlot("/84947469/pc_other_bottom_rec_l", [[300,250],[336,280],[1,1]], "pc_other_bottom_rec_l").addService(googletag.pubads())
-    .setTargeting("adult", "gray")
-    .setCollapseEmptyDiv(true,true);googletag.enableServices();
+          <div class="_unit " style="width:300px;display: block !important;" data-height="250">
+      <div id="pc_other_bottom_rec_l" class="" style="width:px;">
+        <iframe id="pc_other_bottom_rec_l_gray"
+                name="pc_other_bottom_rec_l_gray"
+                width="300"
+                height="250"
+                scrolling="no"
+                marginwidth="0"
+                marginheight="0"
+                frameborder="0"
+                src="about:self"
+                srcdoc="">
+        </iframe>
+        <script type='text/javascript'>
+          var tag = {
+            targetFrameId: "pc_other_bottom_rec_l_gray",
+            code: "\x3C\x21\x2D\x2D\x20\x20Begin\x20Rubicon\x20Project\x20Tag\x20\x2D\x2D\x3E\x0A\x3C\x21\x2D\x2D\x20\x20Site\x3A\x20MyAnimeList_SSL\x20\x20\x20Zone\x3A\x20pc_other_bottom_rec_l_gray\x20\x20\x20Size\x3A\x20Medium\x20Rectangle\x20\x20\x2D\x2D\x3E\x0A\x3Cscript\x20language\x3D\x22javascript\x22\x20type\x3D\x22text\x2Fjavascript\x22\x20src\x3D\x22https\x3A\x2F\x2Fads.rubiconproject.com\x2Futils\x2Fclk\x2Dtrk\x2Fmain.min.js\x22\x3E\x3C\x2Fscript\x3E\x0A\x3Cscript\x20language\x3D\x22JavaScript\x22\x20type\x3D\x22text\x2Fjavascript\x22\x3E\x0A\x20\x20rp_account\x20\x20\x20\x3D\x20\x2713138\x27\x3B\x0A\x20\x20rp_site\x20\x20\x20\x20\x20\x20\x3D\x20\x2766100\x27\x3B\x0A\x20\x20rp_zonesize\x20\x20\x3D\x20\x27492240\x2D15\x27\x3B\x0A\x20\x20rp_adtype\x20\x20\x20\x20\x3D\x20\x27jsonp\x27\x3B\x0A\x20\x20rp_smartfile\x20\x3D\x20\x27\x5BSMART\x20FILE\x20URL\x5D\x27\x3B\x0A\x20\x20rp_callback\x20\x20\x3D\x20rubiconClickTracking\x3B\x0A\x20\x20rp_tracking_urls\x20\x3D\x20\x5B\x27https\x3A\x2F\x2Fmyanimelist.net\x2Fcallback\x2Fad\x2Dtracking\x2Frubicon\x2Fclick\x3Faccount\x3D\x24\x24account\x24\x24\x26site\x3D\x24\x24site\x24\x24\x26zone\x3D\x24\x24zone\x24\x24\x26ad\x3D\x24\x24ad\x24\x24\x26creative\x3D\x24\x24creative\x24\x24\x26impression\x3D\x24\x24impression\x24\x24\x26advertiser\x3D\x24\x24advertiser\x24\x24\x26network\x3D\x24\x24network\x24\x24\x26cpm\x3D\x24\x24cpm\x24\x24\x27\x5D\x3B\x0A\x3C\x2Fscript\x3E\x0A\x3Cscript\x20type\x3D\x22text\x2Fjavascript\x22\x20src\x3D\x22https\x3A\x2F\x2Fads.rubiconproject.com\x2Fad\x2F13138.js\x22\x3E\x3C\x2Fscript\x3E\x0A\x3C\x21\x2D\x2D\x20\x20End\x20Rubicon\x20Project\x20Tag\x20\x2D\x2D\x3E\x0A"
+          };
 
-  googletag.display("pc_other_bottom_rec_l");if (window.MAL && window.MAL.adRefresh) {
-      window.MAL.adRefresh.setupRefresh(slot);
-    } else {
-      document.addEventListener("DOMContentLoaded", function(event) {
-        window.MAL.adRefresh.setupRefresh(slot);
-      });
-    }
-         });</script>
-  </div>
-</div>        </div>
+          if (window.addEventListener) {window.addEventListener('load', window.MAL.adRefresh.reloadDirectTag(tag), false);
+          } else{window.attachEvent('onload', window.MAL.adRefresh.reloadDirectTag(tag));
+          }
+        </script>
+      </div>
+    </div>        </div>
         <div class="fl-r db-ib">
-          
-<div class="_unit " style="width:336px;display: block !important;" data-height="280">
-  <div id="pc_other_bottom_rec_r" class="" style="width:336px;">
-    <script type='text/javascript'>
-      googletag.cmd.push(function() {
-             var slot = googletag.defineSlot("/84947469/pc_other_bottom_rec_r", [[300,250],[336,280],[1,1]], "pc_other_bottom_rec_r").addService(googletag.pubads())
-    .setTargeting("adult", "gray")
-    .setCollapseEmptyDiv(true,true);googletag.enableServices();
+          <div class="_unit " style="width:300px;display: block !important;" data-height="250">
+      <div id="pc_other_bottom_rec_r" class="" style="width:px;">
+        <iframe id="pc_other_bottom_rec_r_gray"
+                name="pc_other_bottom_rec_r_gray"
+                width="300"
+                height="250"
+                scrolling="no"
+                marginwidth="0"
+                marginheight="0"
+                frameborder="0"
+                src="about:self"
+                srcdoc="">
+        </iframe>
+        <script type='text/javascript'>
+          var tag = {
+            targetFrameId: "pc_other_bottom_rec_r_gray",
+            code: "\x3C\x21\x2D\x2D\x20\x20Begin\x20Rubicon\x20Project\x20Tag\x20\x2D\x2D\x3E\x0A\x3C\x21\x2D\x2D\x20\x20Site\x3A\x20MyAnimeList_SSL\x20\x20\x20Zone\x3A\x20pc_other_bottom_rec_r_gray\x20\x20\x20Size\x3A\x20Medium\x20Rectangle\x20\x20\x2D\x2D\x3E\x0A\x3Cscript\x20language\x3D\x22javascript\x22\x20type\x3D\x22text\x2Fjavascript\x22\x20src\x3D\x22https\x3A\x2F\x2Fads.rubiconproject.com\x2Futils\x2Fclk\x2Dtrk\x2Fmain.min.js\x22\x3E\x3C\x2Fscript\x3E\x0A\x3Cscript\x20language\x3D\x22JavaScript\x22\x20type\x3D\x22text\x2Fjavascript\x22\x3E\x0A\x20\x20rp_account\x20\x20\x20\x3D\x20\x2713138\x27\x3B\x0A\x20\x20rp_site\x20\x20\x20\x20\x20\x20\x3D\x20\x2766100\x27\x3B\x0A\x20\x20rp_zonesize\x20\x20\x3D\x20\x27492242\x2D15\x27\x3B\x0A\x20\x20rp_adtype\x20\x20\x20\x20\x3D\x20\x27jsonp\x27\x3B\x0A\x20\x20rp_smartfile\x20\x3D\x20\x27\x5BSMART\x20FILE\x20URL\x5D\x27\x3B\x0A\x20\x20rp_callback\x20\x20\x3D\x20rubiconClickTracking\x3B\x0A\x20\x20rp_tracking_urls\x20\x3D\x20\x5B\x27https\x3A\x2F\x2Fmyanimelist.net\x2Fcallback\x2Fad\x2Dtracking\x2Frubicon\x2Fclick\x3Faccount\x3D\x24\x24account\x24\x24\x26site\x3D\x24\x24site\x24\x24\x26zone\x3D\x24\x24zone\x24\x24\x26ad\x3D\x24\x24ad\x24\x24\x26creative\x3D\x24\x24creative\x24\x24\x26impression\x3D\x24\x24impression\x24\x24\x26advertiser\x3D\x24\x24advertiser\x24\x24\x26network\x3D\x24\x24network\x24\x24\x26cpm\x3D\x24\x24cpm\x24\x24\x27\x5D\x3B\x0A\x3C\x2Fscript\x3E\x0A\x3Cscript\x20type\x3D\x22text\x2Fjavascript\x22\x20src\x3D\x22https\x3A\x2F\x2Fads.rubiconproject.com\x2Fad\x2F13138.js\x22\x3E\x3C\x2Fscript\x3E\x0A\x3C\x21\x2D\x2D\x20\x20End\x20Rubicon\x20Project\x20Tag\x20\x2D\x2D\x3E\x0A"
+          };
 
-  googletag.display("pc_other_bottom_rec_r");if (window.MAL && window.MAL.adRefresh) {
-      window.MAL.adRefresh.setupRefresh(slot);
-    } else {
-      document.addEventListener("DOMContentLoaded", function(event) {
-        window.MAL.adRefresh.setupRefresh(slot);
-      });
-    }
-         });</script>
-  </div>
-</div>        </div>
+          if (window.addEventListener) {window.addEventListener('load', window.MAL.adRefresh.reloadDirectTag(tag), false);
+          } else{window.attachEvent('onload', window.MAL.adRefresh.reloadDirectTag(tag));
+          }
+        </script>
+      </div>
+    </div>        </div>
       </div></div>
   </div>
 </div>
@@ -551,54 +1177,108 @@ Lucedrom&#039;s Profile - MyAnimeList.net
           
 <div class="footer-ranking">
   <div class="ranking-container">
-          <div class="ranking-unit ranking-top_anime">
-        <h3 class="title"><a href="https://myanimelist.net/topanime.php" class="view_more fl-r">More</a>Top Anime</h3>
+          <div class="ranking-unit">
+        <h3 class="title"><a href="https://myanimelist.net/topanime.php" class="view_more fl-r">More</a>Top Anime
+        </h3>
         <ol>
-                      <li><span class="rank">1</span><a href="https://myanimelist.net/anime/32281/Kimi_no_Na_wa">Kimi no Na wa.</a></li>
-                      <li><span class="rank">2</span><a href="https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood">Fullmetal Alchemist: Brotherhood</a></li>
-                      <li><span class="rank">3</span><a href="https://myanimelist.net/anime/28977/Gintama°">Gintama°</a></li>
-                      <li><span class="rank">4</span><a href="https://myanimelist.net/anime/9253/Steins_Gate">Steins;Gate</a></li>
-                      <li><span class="rank">5</span><a href="https://myanimelist.net/anime/9969/Gintama">Gintama&#039;</a></li>
+                      <li>
+              <span class="rank">1</span>
+              <a href="https://myanimelist.net/anime/32281/Kimi_no_Na_wa">Kimi no Na wa.</a>
+            </li>
+                      <li>
+              <span class="rank">2</span>
+              <a href="https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood">Fullmetal Alchemist: Brotherhood</a>
+            </li>
+                      <li>
+              <span class="rank">3</span>
+              <a href="https://myanimelist.net/anime/28977/Gintama°">Gintama°</a>
+            </li>
+                      <li>
+              <span class="rank">4</span>
+              <a href="https://myanimelist.net/anime/9253/Steins_Gate">Steins;Gate</a>
+            </li>
+                      <li>
+              <span class="rank">5</span>
+              <a href="https://myanimelist.net/anime/9969/Gintama">Gintama&#039;</a>
+            </li>
                   </ol>
       </div>
-          <div class="ranking-unit ranking-top_airing">
-        <h3 class="title"><a href="https://myanimelist.net/topanime.php?type=airing" class="view_more fl-r">More</a>Top Airing Anime</h3>
+          <div class="ranking-unit">
+        <h3 class="title"><a href="https://myanimelist.net/topanime.php?type=airing" class="view_more fl-r">More</a>Top Airing Anime
+        </h3>
         <ol>
-                      <li><span class="rank">1</span><a href="https://myanimelist.net/anime/32366/Gintama°__Aizome_Kaori-hen">Gintama°: Aizome Kaori-hen</a></li>
-                      <li><span class="rank">2</span><a href="https://myanimelist.net/anime/21/One_Piece">One Piece</a></li>
-                      <li><span class="rank">3</span><a href="https://myanimelist.net/anime/31933/JoJo_no_Kimyou_na_Bouken__Diamond_wa_Kudakenai">JoJo no Kimyou na Bouken: Diamond wa Kudakenai</a></li>
-                      <li><span class="rank">4</span><a href="https://myanimelist.net/anime/10937/Mobile_Suit_Gundam__The_Origin">Mobile Suit Gundam: The Origin</a></li>
-                      <li><span class="rank">5</span><a href="https://myanimelist.net/anime/32182/Mob_Psycho_100">Mob Psycho 100</a></li>
+                      <li>
+              <span class="rank">1</span>
+              <a href="https://myanimelist.net/anime/34591/Natsume_Yuujinchou_Roku">Natsume Yuujinchou Roku</a>
+            </li>
+                      <li>
+              <span class="rank">2</span>
+              <a href="https://myanimelist.net/anime/25777/Shingeki_no_Kyojin_Season_2">Shingeki no Kyojin Season 2</a>
+            </li>
+                      <li>
+              <span class="rank">3</span>
+              <a href="https://myanimelist.net/anime/33486/Boku_no_Hero_Academia_2nd_Season">Boku no Hero Academia 2nd Season</a>
+            </li>
+                      <li>
+              <span class="rank">4</span>
+              <a href="https://myanimelist.net/anime/21/One_Piece">One Piece</a>
+            </li>
+                      <li>
+              <span class="rank">5</span>
+              <a href="https://myanimelist.net/anime/10937/Mobile_Suit_Gundam__The_Origin">Mobile Suit Gundam: The Origin</a>
+            </li>
                   </ol>
       </div>
-          <div class="ranking-unit ranking-top_upcoming">
-        <h3 class="title"><a href="https://myanimelist.net/topanime.php?type=upcoming" class="view_more fl-r">More</a>Top Upcoming Anime</h3>
+          <div class="ranking-unit">
+        <h3 class="title">Top Page Views
+        </h3>
         <ol>
-                      <li><span class="rank">1</span><a href="https://myanimelist.net/anime/25777/Shingeki_no_Kyojin_Season_2">Shingeki no Kyojin Season 2</a></li>
-                      <li><span class="rank">2</span><a href="https://myanimelist.net/anime/3786/Evangelion__30_10">Evangelion: 3.0+1.0</a></li>
-                      <li><span class="rank">3</span><a href="https://myanimelist.net/anime/30484/Steins_Gate_0">Steins;Gate 0</a></li>
-                      <li><span class="rank">4</span><a href="https://myanimelist.net/anime/25537/Fate_stay_night_Movie__Heavens_Feel">Fate/stay night Movie: Heaven&#039;s Feel</a></li>
-                      <li><span class="rank">5</span><a href="https://myanimelist.net/anime/31765/Sword_Art_Online_Movie__Ordinal_Scale">Sword Art Online Movie: Ordinal Scale</a></li>
+                      <li>
+              <span class="rank">1</span>
+              <a href="https://myanimelist.net/anime/33834/Sin__Nanatsu_no_Taizai">Sin: Nanatsu no Taizai</a>
+            </li>
+                      <li>
+              <span class="rank">2</span>
+              <a href="https://myanimelist.net/anime/34822/Tsuki_ga_Kirei">Tsuki ga Kirei</a>
+            </li>
+                      <li>
+              <span class="rank">3</span>
+              <a href="https://myanimelist.net/anime/34863/Touken_Ranbu__Hanamaru_2">Touken Ranbu: Hanamaru 2</a>
+            </li>
+                      <li>
+              <span class="rank">4</span>
+              <a href="https://myanimelist.net/anime/32887/Dungeon_ni_Deai_wo_Motomeru_no_wa_Machigatteiru_Darou_ka_Gaiden__Sword_Oratoria">Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka Gaiden: Sword Oratoria</a>
+            </li>
+                      <li>
+              <span class="rank">5</span>
+              <a href="https://myanimelist.net/anime/9260/Kizumonogatari_I__Tekketsu-hen">Kizumonogatari I: Tekketsu-hen</a>
+            </li>
                   </ol>
       </div>
-          <div class="ranking-unit ranking-top_page_views">
-        <h3 class="title">Top Page Views</h3>
+          <div class="ranking-unit">
+        <h3 class="title"><a href="https://myanimelist.net/character.php" class="view_more fl-r">More</a>Most Popular Characters
+        </h3>
         <ol>
-                      <li><span class="rank">1</span><a href="https://myanimelist.net/anime/31240/Re_Zero_kara_Hajimeru_Isekai_Seikatsu">Re:Zero kara Hajimeru Isekai Seikatsu</a></li>
-                      <li><span class="rank">2</span><a href="https://myanimelist.net/anime/32281/Kimi_no_Na_wa">Kimi no Na wa.</a></li>
-                      <li><span class="rank">3</span><a href="https://myanimelist.net/anime/28851/Koe_no_Katachi">Koe no Katachi</a></li>
-                      <li><span class="rank">4</span><a href="https://myanimelist.net/anime/32182/Mob_Psycho_100">Mob Psycho 100</a></li>
-                      <li><span class="rank">5</span><a href="https://myanimelist.net/anime/32998/91_Days">91 Days</a></li>
-                  </ol>
-      </div>
-          <div class="ranking-unit ranking-popular_ranking">
-        <h3 class="title"><a href="https://myanimelist.net/topanime.php?type=bypopularity" class="view_more fl-r">More</a>Most Popular Anime</h3>
-        <ol>
-                      <li><span class="rank">1</span><a href="https://myanimelist.net/anime/1535/Death_Note">Death Note</a></li>
-                      <li><span class="rank">2</span><a href="https://myanimelist.net/anime/16498/Shingeki_no_Kyojin">Shingeki no Kyojin</a></li>
-                      <li><span class="rank">3</span><a href="https://myanimelist.net/anime/11757/Sword_Art_Online">Sword Art Online</a></li>
-                      <li><span class="rank">4</span><a href="https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood">Fullmetal Alchemist: Brotherhood</a></li>
-                      <li><span class="rank">5</span><a href="https://myanimelist.net/anime/1575/Code_Geass__Hangyaku_no_Lelouch">Code Geass: Hangyaku no Lelouch</a></li>
+                      <li>
+              <span class="rank">1</span>
+              <a href="https://myanimelist.net/character/417/Lelouch_Lamperouge">Lamperouge, Lelouch</a>
+            </li>
+                      <li>
+              <span class="rank">2</span>
+              <a href="https://myanimelist.net/character/71/L_Lawliet">Lawliet, L</a>
+            </li>
+                      <li>
+              <span class="rank">3</span>
+              <a href="https://myanimelist.net/character/40/Luffy_Monkey_D">Monkey D., Luffy</a>
+            </li>
+                      <li>
+              <span class="rank">4</span>
+              <a href="https://myanimelist.net/character/11/Edward_Elric">Elric, Edward</a>
+            </li>
+                      <li>
+              <span class="rank">5</span>
+              <a href="https://myanimelist.net/character/80/Light_Yagami">Yagami, Light</a>
+            </li>
                   </ol>
       </div>
       </div>
@@ -619,12 +1299,12 @@ Lucedrom&#039;s Profile - MyAnimeList.net
         <a href="https://myanimelist.net/about/terms_of_use">Terms</a>
         <a href="https://myanimelist.net/about/privacy_policy">Privacy</a>
         <a href="https://myanimelist.net/about/sitemap">Sitemap</a>
-    	</p>
-  		  		<p class="footer-link login di-ib">
-  			<a href="https://myanimelist.net/login.php?from=%2Fprofile%2FLucedrom" id="malLogin" rel="nofollow">Login</a>
-  			<a href="https://myanimelist.net/register.php?from=%2Fprofile%2FLucedrom">Sign Up</a>
-  		</p>
-  		    </div>
+      </p>
+            <p class="footer-link login di-ib">
+        <a href="https://myanimelist.net/login.php?from=%2Fprofile%2Fsnip-snip" id="malLogin" rel="nofollow">Login</a>
+        <a href="https://myanimelist.net/register.php?from=%2Fprofile%2Fsnip-snip">Sign Up</a>
+      </p>
+          </div>
 
     <div class="footer-link-icon-block">
             <div class="footer-social-media ac">
@@ -636,11 +1316,11 @@ Lucedrom&#039;s Profile - MyAnimeList.net
       </div>
             <div class="footer-recommended ac">
         <a target="_blank" class="icon-recommended icon-tokyo-otaku-mode" href="http://otakumode.com/fb/5aO">Tokyo Otaku Mode</a>
-      </div>
-            <div class="footer-competition ac">
-        <a target="_blank" class="icon-competition icon-mtb-vol5" href="https://myanimelist.net/manga_translation_battle_vol5">Manga Translation Battle vol.5</a>
+        <a target="_blank" class="icon-recommended icon-honeys-anime" href="http://blog.honeyfeed.fm/">Honey's Anime</a>
       </div>
     </div>
+
+        <iframe class="fb-page" src="" width="450" height="154" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
 
     <div id="copyright">
       MyAnimeList.net is a property of MyAnimeList, LLC. &copy;2015 All Rights Reserved.
@@ -653,6 +1333,12 @@ Lucedrom&#039;s Profile - MyAnimeList.net
         <script type="text/javascript">
     window.MAL.magia = "06410c4e6b2518e9add8f6df0ccb2da2876bb8c980aacb43a8dcaa8153c0f92c";
   window.MAL.madoka = "hZrDKm9k6FVRnqd3i%=K";
+
+  window.MAL.SLVK = "g4OvMLVOmEI3J8u7dt8f8+mAuualsqCo";
+  window.MAL.CDN_URL = "https://myanimelist.cdn-dena.com";
+  
+  window.MAL.CURRENT_TUTORIAL_STEP_ID = null;
+  window.MAL.USER_NAME = ""
 </script>
   </body>
 </html>

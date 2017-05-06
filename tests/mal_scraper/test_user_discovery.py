@@ -24,9 +24,9 @@ class TestAutomaticUserDicoveryIntegrationTest:
         mal_scraper.get_user_stats('SparkleBunnies')  # Populate cache
 
         assert mal_scraper.discover_users(use_web=False) == {
-            'Kyle', 'Wrath', 'Cigarette', 'Skye12', 'Vacuous',
-            'Subpyro', 'Roth', 'FallingUmbrella', 'HaXXspetten', 'lemoncup',
-            'SparkleBunnies', 'Star_Slayer', 'Exmortus420', 'TimeToRepent', 'DatRandomDude',
-            'Nekonaut', 'Exo_x', 'Turnip', 'Solos', 'Funky',
-            'Mooncake', 'okies', 'Kyrex', 'Phraze', 'Senpaoi',
+            'ChannelOrange', 'SparkleBunnies', 'Woodenspoon', 'Brandon', 'Sacchie',
+            'Teddy_Bear56', 'ThisNameSucks', 'Z6890', 'Zeally', 'Daedalus',
+            'IIDarkII', 'Exmortus420', 'stonemask', 'HaXXspetten', 'Padgit',
+            'Ichigo_Shiba', 'BlackFIFA19', 'AkitoKazuki', 'Speeku', 'no_good_name',
+            'Kagami', 'BKZekken',
         }
