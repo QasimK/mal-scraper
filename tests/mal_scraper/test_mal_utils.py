@@ -33,7 +33,7 @@ class TestGetDatetime(object):
         ('Oct 1, 2013 11:04 PM', datetime(year=2013, month=9, day=30, hour=23, minute=4)),
         ('Oct 1, 4:29 AM', datetime(year=nowish.year, month=9, day=30, hour=4, minute=29)),
         ('Yesterday, 9:58 AM', yesterdayish.replace(hour=9, minute=58) - timedelta(days=1)),
-        ('Today, 1:22 AM', nowish.replace(hour=1, minute=22) - timedelta(days=1)),
+        ('Today, 1:22 AM', yesterdayish.replace(hour=1, minute=22)),
         ('4 hours ago', yesterdayish - timedelta(hours=4)),
         ('1 hour ago', yesterdayish - timedelta(hours=1)),
         ('12 minutes ago', yesterdayish - timedelta(minutes=12)),

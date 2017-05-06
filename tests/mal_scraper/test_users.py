@@ -219,7 +219,7 @@ class TestUserAnimeList(object):
             # 'start_date': None,
             'progress': 9,
             # 'finish_date': None,
-            'tags': [],
+            'tags': set(),
         }
 
     def test_user_tags(self, mock_requests):
@@ -228,7 +228,7 @@ class TestUserAnimeList(object):
 
         anime_list = mal_scraper.get_user_anime_list(self.TEST_USER_TAGS_NAME)
         assert len(anime_list) == 263
-        assert anime_list[99]['tags'] == [
+        assert anime_list[99]['tags'] == {
             'A masterpiece of failures. Yami wo Kirisaku',
             'LOAD THIS DRYER!',
-        ]
+        }

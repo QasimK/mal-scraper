@@ -38,7 +38,7 @@ def get_datetime(text, relative_to=None):
     text = text.strip().lower()
 
     # Now
-    if text.lower() == 'now':
+    if text == 'now':
         return relative_to
 
     # x minute(s) ago
