@@ -70,6 +70,17 @@ class TestUserStats:
         with pytest.raises(mal_scraper.ParseError):
             mal_scraper.get_user_stats(self.TEST_USER)
 
+    def test_user_does_not_exist(self, mock_requests):
+        mock_requests.always_mock(
+            'http://myanimelist.net/profile/asdghiuhunircg',
+            'user_does_not_exist',
+            status=404,
+        )
+
+        with pytest.raises(mal_scraper.RequestError) as err:
+            mal_scraper.get_user_stats('asdghiuhunircg')
+        assert err.value.code == mal_scraper.RequestError.Code.does_not_exist
+
     def test_user_stats(self, mock_requests):
         """Do we retrieve the right stats about a user?"""
         # Always mock this because the user will change it himself
@@ -201,7 +212,7 @@ class TestUserAnimeList(object):
             'consumption_status': mal_scraper.ConsumptionStatus.consuming,
             'is_rewatch': False,
             'score': 0,
-            'start_date': None,
+            # 'start_date': None,
             'progress': 9,
-            'finished_date': None,
+            # 'finish_date': None,
         }

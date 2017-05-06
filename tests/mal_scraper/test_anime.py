@@ -63,6 +63,13 @@ def test_parsing_episodes_that_is_unknown(mock_requests):
     assert mal_scraper.get_anime(32105)[1]['episodes'] is None
 
 
+def test_parsing_airing_that_is_unknown(mock_requests):
+    mock_requests.always_mock('http://myanimelist.net/anime/35102', 'anime_unknown_aired')
+    data = mal_scraper.get_anime(35102).data
+    assert data['airing_started'] is None
+    assert data['airing_finished'] is None
+
+
 def test_parsing_airing_started_with_year_and_month_only(mock_requests):
     """Do we return the year and month if the day is missing?"""
     mock_requests.optional_mock('http://myanimelist.net/anime/730')

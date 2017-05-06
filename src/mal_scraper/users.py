@@ -13,6 +13,7 @@ Possible alternative:
 """
 
 import logging
+import time
 from datetime import datetime
 from functools import partial
 
@@ -30,6 +31,11 @@ user_cache = set()  # Global store of discovered users
 
 def get_user_stats(user_id, requester=request_passthrough):
     """Return statistics about a particular user.
+
+    # TODO: Return Gender Male/Female
+    # TODO: Return Birthday "Nov", "Jan 27, 1997"
+    # TODO: Return Location "England"
+    # e.g. https://myanimelist.net/profile/Sakana-san
 
     Args:
         user_id (string): The username identifier of the MAL user.
@@ -54,6 +60,9 @@ def get_user_stats(user_id, requester=request_passthrough):
 
     Raises:
         Network and Request Errors: See Requests library.
+        .RequestError: :code:`RequestError.Code.does_not_exist` if the user_id is
+            invalid (i.e. the username does not exist).
+            See :class:`.RequestError.Code`.
         .ParseError: Upon processing the web-page including anything that does
             not meet expectations.
     """
@@ -61,7 +70,14 @@ def get_user_stats(user_id, requester=request_passthrough):
     logger.debug('Retrieving profile for "%s" from "%s"', user_id, url)
 
     response = requester.get(url)
-    response.raise_for_status()  # May raise
+    if not response.ok:  # Raise an exception
+        if response.status_code == 404:
+            msg = 'User "%s" does not exist' % user_id
+            raise RequestError(RequestError.Code.does_not_exist, msg)
+
+        response.raise_for_status()  # Will raise unknown error
+
+    # Auto user_id discovery
     default_user_store.store_users_from_html(response.text)
 
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -97,9 +113,11 @@ def get_user_anime_list(user_id, requester=request_passthrough):
                 'consumption_status': (mal_scraper.ConsumptionStatus),
                 'is_rewatch': (bool),
                 'score': (int) 0-10,
-                'start_date': (date, or None) may be missing,
                 'progress': (int) 0+ number of episodes watched,
-                'finished_date': (date, or None) may be missing or not finished,
+
+                The following tags have been removed for now:
+                'start_date': (date, or None) may be missing,
+                'finish_date': (date, or None) may be missing or not finished,
             }
 
         See also :class:`.ConsumptionStatus`.
@@ -117,6 +135,9 @@ def get_user_anime_list(user_id, requester=request_passthrough):
     while has_more_anime:
         url = get_anime_list_url_for_user(user_id, len(anime))
         logging.debug('(Network) Retrieving anime list from "%s"', url)
+        # TODO: Do not sleep here!!! Make middleware
+        logger.debug('Sleeping for 2 seconds...')
+        time.sleep(2)
 
         response = requester.get(url)
         if not response.ok:  # Raise an exception
@@ -283,7 +304,7 @@ def _get_num_anime_stats(soup, classname):
         # MAL probably changed their website
         raise MissingTagError(tag_name + ':title')
 
-    num_text = stat_tag.next_sibling.string.strip()
+    num_text = stat_tag.next_sibling.string.strip().replace(',', '')
 
     try:
         num = int(num_text)
@@ -306,8 +327,6 @@ _get_num_anime_plan_to_watch = partial(_get_num_anime_stats, classname='plan_to_
 
 def get_user_anime_list_from_json(json):
     """Return a list of anime as described by get_user_anime_list.
-
-    TODO: We should raise .ParseError, but we just don't.
 
     Implementation notes:
 
@@ -343,9 +362,26 @@ def get_user_anime_list_from_json(json):
            "storage_string":"",
            "priority_string":"Low"
         }
+
+    Raises:
+        .ParseError: Upon processing the web-page including anything that does
+            not meet expectations.
     """
     anime = []
     for mal_anime in json:
+        # Start date and finish date removed for now
+        # try:
+        #     start_date = _convert_json_date(mal_anime['start_date_string'])
+        # except ParseError as err:
+        #     err.specify_tag('start_date_string')
+        #     raise
+
+        # try:
+        #     finish_date = _convert_json_date(mal_anime['finish_date_string'])
+        # except ParseError as err:
+        #     err.specify_tag('finish_date_string')
+        #     raise
+
         anime.append({
             'name': mal_anime['anime_title'],
             'id_ref': int(mal_anime['anime_id']),
@@ -353,8 +389,8 @@ def get_user_anime_list_from_json(json):
             'is_rewatch': bool(mal_anime['is_rewatching']),
             'score': int(mal_anime['score']),
             'progress': int(mal_anime['num_watched_episodes']),
-            'start_date': _convert_json_date(mal_anime['start_date_string']),
-            'finished_date': _convert_json_date(mal_anime['finish_date_string']),
+            # 'start_date': start_date,
+            # 'finish_date': finish_date,
         })
 
     return anime
@@ -363,14 +399,33 @@ def get_user_anime_list_from_json(json):
 def _convert_json_date(text):
     """Return the datetime.date object from the JSON anime list date strings.
 
-    Return None if date is a placeholder, or the information is missing.
+    IMPORTANT: There is a problem with determining the locale of the date.
+    It varies between users and there doesn't seem to be a way to find out
+    what it is (directly).
+
+    Date Examples::
+
+        00-00-98  # Only year is known
+        12-00-98  # Year and month is known
+        12-28-98  # Full date
+
+    Returns:
+        datetime, or None if there is no date.
+
+    Raises:
+        .ParseError: if the text cannot be processed.
     """
-    if text is None or text.startswith('00-00-'):
+    if text is None:
         return None
 
+    # TODO: Test
+    # We must fill in the information
+    # We cannot provide approximates, so say it was on the 1st :(
+    text = text.replace('00-', '01-')
+
     try:
-        return datetime.strptime(text, '%d-%m-%y').date()
+        # Or %d-%m-%y
+        return datetime.strptime(text, '%m-%d-%y').date()
     except ValueError:  # pragma: no cover
         # It is likely that MAL has changed their format
-        logging.error('Unable to parse the date text "%s" from an anime list', text)
-        return None
+        raise ParseError('Unable to parse the date text "%s" from an anime list' % text)

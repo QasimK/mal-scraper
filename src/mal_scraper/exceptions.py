@@ -24,8 +24,8 @@ class RequestError(MalScraperError):
 
     @unique
     class Code(Enum):
-        forbidden = 'FORBIDDEN'  # Access is forbidden by the user
         does_not_exist = 'NOEXIST'  # Anime or User does not exist
+        forbidden = 'FORBIDDEN'  # Access is forbidden by the user
 
     def __init__(self, code, message):
         if code not in self.Code.__members__.values():

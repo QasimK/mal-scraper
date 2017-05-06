@@ -37,13 +37,13 @@ def get_anime(id_ref=1, requester=request_passthrough):
                 'format': mal_scraper.Format,
                 'episodes': int, or None when MAL does not know,
                 'airing_status': mal_scraper.AiringStatus,
-                'airing_started': date,
+                'airing_started': date, or None when MAL does not know,
                 'airing_finished': date, or None when MAL does not know,
                 'airing_premiere': tuple(Year (int), Season (mal_scraper.Season))
                     or None (for films, OVAs, specials, ONAs, music, or
                     if MAL does not know),
                 'mal_age_rating': mal_scraper.AgeRating,
-                'mal_score': float, or None when not yet aired,
+                'mal_score': float, or None when not yet aired/MAL does not know,
                 'mal_scored_by': int (number of people),
                 'mal_rank': int, or None when not yet aired/some R rated anime,
                 'mal_popularity': int,
@@ -80,6 +80,7 @@ def get_anime(id_ref=1, requester=request_passthrough):
 
     response = requester.get(url)
     response.raise_for_status()  # May raise
+    # TODO: Raise RequestError if 404
 
     # Dynamic user discovery
     default_user_store.store_users_from_html(response.text)
@@ -118,13 +119,13 @@ def get_anime_from_soup(soup):
                 'format': mal_scraper.Format,
                 'episodes': int, or None when MAL does not know,
                 'airing_status': mal_scraper.AiringStatus,
-                'airing_started': date,
+                'airing_started': date, or None when MAL does not know,
                 'airing_finished': date, or None when MAL does not know,
                 'airing_premiere': tuple(Year (int), Season (mal_scraper.Season))
                     or None (for films, OVAs, specials, ONAs, music, or
                     if MAL does not know),
                 'mal_age_rating': mal_scraper.AgeRating,
-                'mal_score': float, or None when not yet aired,
+                'mal_score': float, or None when not yet aired/MAL does not know,
                 'mal_scored_by': int (number of people),
                 'mal_rank': int, or None when not yet aired/some R rated anime,
                 'mal_popularity': int,
@@ -246,7 +247,10 @@ def _get_start_date(soup, data=None):
     if not pretag:
         raise MissingTagError('aired')
 
-    aired_text = pretag.next_sibling.strip()
+    aired_text = pretag.next_sibling.strip().lower()
+    if aired_text == 'not available':
+        return None
+
     start_text = aired_text.split(' to ')[0]
 
     try:
@@ -342,9 +346,9 @@ def _get_mal_score(soup, data):
         raise MissingTagError('Score')
 
     rating_text = pretag.find_next_sibling('span').string.strip()
-    # Not aired yet anime are excluded
-    if data['airing_status'] == AiringStatus.pre_air and rating_text == 'N/A':
-        return None  # Not aired yet is excluded
+    # Not aired yet/MAL does not know anime are excluded
+    if rating_text == 'N/A':
+        return None
 
     try:
         return float(rating_text)
