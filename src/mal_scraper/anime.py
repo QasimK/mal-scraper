@@ -381,9 +381,12 @@ def _get_mal_rank(soup, data):
 
     full_text = pretag.next_sibling.strip()
     # Not aired yet and some R+ anime are excluded
-    if ((data['airing_status'] == AiringStatus.pre_air
-            or data['mal_age_rating'] in (AgeRating.mal_r1, AgeRating.mal_r2, AgeRating.mal_r3))
-            and full_text == 'N/A'):
+    excluded_age_ratings = (
+        AgeRating.mal_none, AgeRating.mal_r1, AgeRating.mal_r2, AgeRating.mal_r3
+    )
+    if (full_text == 'N/A' and
+            (data['airing_status'] == AiringStatus.pre_air
+             or data['mal_age_rating'] in excluded_age_ratings)):
         return None
 
     number_value = full_text.replace(',', '').replace('#', '')
