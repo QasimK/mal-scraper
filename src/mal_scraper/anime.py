@@ -1,19 +1,19 @@
 import itertools
 import logging
-from datetime import datetime
 
 from bs4 import BeautifulSoup
+from requests.exceptions import RetryError
 
 from .consts import AgeRating, AiringStatus, Format, Retrieved, Season
-from .exceptions import MissingTagError, ParseError
+from .exceptions import MissingTagError, ParseError, RequestError
 from .mal_utils import get_date
-from .requester import request_passthrough
+from .middleware import default_requester
 from .user_discovery import default_user_store
 
 logger = logging.getLogger(__name__)
 
 
-def get_anime(id_ref=1, requester=request_passthrough):
+def get_anime(id_ref=1, requester=default_requester):
     """Return the information for a particular show.
 
     You can simply enumerate through id_refs.
@@ -82,9 +82,18 @@ def get_anime(id_ref=1, requester=request_passthrough):
     url = get_url_from_id_ref(id_ref)
     logger.debug('Retrieving anime "%s" from "%s"', id_ref, url)
 
-    response = requester.get(url)
+    try:
+        meta, response = requester.get(url)
+    except RetryError as err:
+        if ' 404 ' in str(err):  # Hack: 404 check
+            msg = 'Anime #%d does not exist.' % id_ref
+            raise RequestError(RequestError.Code.does_not_exist, msg)
+
+        raise  # Will raise unknown retry error
+
+    # TODO: Catch 404 HTTPError too in case not-retry
+
     response.raise_for_status()  # May raise
-    # TODO: Raise RequestError if 404
 
     # Dynamic user discovery
     default_user_store.store_users_from_html(response.text)
@@ -93,7 +102,7 @@ def get_anime(id_ref=1, requester=request_passthrough):
     data = get_anime_from_soup(soup)  # May raise
 
     meta = {
-        'when': datetime.utcnow(),
+        'when': meta['when'],
         'id_ref': id_ref,
         'response': response,
     }
@@ -381,12 +390,8 @@ def _get_mal_rank(soup, data):
 
     full_text = pretag.next_sibling.strip()
     # Not aired yet and some R+ anime are excluded
-    excluded_age_ratings = (
-        AgeRating.mal_none, AgeRating.mal_r1, AgeRating.mal_r2, AgeRating.mal_r3
-    )
-    if (full_text == 'N/A' and
-            (data['airing_status'] == AiringStatus.pre_air
-             or data['mal_age_rating'] in excluded_age_ratings)):
+    # Apparently some PG - 13 are excluded too, and who knows what else...
+    if full_text == 'N/A':
         return None
 
     number_value = full_text.replace(',', '').replace('#', '')

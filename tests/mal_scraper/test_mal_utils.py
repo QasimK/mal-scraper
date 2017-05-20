@@ -44,6 +44,9 @@ class TestGetDatetime(object):
         time_difference = expected_datetime - mal_utils.get_datetime(text, self.yesterdayish)
         assert time_difference < timedelta(minutes=1)
 
+    def test_get_datetime_supports_never(self):
+        assert mal_utils.get_datetime('Never') is None
+
 
 @pytest.mark.parametrize('text,expected_date', [
     ('Apr 3, 1998', date(year=1998, month=4, day=3))
