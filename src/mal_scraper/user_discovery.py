@@ -3,12 +3,12 @@
 import logging
 import re
 
-from .requester import request_passthrough
+from .middleware import default_requester
 
 logger = logging.getLogger(__name__)
 
 
-def discover_users(requester=request_passthrough, use_cache=True, use_web=None):
+def discover_users(requester=default_requester, use_cache=True, use_web=None):
     """Return a set of user_ids usable by other user related library calls.
 
     By default we will attempt to return any in our cache - clearing the cache
@@ -60,7 +60,7 @@ def discover_users(requester=request_passthrough, use_cache=True, use_web=None):
 
     # Force use web, or fall-back to web if the cache is empty
     if use_web or (use_web is None and not discovered_users):
-        response = requester.get(get_url_for_user_discovery())
+        meta, response = requester.get(get_url_for_user_discovery())
         response.raise_for_status()  # May raise
         discovered_users |= set(discover_users_from_html(response.text))
 

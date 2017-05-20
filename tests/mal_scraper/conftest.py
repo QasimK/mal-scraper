@@ -88,6 +88,7 @@ class ResponsesWrapper:
         return b64encode((method + ':+:' + url).encode('utf-8')).decode('utf-8')
 
 
+# TODO: re-write this to be a RequestsTestWrapper()
 @pytest.yield_fixture(autouse=True)
 def mock_requests(request):
     """Mock all requests unless the LIVE_RESPONSES environ has been set."""

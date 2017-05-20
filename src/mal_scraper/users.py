@@ -13,7 +13,6 @@ Possible alternative:
 """
 
 import logging
-import time
 from datetime import datetime
 from functools import partial
 
@@ -22,14 +21,16 @@ from bs4 import BeautifulSoup
 from .consts import ConsumptionStatus, Retrieved
 from .exceptions import MissingTagError, ParseError, RequestError
 from .mal_utils import get_date, get_datetime
-from .requester import request_passthrough
+from .middleware import default_requester
 from .user_discovery import default_user_store
+
+from requests.exceptions import RetryError
 
 logger = logging.getLogger(__name__)
 user_cache = set()  # Global store of discovered users
 
 
-def get_user_stats(user_id, requester=request_passthrough):
+def get_user_stats(user_id, requester=default_requester):
     """Return statistics about a particular user.
 
     # TODO: Return Gender Male/Female
@@ -59,7 +60,8 @@ def get_user_stats(user_id, requester=request_passthrough):
             }
 
     Raises:
-        Network and Request Errors: See Requests library.
+        requests.exceptions.RequestException: See Requests library.
+        .RetryError: When the auto-retry fails.
         .RequestError: :code:`RequestError.Code.does_not_exist` if the user_id is
             invalid (i.e. the username does not exist).
             See :class:`.RequestError.Code`.
@@ -69,13 +71,18 @@ def get_user_stats(user_id, requester=request_passthrough):
     url = get_profile_url_for_user(user_id)
     logger.debug('Retrieving profile for "%s" from "%s"', user_id, url)
 
-    response = requester.get(url)
-    if not response.ok:  # Raise an exception
-        if response.status_code == 404:
+    try:
+        meta, response = requester.get(url)
+    except RetryError as err:
+        if ' 404 ' in str(err):  # Hack: 404 check
             msg = 'User "%s" does not exist' % user_id
             raise RequestError(RequestError.Code.does_not_exist, msg)
 
-        response.raise_for_status()  # Will raise unknown error
+        raise  # Will raise unknown retry error
+
+    # TODO: Catch 404 HTTPError too in case not-retry
+
+    response.raise_for_status()  # May raise
 
     # Auto user_id discovery
     default_user_store.store_users_from_html(response.text)
@@ -84,7 +91,7 @@ def get_user_stats(user_id, requester=request_passthrough):
     data = get_user_stats_from_soup(soup)  # May raise
 
     meta = {
-        'when': datetime.utcnow(),
+        'when': meta['when'],
         'user_id': user_id,
         'response': response,
     }
@@ -92,7 +99,7 @@ def get_user_stats(user_id, requester=request_passthrough):
     return Retrieved(meta, data)
 
 
-def get_user_anime_list(user_id, requester=request_passthrough):
+def get_user_anime_list(user_id, requester=default_requester):
     """Return the anime listed by the user on their profile.
 
     This will make multiple network requests (possibly > 10).
@@ -135,12 +142,7 @@ def get_user_anime_list(user_id, requester=request_passthrough):
     has_more_anime = True
     while has_more_anime:
         url = get_anime_list_url_for_user(user_id, len(anime))
-        logging.debug('(Network) Retrieving anime list from "%s"', url)
-        # TODO: Do not sleep here!!! Make middleware
-        logger.debug('Sleeping for 2 seconds...')
-        time.sleep(2)
-
-        response = requester.get(url)
+        meta, response = requester.get(url)
         if not response.ok:  # Raise an exception
             if response.status_code in (400, 401):
                 msg = 'Access to user "%s"\'s anime list is forbidden' % user_id
@@ -217,7 +219,10 @@ def get_user_stats_from_soup(soup):
                 'num_anime_plan_to_watch': (int),
             }
 
+    TODO: RequestError.
+    TODO: Test RequestError https://myanimelist.net/profile/Tuzo
     Raises:
+        RequestError: does_not_exist if the user has never logged in.
         ParseError: If any component of the page could not be processed
             or was unexpected.
     """
@@ -242,6 +247,9 @@ def get_user_stats_from_soup(soup):
             raise
 
         data[tag] = result
+
+    if data['last_online'] is None:
+        raise RequestError(RequestError.Code.does_not_exist, 'User has never logged in')
 
     return data
 

@@ -24,9 +24,10 @@ def get_datetime(text, relative_to=None):
             12 minutes ago
             1 minute ago
             Now
+            Never
 
     Returns:
-        datetime.datetime
+        datetime.datetime, or None if the text is "Never".
 
     Raises:
         ValueError if the conversion fails
@@ -36,6 +37,9 @@ def get_datetime(text, relative_to=None):
     """
     relative_to = relative_to or datetime.utcnow()
     text = text.strip().lower()
+
+    if text == 'never':
+        return None
 
     # Now
     if text == 'now':
