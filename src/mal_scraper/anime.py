@@ -40,6 +40,7 @@ def get_anime(id_ref=1, requester=default_requester):
                 'name_english': str,
                 'format': mal_scraper.Format,
                 'episodes': int, or None when MAL does not know,
+                'genre': str[],
                 'airing_status': mal_scraper.AiringStatus,
                 'airing_started': date, or None when MAL does not know,
                 'airing_finished': date, or None when MAL does not know,
@@ -131,6 +132,7 @@ def get_anime_from_soup(soup):
                 'name_english': str,
                 'format': mal_scraper.Format,
                 'episodes': int, or None when MAL does not know,
+                'genre': str[],
                 'airing_status': mal_scraper.AiringStatus,
                 'airing_started': date, or None when MAL does not know,
                 'airing_finished': date, or None when MAL does not know,
@@ -155,6 +157,7 @@ def get_anime_from_soup(soup):
         ('name_english', _get_english_name),
         ('format', _get_format),
         ('episodes', _get_episodes),
+        ('genre', _get_genre),
         ('airing_status', _get_airing_status),
         ('airing_started', _get_start_date),
         ('airing_finished', _get_end_date),
@@ -238,6 +241,17 @@ def _get_episodes(soup, data=None):
         raise ParseError('Unable to convert text "%s" to int' % episodes_text)
 
     return episodes_number
+
+
+def _get_genre(soup, data=None):
+    pretag = soup.find('span', string='Genres:')
+    if not pretag:
+        raise MissingTagError('genre')
+    genres = ""
+    for genreElement in pretag.next_siblings:
+        genre = genreElement.string.strip()
+        genres += genre
+    return genres.split(',')
 
 
 def _get_airing_status(soup, data=None):
