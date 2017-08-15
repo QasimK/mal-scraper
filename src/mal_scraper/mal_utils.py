@@ -8,38 +8,9 @@ last_online_hours = re.compile(r'(?P<hours>\d+) hours? ago')
 
 
 def get_datetime(text, relative_to=None):
-    """Convert a datetime like "Oct 1, 4:29 AM"
 
-    Timestamps that are relative "3 hours ago" can be given a base time
-    in case the timestamp was generated at a different time.
-
-    Args:
-        text (str): The following examples are supported (with varying accuracy)
-            Oct 1, 2013 11:04 PM
-            Oct 1, 4:29 AM
-            Today, 1:22 AM
-            Yesterday, 9:58 AM
-            4 hours ago
-            1 hour ago
-            12 minutes ago
-            1 minute ago
-            Now
-            Never
-
-    Returns:
-        datetime.datetime, or None if the text is "Never".
-
-    Raises:
-        ValueError if the conversion fails
-
-    Issues:
-        - Potentially locale-dependent.
-    """
     relative_to = relative_to or datetime.utcnow()
     text = text.strip().lower()
-
-    if text == 'never':
-        return None
 
     # Now
     if text == 'now':

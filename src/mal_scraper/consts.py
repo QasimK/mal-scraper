@@ -24,7 +24,6 @@ Retrieved = namedtuple('Retrieved', ['meta', 'data'])
 @unique
 class ConsumptionStatus(Enum):
     """A person's status on a media item, e.g. are they currently watching it?"""
-    uncategorised = 'UNCATEGORISED'
     consuming = 'CONSUMING'
     completed = 'COMPLETED'
     on_hold = 'ONHOLD'
@@ -35,7 +34,6 @@ class ConsumptionStatus(Enum):
     def mal_code_to_enum(cls, code):
         """Return the enum from the MAL code, or None."""
         return {
-            0: ConsumptionStatus.uncategorised,
             1: ConsumptionStatus.consuming,
             2: ConsumptionStatus.completed,
             3: ConsumptionStatus.on_hold,
