@@ -8,7 +8,6 @@ last_online_hours = re.compile(r'(?P<hours>\d+) hours? ago')
 
 
 def get_datetime(text, relative_to=None):
-
     relative_to = relative_to or datetime.utcnow()
     text = text.strip().lower()
 

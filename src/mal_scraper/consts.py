@@ -95,7 +95,7 @@ class Format(Enum):
             'movie': cls.film,
             'ova': cls.ova,
             'special': cls.special,
-            'ona':  cls.ona,
+            'ona': cls.ona,
             'music': cls.music,
             'unknown': cls.unknown,
         }.get(text.strip().lower())
@@ -128,6 +128,6 @@ class AgeRating(Enum):
             'pg': cls.mal_pg,
             'pg-13': cls.mal_t,
             'r - 17+': cls.mal_r1,
-            'r+':  cls.mal_r2,
+            'r+': cls.mal_r2,
             'rx': cls.mal_r3,
         }.get(text.strip().lower())

@@ -1,56 +1,54 @@
 import itertools
-import logging
+import requests
 import re
 from datetime import datetime
 
 from bs4 import BeautifulSoup
+
 from .consts import Retrieved
 from .exceptions import MissingTagError, ParseError
+from .requester import request_passthrough
 
-from src.requester import request_passthrough
-
-logger = logging.getLogger(__name__)
 
 _SEASONS_ = ["Spring", "Summer", "Fall", "Winter"]
 _FORMATS_ = ['TV', 'Movie', 'OVA', 'ONA', 'Special', 'Music', 'Unknown']
 _STATUS_ = ['Finished Airing', 'Not yet aired', 'Currently Airing']
 _RATINGS_ = ['None', 'G', 'PG', 'PG-13', 'R - 17+', 'R+', 'Rx']
+
+
 # _SOURCES_ = ['Manga', '4-koma manga', 'Web manga', 'Visual Novel',
 #             'Light novel', 'Original', 'Novel', 'Game', 'Other', 'Unknown', 'Picture book']
 
-def get_anime(url, requester=request_passthrough):
+def get_anime(ani_id, requester=request_passthrough):
 
-    # url = get_url_from_id_ref(id_ref)
-    # logger.debug('Retrieving anime "%s" from "%s"', id_ref, url)
-
-    # url = "https://myanimelist.net/anime/"+url.split('/')[4]+"/a/characters"
-    url = "https://myanimelist.net/anime/" + str(url) + "/a/characters"
+    url = "https://myanimelist.net/anime/" + str(ani_id) + "/a/characters"
     response = requester.get(url)
 
     try:
         response.raise_for_status()  # May raise
 
         soup = BeautifulSoup(response.content, 'html.parser')
-        data = get_anime_from_soup(soup) # May raise
-        data['id'] = url.split('/')[4]
+        data = get_anime_from_soup(soup)  # May raise
+        data['id'] = str(ani_id)
         meta = {
             'when': datetime.utcnow(),
-            # 'id_ref': id_ref,
             'response': response,
         }
         return Retrieved(meta, data)
 
-    except:
+    except requests.HTTPError:
         print('error ', url, response.status_code)
         if int(response.status_code) < 400:
-            raise RuntimeError('Codigo fue %s, esto no deberia pasar' %response.status_code)
+            raise RuntimeError('Error {}, this should not happen'.format(response.status_code))
+        pass
+    except ParseError:
+        print("Tag not found.")
         pass
 
     return [{}, {}]
 
 
 def get_anime_from_soup(soup):
-
     process = [
         ('name', _get_name),
         ('name_japanese', _get_japanese_name),
@@ -82,9 +80,10 @@ def get_anime_from_soup(soup):
     data = {}
     for tag, func in process:
         try:
+            result = func(soup)
+        except TypeError:
             result = func(soup, data)
         except ParseError as err:
-            logger.debug('Failed to process tag %s', tag)
             err.specify_tag(tag)
             raise
 
@@ -93,14 +92,7 @@ def get_anime_from_soup(soup):
     return data
 
 
-def get_url_from_id_ref(id_ref):
-    # Use HTTPS to avoid auto-redirect from HTTP (except for tests)
-    from .__init__ import FORCE_HTTP
-    protocol = 'http' if FORCE_HTTP else 'https'
-    return '{}://myanimelist.net/anime/{:d}'.format(protocol, id_ref)
-
-
-def _get_name(soup, data=None):
+def _get_name(soup):
     tag = soup.find('span', itemprop='name')
     if not tag:
         raise MissingTagError('name')
@@ -109,7 +101,7 @@ def _get_name(soup, data=None):
     return text
 
 
-def _get_japanese_name(soup, data=None):
+def _get_japanese_name(soup):
     pretag = soup.find('span', string='Japanese:')
 
     if not pretag:
@@ -119,7 +111,7 @@ def _get_japanese_name(soup, data=None):
     return text
 
 
-def _get_english_name(soup, data=None):
+def _get_english_name(soup):
     pretag = soup.find('span', string='English:')
 
     # This is not always present (https://myanimelist.net/anime/15)
@@ -130,7 +122,7 @@ def _get_english_name(soup, data=None):
     return text
 
 
-def _get_source(soup, data=None):
+def _get_source(soup):
     pretag = soup.find('span', string='Source:')
 
     if not pretag:
@@ -140,7 +132,7 @@ def _get_source(soup, data=None):
     return text
 
 
-def _get_duration(soup, data=None):
+def _get_duration(soup):
     pretag = soup.find('span', string='Duration:')
 
     if not pretag:
@@ -150,7 +142,7 @@ def _get_duration(soup, data=None):
     return text
 
 
-def _get_format(soup, data=None):
+def _get_format(soup):
     pretag = soup.find('span', string='Type:')
     if not pretag:
         raise MissingTagError('type')
@@ -159,75 +151,49 @@ def _get_format(soup, data=None):
         text = text.string.strip()
         if text:
             break
+
     else:
         text = None
-
     format_ = text
 
     return format_
 
 
-def _get_producers(soup, data=None):
+def _get_iter_tags(soup, tag):
+    pretag = soup.find('span', string=tag)
+    if not pretag:
+        raise MissingTagError(tag.split(':')[0])
+
+    arr = []
+    for a_tag in pretag.parent.contents:
+        b = a_tag.string.split(',')[0].strip()
+        if b != '\n' and b != ' ' and b != '' and b != tag:
+            arr.append(b)
+
+    return arr
+
+
+def _get_producers(soup):
     search = 'Producers:'
-    pretag = soup.find('span', string=search)
-    if not pretag:
-        raise MissingTagError('Score')
-
-    arr = []
-    for a_tag in pretag.parent.contents:
-        b = a_tag.string.split(',')[0].strip()
-        if b != '\n' and b != ' ' and b != '' and b != search:
-            arr.append(b)
-
-    return arr
+    return _get_iter_tags(soup, search)
 
 
-def _get_licensors(soup, data=None):
+def _get_licensors(soup):
     search = 'Licensors:'
-    pretag = soup.find('span', string=search)
-    if not pretag:
-        raise MissingTagError('Score')
-
-    arr = []
-    for a_tag in pretag.parent.contents:
-        b = a_tag.string.split(',')[0].strip()
-        if b != '\n' and b != ' ' and b != '' and b != search:
-            arr.append(b)
-
-    return arr
+    return _get_iter_tags(soup, search)
 
 
-def _get_studios(soup, data=None):
+def _get_studios(soup):
     search = 'Studios:'
-    pretag = soup.find('span', string=search)
-    if not pretag:
-        raise MissingTagError('Score')
-
-    arr = []
-    for a_tag in pretag.parent.contents:
-        b = a_tag.string.split(',')[0].strip()
-        if b != '\n' and b != ' ' and b != '' and b != search:
-            arr.append(b)
-
-    return arr
+    return _get_iter_tags(soup, search)
 
 
-def _get_genres(soup, data=None):
+def _get_genres(soup):
     search = 'Genres:'
-    pretag = soup.find('span', string=search)
-    if not pretag:
-        raise MissingTagError('Score')
-
-    arr = []
-    for a_tag in pretag.parent.contents:
-        b = a_tag.string.split(',')[0].strip()
-        if b != '\n' and b != ' ' and b != '' and b != search:
-            arr.append(b)
-
-    return arr
+    return _get_iter_tags(soup, search)
 
 
-def _get_episodes(soup, data=None):
+def _get_episodes(soup):
     pretag = soup.find('span', string='Episodes:')
     if not pretag:
         raise MissingTagError('episodes')
@@ -240,12 +206,12 @@ def _get_episodes(soup, data=None):
         episodes_number = int(episodes_text)
     except (ValueError, TypeError):  # pragma: no cover
         # MAL probably changed the webpage
-        raise ParseError('Unable to convert text "%s" to int' % episodes_text)
+        raise ParseError('Unable to convert text {} to int'.format(episodes_text))
 
     return episodes_number
 
 
-def _get_airing_status(soup, data=None):
+def _get_airing_status(soup):
     pretag = soup.find('span', string='Status:')
     if not pretag:
         raise MissingTagError('status')
@@ -255,7 +221,7 @@ def _get_airing_status(soup, data=None):
     return status
 
 
-def _get_start_date(soup, data=None):
+def _get_start_date(soup):
     pretag = soup.find('span', string='Aired:')
     if not pretag:
         raise MissingTagError('aired')
@@ -270,12 +236,12 @@ def _get_start_date(soup, data=None):
         start_date = get_date(start_text)
     except ValueError:  # pragma: no cover
         # MAL probably changed their website
-        raise ParseError('Unable to identify date from "%s"' % start_text)
+        raise ParseError('Unable to identify date from {}'.format(start_text))
 
     return start_date
 
 
-def _get_end_date(soup, data=None):
+def _get_end_date(soup):
     pretag = soup.find('span', string='Aired:')
     if not pretag:
         raise MissingTagError('aired')
@@ -296,7 +262,7 @@ def _get_end_date(soup, data=None):
         end_date = get_date(end_text)
     except ValueError:  # pragma: no cover
         # MAL probably changed their website
-        raise ParseError('Unable to identify date from "%s"' % end_text)
+        raise ParseError('Unable to identify date from {}'.format(end_text))
 
     return end_date
 
@@ -324,18 +290,18 @@ def _get_airing_premiere(soup, data):
 
     if season not in _SEASONS_:
         # MAL probably changed their website
-        raise ParseError('Unable to identify season from "%s"', season)
+        raise ParseError('Unable to identify season from {}'.format(season))
 
     try:
         year = int(year)
     except (ValueError, TypeError):  # pragma: no cover
         # MAL probably changed their website
-        raise ParseError('Unable to identify year from "%s"' % year)
+        raise ParseError('Unable to identify year from {}'.format(year))
 
     return [year, season]
 
 
-def _get_mal_age_rating(soup, data=None):
+def _get_mal_age_rating(soup):
     pretag = soup.find('span', string='Rating:')
     if not pretag:
         raise MissingTagError('Rating')
@@ -347,14 +313,12 @@ def _get_mal_age_rating(soup, data=None):
 
     rating = rating_text.strip()
     if rating not in _RATINGS_:
-        raise ParseError(
-            'Unable to identify age rating from "%s" part of "%s"' % (rating_text, full_text)
-        )
+        raise ParseError('Unable to identify age rating from {} part of {}'.format(rating_text, full_text))
 
     return rating
 
 
-def _get_mal_score(soup, data=None):
+def _get_mal_score(soup):
     pretag = soup.find('span', string='Score:')
     if not pretag:
         raise MissingTagError('Score')
@@ -367,10 +331,10 @@ def _get_mal_score(soup, data=None):
     try:
         return float(rating_text)
     except ValueError:
-        raise ParseError('Unable to identify rating from "%s"' % rating_text)
+        raise ParseError('Unable to identify rating from {}'.format(rating_text))
 
 
-def _get_mal_scored_by(soup, data=None):
+def _get_mal_scored_by(soup):
     pretag = soup.find('span', string='Score:')
     if not pretag:
         raise MissingTagError('Score')
@@ -379,19 +343,19 @@ def _get_mal_scored_by(soup, data=None):
     try:
         return int(count_text)
     except ValueError:
-        raise ParseError('Unable to identify #people scoring from "%s"' % count_text)
+        raise ParseError('Unable to identify #people scoring from {}'.format(count_text))
 
 
-def _get_mal_rank(soup, data):
+def _get_mal_rank(soup):
     pretag = soup.find('span', string='Ranked:')
     if not pretag:
         raise MissingTagError('Ranked')
 
     full_text = pretag.next_sibling.strip()
     # Not aired yet and some R+ anime are excluded
-    excluded_age_ratings = (
-        _RATINGS_[0], _RATINGS_[4], _RATINGS_[5], _RATINGS_[6]
-    )
+    # excluded_age_ratings = (
+    #     _RATINGS_[0], _RATINGS_[4], _RATINGS_[5], _RATINGS_[6]
+    # )
     if full_text == 'N/A':
         return None
 
@@ -399,10 +363,10 @@ def _get_mal_rank(soup, data):
     try:
         return int(number_value)
     except ValueError:
-        raise ParseError('Unable to identify rank "%s"' % full_text)
+        raise ParseError('Unable to identify rank {}'.format(full_text))
 
 
-def _get_mal_popularity(soup, data=None):
+def _get_mal_popularity(soup):
     pretag = soup.find('span', string='Popularity:')
     if not pretag:
         raise MissingTagError('Popularity')
@@ -412,10 +376,10 @@ def _get_mal_popularity(soup, data=None):
     try:
         return int(number_value)
     except ValueError:
-        raise ParseError('Unable to identify popularity "%s"' % full_text)
+        raise ParseError('Unable to identify popularity {}'.format(full_text))
 
 
-def _get_mal_members(soup, data=None):
+def _get_mal_members(soup):
     pretag = soup.find('span', string='Members:')
     if not pretag:
         raise MissingTagError('Members')
@@ -425,10 +389,10 @@ def _get_mal_members(soup, data=None):
     try:
         return int(number_value)
     except ValueError:
-        raise ParseError('Unable to identify #members "%s"' % full_text)
+        raise ParseError('Unable to identify #members {}'.format(full_text))
 
 
-def _get_mal_favourites(soup, data=None):
+def _get_mal_favourites(soup):
     pretag = soup.find('span', string='Favorites:')
     if not pretag:
         raise MissingTagError('Favorites')
@@ -438,19 +402,18 @@ def _get_mal_favourites(soup, data=None):
     try:
         return int(number_value)
     except ValueError:
-        raise ParseError('Unable to identify #favourites "%s"' % full_text)
+        raise ParseError('Unable to identify #favourites {}'.format(full_text))
 
 
-def _get_char_voice(soup, data=None):
-
+def _get_char_voice(soup):
     a = soup.find_all(href=re.compile("go=characters"))[0].parent.parent
     x = soup.find_all(href=re.compile("t=staff"))[0].parent.parent
     e = []
-    next = a.next_sibling
-    while next != x:
+    _next = a.next_sibling
+    while _next != x:
         w = []
         try:
-            for q in next.tr.find_all('small'):
+            for q in _next.tr.find_all('small'):
                 try:
                     w.append([q.parent.parent.a.get('href').split('/')[4], q.parent.parent.a.string.strip(),
                               q.string.strip()])
@@ -460,13 +423,14 @@ def _get_char_voice(soup, data=None):
         except:
             pass
         try:
-            next = next.next_sibling
+            _next = _next.next_sibling
         except:
             break
 
     return e
 
-def _get_staff(soup, data = None):
+
+def _get_staff(soup):
     a = soup.find_all(href=re.compile("t=staff"))[0].parent.parent
     e = []
     for i in a.next_siblings:
@@ -482,21 +446,22 @@ def _get_staff(soup, data = None):
 
     return e
 
-def get_date(str):
+
+def get_date(_str):
     try:
-        s = datetime.strptime(str, '%b %d, %Y')
+        s = datetime.strptime(_str, '%b %d, %Y')
         return [s.year, s.month, s.day]
     except:
         pass
 
     try:
-        s = datetime.strptime(str, '%b, %Y')
+        s = datetime.strptime(_str, '%b, %Y')
         return [s.year, s.month, None]
     except:
         pass
 
     try:
-        s = datetime.strptime(str, '%Y')
+        s = datetime.strptime(_str, '%Y')
         return [s.year, None, None]
     except:
         pass

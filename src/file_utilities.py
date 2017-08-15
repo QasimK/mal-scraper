@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import csv
 import ast
+import csv
 
 
 def blend_files(somh, output='default.txt'):
@@ -25,7 +25,7 @@ def file_complement(universe, file, output='default.txt'):
     for line in un:
         an_int = int(line)
         if not (an_int in a_list):
-            o.write(str(an_int)+'\n')
+            o.write(str(an_int) + '\n')
 
     un.close()
     f.close()
@@ -39,7 +39,7 @@ def replace_by_id(file, output='default.txt'):
     for line in f:
         if line.strip():
             id_ = line.split('/')[4]
-            o.write(id_+'\n')
+            o.write(id_ + '\n')
 
     f.close()
     o.close()
@@ -54,7 +54,7 @@ def get_ids(file, output='default.txt'):
             pass
         elif line.strip():
             a = int(line.split(',')[0].strip())
-            o.write(str(a)+'\n')
+            o.write(str(a) + '\n')
         cont += 1
     f.close()
     o.close()
@@ -163,7 +163,7 @@ def correct_anime(file, out_general, out_date, out_p, out_li, out_st, out_gen):
             finished_year = 0
             finished_month = 0
             finished_day = 0
-            if finished:   # if not NULL
+            if finished:  # if not NULL
                 n_finished = ast.literal_eval(finished)
                 finished_year = n_finished[0]
                 if str(n_finished[1]) != 'None':
@@ -226,7 +226,7 @@ def correct_character(file, out):
     for line in csv.reader(f):
         if count == 0:
             oo.writerow(['anime_id', 'character_id', 'character_name', 'character_type',
-                        'voice_actor_id', 'voice_actor_name', 'voice_actor_language'])
+                         'voice_actor_id', 'voice_actor_name', 'voice_actor_language'])
 
         else:
             line_parts = []
