@@ -24,7 +24,6 @@ Retrieved = namedtuple('Retrieved', ['meta', 'data'])
 @unique
 class ConsumptionStatus(Enum):
     """A person's status on a media item, e.g. are they currently watching it?"""
-    uncategorised = 'UNCATEGORISED'
     consuming = 'CONSUMING'
     completed = 'COMPLETED'
     on_hold = 'ONHOLD'
@@ -35,7 +34,6 @@ class ConsumptionStatus(Enum):
     def mal_code_to_enum(cls, code):
         """Return the enum from the MAL code, or None."""
         return {
-            0: ConsumptionStatus.uncategorised,
             1: ConsumptionStatus.consuming,
             2: ConsumptionStatus.completed,
             3: ConsumptionStatus.on_hold,
@@ -97,7 +95,7 @@ class Format(Enum):
             'movie': cls.film,
             'ova': cls.ova,
             'special': cls.special,
-            'ona':  cls.ona,
+            'ona': cls.ona,
             'music': cls.music,
             'unknown': cls.unknown,
         }.get(text.strip().lower())
@@ -130,6 +128,6 @@ class AgeRating(Enum):
             'pg': cls.mal_pg,
             'pg-13': cls.mal_t,
             'r - 17+': cls.mal_r1,
-            'r+':  cls.mal_r2,
+            'r+': cls.mal_r2,
             'rx': cls.mal_r3,
         }.get(text.strip().lower())

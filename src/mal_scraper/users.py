@@ -12,25 +12,22 @@ Possible alternative:
 - http://graph.anime.plus/
 """
 
-import logging
 from datetime import datetime
 from functools import partial
 
 from bs4 import BeautifulSoup
+from requests.exceptions import RetryError
 
 from .consts import ConsumptionStatus, Retrieved
 from .exceptions import MissingTagError, ParseError, RequestError
 from .mal_utils import get_date, get_datetime
-from .middleware import default_requester
+from .requester import request_passthrough
 from .user_discovery import default_user_store
 
-from requests.exceptions import RetryError
-
-logger = logging.getLogger(__name__)
 user_cache = set()  # Global store of discovered users
 
 
-def get_user_stats(user_id, requester=default_requester):
+def get_user_stats(user_id, requester=request_passthrough):
     """Return statistics about a particular user.
 
     # TODO: Return Gender Male/Female
@@ -69,7 +66,6 @@ def get_user_stats(user_id, requester=default_requester):
             not meet expectations.
     """
     url = get_profile_url_for_user(user_id)
-    logger.debug('Retrieving profile for "%s" from "%s"', user_id, url)
 
     try:
         meta, response = requester.get(url)
@@ -99,7 +95,7 @@ def get_user_stats(user_id, requester=default_requester):
     return Retrieved(meta, data)
 
 
-def get_user_anime_list(user_id, requester=default_requester):
+def get_user_anime_list(user_id, requester=request_passthrough):
     """Return the anime listed by the user on their profile.
 
     This will make multiple network requests (possibly > 10).
@@ -242,7 +238,6 @@ def get_user_stats_from_soup(soup):
         try:
             result = func(soup)
         except ParseError as err:
-            logger.debug('Failed to process tag %s', tag)
             err.specify_tag(tag)
             raise
 

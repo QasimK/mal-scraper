@@ -1,14 +1,11 @@
 """Discover user_ids (automatically)."""
 
-import logging
 import re
 
-from .middleware import default_requester
-
-logger = logging.getLogger(__name__)
+from .requester import request_passthrough
 
 
-def discover_users(requester=default_requester, use_cache=True, use_web=None):
+def discover_users(requester=request_passthrough, use_cache=True, use_web=None):
     """Return a set of user_ids usable by other user related library calls.
 
     By default we will attempt to return any in our cache - clearing the cache
