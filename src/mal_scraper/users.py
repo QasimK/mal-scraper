@@ -173,8 +173,8 @@ def get_profile_url_for_user(user_id):
         url (str)
     """
     # Use HTTPS to avoid auto-redirect from HTTP (except for tests)
-    from .__init__ import FORCE_HTTP  # noqa
-    protocol = 'http' if FORCE_HTTP else 'https'
+    from .__init__ import _FORCE_HTTP  # noqa
+    protocol = 'http' if _FORCE_HTTP else 'https'
     return '{}://myanimelist.net/profile/{:s}'.format(protocol, user_id)
 
 
@@ -188,8 +188,8 @@ def get_anime_list_url_for_user(user_id, offset=0):
     Returns:
         url (str)
     """
-    from .__init__ import FORCE_HTTP  # noqa
-    protocol = 'http' if FORCE_HTTP else 'https'
+    from .__init__ import _FORCE_HTTP  # noqa
+    protocol = 'http' if _FORCE_HTTP else 'https'
     url = '{protocol}://myanimelist.net/animelist/{user_id}/load.json?offset={offset:d}&status=7'
     return url.format(protocol=protocol, user_id=user_id, offset=offset)
 

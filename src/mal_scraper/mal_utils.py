@@ -7,7 +7,7 @@ last_online_minutes = re.compile(r'(?P<minutes>\d+) minutes? ago')
 last_online_hours = re.compile(r'(?P<hours>\d+) hours? ago')
 
 
-def get_datetime(text, relative_to=None):
+def get_datetime(text, relative_to=None):  # noqa: C901 (code complexity)
     """Convert a datetime like "Oct 1, 4:29 AM"
 
     Timestamps that are relative "3 hours ago" can be given a base time

@@ -90,11 +90,11 @@ class ResponsesWrapper:
 
 @pytest.yield_fixture(autouse=True)
 def mock_requests(request):
-    """Mock all requests unless the LIVE_RESPONSES environ has been set."""
+    """Mock all requests unless the LIVE_RESPONSES=1 environ has been set."""
 
     # MAL URLs should be HTTP for mocking
     import mal_scraper.__init__
-    mal_scraper.__init__.FORCE_HTTP = True
+    mal_scraper.__init__._FORCE_HTTP = True
 
     use_live = bool(os.environ.get('LIVE_RESPONSES', False))
     with responses.RequestsMock(assert_all_requests_are_fired=True) as rsps:

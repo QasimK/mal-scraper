@@ -103,8 +103,8 @@ def get_anime(id_ref=1, requester=request_passthrough):
 
 def get_url_from_id_ref(id_ref):
     # Use HTTPS to avoid auto-redirect from HTTP (except for tests)
-    from .__init__ import FORCE_HTTP
-    protocol = 'http' if FORCE_HTTP else 'https'
+    from .__init__ import _FORCE_HTTP
+    protocol = 'http' if _FORCE_HTTP else 'https'
     return '{}://myanimelist.net/anime/{:d}'.format(protocol, id_ref)
 
 

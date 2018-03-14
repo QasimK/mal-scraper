@@ -21,9 +21,9 @@ def discover_users(requester=request_passthrough, use_cache=True, use_web=None):
     Args:
         requester (requests-like, optional): HTTP request maker.
             This allows us to control/limit/mock requests.
-        ignore_cache (bool, optional): Ignore the cache that we have built up over time?
-            False (default) to get and clear the cache.
-            True: Pretend the cache is empty (and do not clear it).
+        use_cache (bool, optional): Ignore the cache that we have built up over time?
+            True (default): Pretend the cache is empty (and do not clear it).
+            False: Get and clear the cache.
         use_web (bool, optional): Control whether to fall back to scraping.
             None (default) to make a network call only if the cache is empty.
             False to never make a network call.
@@ -70,8 +70,8 @@ def discover_users(requester=request_passthrough, use_cache=True, use_web=None):
 def get_url_for_user_discovery():
     """Return the URL to the profile discovery page."""
     # Use HTTPS to avoid auto-redirect from HTTP (except for tests)
-    from .__init__ import FORCE_HTTP  # noqa
-    protocol = 'http' if FORCE_HTTP else 'https'
+    from .__init__ import _FORCE_HTTP  # noqa
+    protocol = 'http' if _FORCE_HTTP else 'https'
     return '{}://myanimelist.net/users.php'.format(protocol)
 
 

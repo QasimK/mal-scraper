@@ -7,5 +7,5 @@ from .exceptions import ParseError, RequestError  # noqa
 from .user_discovery import discover_users  # noqa
 from .users import get_user_anime_list, get_user_stats  # noqa
 
-# Don't use this
-FORCE_HTTP = False
+# Don't use this :) It's here for the tests
+_FORCE_HTTP = False

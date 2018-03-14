@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
 import os
 
@@ -18,13 +17,13 @@ extensions = [
 if os.getenv('SPELLCHECK'):
     extensions += 'sphinxcontrib.spelling',
     spelling_show_suggestions = True
-    spelling_lang = 'en_US'
+    spelling_lang = 'en_GB'
 
 source_suffix = '.rst'
 master_doc = 'index'
 project = u'MyAnimeList Scraper'
 year = '2016'
-author = u'Qasim K'
+author = 'QasimK'
 copyright = '{0}, {1}'.format(year, author)
 version = release = u'0.3.0'
 
