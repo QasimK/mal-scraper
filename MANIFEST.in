@@ -11,6 +11,8 @@ include .coveragerc
 include .cookiecutterrc
 include .editorconfig
 include .isort.cfg
+include Pipfile
+include Pipfile.lock
 
 include AUTHORS.rst
 include CHANGELOG.rst
