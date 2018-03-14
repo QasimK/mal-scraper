@@ -14,7 +14,8 @@ from functools import reduce
 
 import requests
 from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
+# TODO: urllib3 import change: http://docs.python-requests.org/en/master/community/updates/#id14
+from requests.packages import urllib3
 
 logger = logging.getLogger(__name__)
 
@@ -116,13 +117,14 @@ class RequestsWrapper:
 
     This will automatically retry on DNS lookups, socket connections and
     connection time-outs.
+
     """
 
     def __init__(self, retry_info):
         super().__init__()
-        self.session = requests.Session()
-        retry = Retry(**retry_info)
+        retry = urllib3.util.retry.Retry(**retry_info)
         adaptor = HTTPAdapter(max_retries=retry)
+        self.session = requests.Session()
         self.session.mount('http://', adaptor)
         self.session.mount('https://', adaptor)
 
@@ -160,3 +162,4 @@ default_middleware = OrderedDict([
     ))),
 ])
 default_requester = reduce(lambda a, f: f(a), reversed(default_middleware.values()))
+default_requester = requests
