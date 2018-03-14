@@ -1,3 +1,11 @@
+BRANCH:
+
+Creating middleware.py
+
+Issue: responses lib does not mock our request because we use a custom HTTPAdapter.
+Solution: https://github.com/getsentry/responses/pull/189
+Blocker: It is not approved and not merged.
+
 ========
 Overview
 ========
