@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
+# https://python-packaging.readthedocs.io/en/latest/index.html
 
 import io
 import re
