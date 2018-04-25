@@ -24,7 +24,8 @@ def test_get_anime_successful(mock_requests):
         'name': 'Cowboy Bebop',
         'name_english': 'Cowboy Bebop',
         'format': mal_scraper.Format.tv,
-        'episodes': 26,  # None means unknown
+        'episodes': 26,  # None means unknown,
+        'genre': ['Action', 'Adventure', 'Comedy', 'Drama', 'Sci-Fi', 'Space']
         'airing_status': mal_scraper.AiringStatus.finished,
         'airing_started': date(year=1998, month=4, day=3),
         'airing_finished': date(year=1999, month=4, day=24),

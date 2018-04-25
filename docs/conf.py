@@ -25,7 +25,7 @@ project = u'MyAnimeList Scraper'
 year = '2016'
 author = 'QasimK'
 copyright = '{0}, {1}'.format(year, author)
-version = release = u'0.3.0'
+version = release = u'0.4.0'
 
 pygments_style = 'trac'
 templates_path = ['.']
